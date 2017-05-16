@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "TOPINViewControllerConstants.h"
 
+@class TOPINView;
+
+NS_ASSUME_NONNULL_BEGIN
+
 @interface TOPINViewController : UIViewController
+
+@property (nonatomic, readonly) TOPINView *pinView;
+@property (nonatomic, assign) TOPINViewStyle style;
 
 - (instancetype)initWithStyle:(TOPINViewStyle)style;
 
 @end
+
+NS_ASSUME_NONNULL_END

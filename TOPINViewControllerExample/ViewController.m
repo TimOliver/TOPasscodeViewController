@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "TOPINViewController.h"
 
 @interface ViewController ()
 
@@ -25,7 +26,8 @@
 
 - (IBAction)showButtonTapped:(id)sender
 {
-    
+    TOPINViewController *pinViewController = [[TOPINViewController alloc] init];
+    [self presentViewController:pinViewController animated:YES completion:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

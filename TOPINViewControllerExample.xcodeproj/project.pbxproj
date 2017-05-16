@@ -20,6 +20,7 @@
 		22F806DA1ECAC89E0053C94E /* TOPINCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806D91ECAC89E0053C94E /* TOPINCircleButton.m */; };
 		22F806DD1ECACDCF0053C94E /* TOPINCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806DC1ECACDCF0053C94E /* TOPINCircleView.m */; };
 		22F806E31ECAD4FB0053C94E /* TOPINCircleRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806E21ECAD4FB0053C94E /* TOPINCircleRowView.m */; };
+		22F806E61ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806E51ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		22F806E01ECAD3E70053C94E /* TOPINViewControllerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TOPINViewControllerConstants.h; path = Supporting/TOPINViewControllerConstants.h; sourceTree = "<group>"; };
 		22F806E11ECAD4FB0053C94E /* TOPINCircleRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINCircleRowView.h; sourceTree = "<group>"; };
 		22F806E21ECAD4FB0053C94E /* TOPINCircleRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleRowView.m; sourceTree = "<group>"; };
+		22F806E41ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TOPINViewControllerAnimatedTransitioning.h; path = Models/TOPINViewControllerAnimatedTransitioning.h; sourceTree = "<group>"; };
+		22F806E51ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TOPINViewControllerAnimatedTransitioning.m; path = Models/TOPINViewControllerAnimatedTransitioning.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,7 @@
 			children = (
 				22F806CE1ECAC33E0053C94E /* TOPINViewController.h */,
 				22F806CF1ECAC33E0053C94E /* TOPINViewController.m */,
+				22F806E71ECAD82D0053C94E /* Models */,
 				22F806D11ECAC4400053C94E /* Views */,
 				22F806DF1ECAD3CB0053C94E /* Supporting */,
 			);
@@ -163,6 +167,15 @@
 				22F806E01ECAD3E70053C94E /* TOPINViewControllerConstants.h */,
 			);
 			name = Supporting;
+			sourceTree = "<group>";
+		};
+		22F806E71ECAD82D0053C94E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				22F806E41ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.h */,
+				22F806E51ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +287,7 @@
 				22F806AE1ECABB3D0053C94E /* ViewController.m in Sources */,
 				22F806D01ECAC33E0053C94E /* TOPINViewController.m in Sources */,
 				22F806AB1ECABB3D0053C94E /* AppDelegate.m in Sources */,
+				22F806E61ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.m in Sources */,
 				22F806DD1ECACDCF0053C94E /* TOPINCircleView.m in Sources */,
 				22F806A81ECABB3D0053C94E /* main.m in Sources */,
 				22F806E31ECAD4FB0053C94E /* TOPINCircleRowView.m in Sources */,

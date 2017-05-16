@@ -7,22 +7,69 @@
 //
 
 #import "TOPINViewController.h"
+#import "TOPINView.h"
+#import "TOPINViewControllerAnimatedTransitioning.h"
 
-@interface TOPINViewController ()
+@interface TOPINViewController () <UIViewControllerTransitioningDelegate>
 
 @end
 
 @implementation TOPINViewController
 
-- (void)viewDidLoad {
+- (instancetype)initWithStyle:(TOPINViewStyle)style
+{
+    if (self = [super initWithNibName:nil bundle:nil]) {
+        _style = style;
+        [self setUp];
+    }
+
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self setUp];
+    }
+
+    return self;
+}
+
+- (void)setUp
+{
+    self.transitioningDelegate = self;
+
+    if (TOPINViewStyleIsTranslucent(self.style)) {
+        self.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    }
+}
+
+- (void)loadView { self.view = [[TOPINView alloc] initWithStyle:self.style]; }
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Transitioning Delegate -
+
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                            presentingController:(UIViewController *)presenting
+                                                                                sourceController:(UIViewController *)source
+{
+    return [[TOPINViewControllerAnimatedTransitioning alloc] initWithPINView:self.pinView dismissing:NO];
 }
 
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [[TOPINViewControllerAnimatedTransitioning alloc] initWithPINView:self.pinView dismissing:YES];
+}
+
+#pragma mark - Accessors -
+- (TOPINView *)pinView
+{
+    return (TOPINView *)self.view;
+}
 
 @end

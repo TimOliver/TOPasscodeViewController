@@ -8,8 +8,17 @@
 
 typedef NS_ENUM(NSInteger, TOPINViewStyle) {
     TOPINViewStyleTranslucentDark,
+    TOPINViewStyleTranslucentExtraDark,
     TOPINViewStyleTranslucentLight,
     TOPINViewStyleTranslucentExtraLight,
-    TOPINViewStyleOpaquDark,
+    TOPINViewStyleOpaqueDark,
     TOPINViewStyleOpaqueLight
 };
+
+static inline BOOL TOPINViewStyleIsTranslucent(TOPINViewStyle style) {
+    return style <= TOPINViewStyleTranslucentExtraLight;
+}
+
+static inline BOOL TOPINViewStyleIsDark(TOPINViewStyle style) {
+    return style == TOPINViewStyleTranslucentDark || style == TOPINViewStyleOpaqueDark;
+}

@@ -9,14 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "TOPINViewControllerConstants.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class TOPINCircleButton;
+@class TOPINCircleRowView;
 
-@interface TOPINView : UIView
+@interface TOPINView : UIView <UIViewControllerTransitioningDelegate>
 
-@property (nonatomic, strong) UIVisualEffectView *backgroundView;
-@property (nonatomic, strong) NSArray<TOPINCircleButton *> *pinButtons;
+@property (nonatomic, assign) TOPINViewStyle style;
+
+@property (nonatomic, readonly) UIVisualEffectView *backgroundEffectView;
+@property (nonatomic, readonly) NSArray<TOPINCircleButton *> *pinButtons;
+@property (nonatomic, readonly) TOPINCircleRowView *circleRowView;
 
 
 - (instancetype)initWithStyle:(TOPINViewStyle)style;
 
 @end
+
+NS_ASSUME_NONNULL_END
