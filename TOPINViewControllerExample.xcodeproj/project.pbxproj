@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221AC74E1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */; };
 		22F806A81ECABB3D0053C94E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806A71ECABB3D0053C94E /* main.m */; };
 		22F806AB1ECABB3D0053C94E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806AA1ECABB3D0053C94E /* AppDelegate.m */; };
 		22F806AE1ECABB3D0053C94E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806AD1ECABB3D0053C94E /* ViewController.m */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		221AC74C1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINCircleKeypadView.h; sourceTree = "<group>"; };
+		221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleKeypadView.m; sourceTree = "<group>"; };
 		22F806A31ECABB3D0053C94E /* TOPINViewControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOPINViewControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F806A71ECABB3D0053C94E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22F806A91ECABB3D0053C94E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				22F806DC1ECACDCF0053C94E /* TOPINCircleView.m */,
 				22F806E11ECAD4FB0053C94E /* TOPINCircleRowView.h */,
 				22F806E21ECAD4FB0053C94E /* TOPINCircleRowView.m */,
+				221AC74C1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.h */,
+				221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 				22F806A81ECABB3D0053C94E /* main.m in Sources */,
 				22F806E31ECAD4FB0053C94E /* TOPINCircleRowView.m in Sources */,
 				22F806D41ECAC4CE0053C94E /* TOPINView.m in Sources */,
+				221AC74E1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

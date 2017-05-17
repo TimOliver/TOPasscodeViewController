@@ -13,15 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class TOPINCircleButton;
 @class TOPINCircleRowView;
+@class TOPINCircleKeypadView;
 
 @interface TOPINView : UIView <UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, assign) TOPINViewStyle style;
 
+@property (nonatomic, readonly) UIView *containerView;
 @property (nonatomic, readonly) UIVisualEffectView *backgroundEffectView;
-@property (nonatomic, readonly) NSArray<TOPINCircleButton *> *pinButtons;
 @property (nonatomic, readonly) TOPINCircleRowView *circleRowView;
-
+@property (nonatomic, readonly) TOPINCircleKeypadView *keypadView;
+@property (nonatomic, readonly) UILabel *titleLabel;
+@property (nonatomic, readonly) UIButton *leftButton;
+@property (nonatomic, readonly) UIButton *rightButton;
 
 - (instancetype)initWithStyle:(TOPINViewStyle)style;
 

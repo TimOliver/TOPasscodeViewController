@@ -10,6 +10,11 @@
 
 @interface TOPINCircleView : UIImageView
 
+@property (nonatomic, strong) UIImage *circleImage;
+@property (nonatomic, strong) UIImage *highlightedCircleImage;
 
+@property (nonatomic, assign) BOOL isTapped;
+
+- (void)setTapped:(BOOL)tapped animated:(BOOL)animated;
 
 @end
