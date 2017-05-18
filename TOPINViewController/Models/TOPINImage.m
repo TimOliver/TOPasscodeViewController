@@ -10,14 +10,15 @@
 
 @implementation TOPINImage
 
-+ (UIImage *)PINCircleImageOfDiameter:(CGFloat)diameter
++ (UIImage *)PINCircleImageOfSize:(CGFloat)size inset:(CGFloat)inset
 {
     UIImage *image = nil;
-    CGSize size = (CGSize){diameter, diameter};
+    CGSize imageSize = (CGSize){size, size};
 
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0f);
     {
-        UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect:(CGRect){CGPointZero, size}];
+        CGRect rect = (CGRect){inset, inset, size - (inset * 2), size - (inset * 2)};
+        UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect:rect];
         [[UIColor blackColor] setFill];
         [ovalPath fill];
 
@@ -28,15 +29,15 @@
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
-+ (UIImage *)PINHollowCircleImageOfDiameter:(CGFloat)diameter strokeWidth:(CGFloat)strokeWidth
++ (UIImage *)PINHollowCircleImageOfSize:(CGFloat)size strokeWidth:(CGFloat)strokeWidth
 {
     UIImage *image = nil;
-    CGSize size = (CGSize){diameter, diameter};
+    CGSize imageSize = (CGSize){size, size};
 
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0f);
     {
         CGContextRef context = UIGraphicsGetCurrentContext();
-        CGPathRef pathRef = [UIBezierPath bezierPathWithOvalInRect:(CGRect){CGPointZero, size}].CGPath;
+        CGPathRef pathRef = [UIBezierPath bezierPathWithOvalInRect:(CGRect){CGPointZero, imageSize}].CGPath;
 
         CGContextAddPath(context, pathRef);
         CGContextClip(context);

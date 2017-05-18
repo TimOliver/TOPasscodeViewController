@@ -9,9 +9,7 @@
 #import "TOPINViewController.h"
 #import "TOPINView.h"
 #import "TOPINViewControllerAnimatedTransitioning.h"
-
-#import "TOPINImage.h"
-#import "TOPINCircleButton.h"
+#import "TOPINCircleKeypadView.h"
 
 @interface TOPINViewController () <UIViewControllerTransitioningDelegate>
 
@@ -55,16 +53,10 @@
     [super viewDidLoad];
     [self setUpBackgroundEffectViewForStyle:self.style];
 
-    UIImage *circleImage = [TOPINImage PINHollowCircleImageOfDiameter:85.0f strokeWidth:1.5f];
-    UIImage *circleHighlightImage = [TOPINImage PINCircleImageOfDiameter:85.0f];
-    UIVibrancyEffect *effect = [UIVibrancyEffect effectForBlurEffect:self.backgroundEffectView.effect];
-
-    TOPINCircleButton *button = [[TOPINCircleButton alloc] initWithNumberString:@"1" letteringString:@"ABC"];
-    button.backgroundImage = circleImage;
-    button.hightlightedBackgroundImage = circleHighlightImage;
-    button.vibrancyEffect = effect;
-    button.center = self.view.center;
-    [self.view addSubview:button];
+    TOPINCircleKeypadView *keypadView = [[TOPINCircleKeypadView alloc] init];
+    keypadView.vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:self.backgroundEffectView.effect];
+    keypadView.center = self.view.center;
+    [self.view addSubview:keypadView];
 }
 
 - (void)setUpPINViewForStyle:(TOPINViewStyle)style

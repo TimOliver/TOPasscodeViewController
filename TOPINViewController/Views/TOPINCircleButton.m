@@ -32,9 +32,9 @@
         _letteringString = letteringString;
 
         _textColor = [UIColor whiteColor];
-        _numberFont = [UIFont systemFontOfSize:40.0f weight:UIFontWeightThin];
-        _letteringFont = [UIFont monospacedDigitSystemFontOfSize:11.0f weight:UIFontWeightThin];
-        _letteringVerticalSpacing = 6.5f;
+        _numberFont = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];
+        _letteringFont = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
+        _letteringVerticalSpacing = 6.0f;
 
         self.circleView = [[TOPINCircleView alloc] initWithFrame:self.bounds];
         [self addSubview:self.circleView];
@@ -75,7 +75,7 @@
     if (self.letteringString && !self.letteringLabel) {
         self.letteringLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc] initWithString:self.letteringString];
-        [attrStr addAttribute:NSKernAttributeName value:@(3.0) range:NSMakeRange(0, attrStr.length)];
+        [attrStr addAttribute:NSKernAttributeName value:@(3.0) range:NSMakeRange(0, attrStr.length-1)];
         self.letteringLabel.attributedText = attrStr;
         self.letteringLabel.font = self.letteringFont;
         self.letteringLabel.textColor = self.textColor;
@@ -119,23 +119,13 @@
 #pragma mark - User Interaction -
 - (void)buttonDidTouchDown:(id)sender
 {
+    if (self.buttonTappedHandler) { self.buttonTappedHandler(); }
     [self.circleView setHighlighted:YES animated:NO];
 }
 
-- (void)buttonDidTouchUpInside:(id)sender
-{
-    [self.circleView setHighlighted:NO animated:YES];
-}
-
-- (void)buttonDidDragInside:(id)sender
-{
-    [self.circleView setHighlighted:YES animated:NO];
-}
-
-- (void)buttonDidDragOutside:(id)sender
-{
-    [self.circleView setHighlighted:NO animated:NO];
-}
+- (void)buttonDidTouchUpInside:(id)sender { [self.circleView setHighlighted:NO animated:YES]; }
+- (void)buttonDidDragInside:(id)sender    { [self.circleView setHighlighted:YES animated:NO]; }
+- (void)buttonDidDragOutside:(id)sender   { [self.circleView setHighlighted:NO animated:YES]; }
 
 #pragma mark - Accessors -
 

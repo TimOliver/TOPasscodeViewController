@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPINImage : UIImage
 
-+ (UIImage *)PINCircleImageOfDiameter:(CGFloat)diameter;
-+ (UIImage *)PINHollowCircleImageOfDiameter:(CGFloat)diameter strokeWidth:(CGFloat)strokeWidth;
++ (UIImage *)PINCircleImageOfSize:(CGFloat)size inset:(CGFloat)inset;
++ (UIImage *)PINHollowCircleImageOfSize:(CGFloat)size strokeWidth:(CGFloat)strokeWidth;
 
 @end
 
