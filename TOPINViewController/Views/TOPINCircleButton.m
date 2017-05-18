@@ -33,7 +33,7 @@
 
         _textColor = [UIColor whiteColor];
         _numberFont = [UIFont systemFontOfSize:40.0f weight:UIFontWeightThin];
-        _letteringFont = [UIFont monospacedDigitSystemFontOfSize:10.0f weight:UIFontWeightUltraLight];
+        _letteringFont = [UIFont monospacedDigitSystemFontOfSize:11.0f weight:UIFontWeightThin];
         _letteringVerticalSpacing = 6.5f;
 
         self.circleView = [[TOPINCircleView alloc] initWithFrame:self.bounds];
@@ -50,8 +50,8 @@
 
     [self addTarget:self action:@selector(buttonDidTouchDown:) forControlEvents:UIControlEventTouchDown];
     [self addTarget:self action:@selector(buttonDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    [self addTarget:self action:@selector(buttonDidDragInside:) forControlEvents:UIControlEventTouchDragInside];
-    [self addTarget:self action:@selector(buttonDidDragOutside:) forControlEvents:UIControlEventTouchDragOutside];
+    [self addTarget:self action:@selector(buttonDidDragInside:) forControlEvents:UIControlEventTouchDragEnter];
+    [self addTarget:self action:@selector(buttonDidDragOutside:) forControlEvents:UIControlEventTouchDragExit];
 }
 
 - (void)setUpSubviews
@@ -74,7 +74,9 @@
 
     if (self.letteringString && !self.letteringLabel) {
         self.letteringLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.letteringLabel.text = self.letteringString;
+        NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc] initWithString:self.letteringString];
+        [attrStr addAttribute:NSKernAttributeName value:@(3.0) range:NSMakeRange(0, attrStr.length)];
+        self.letteringLabel.attributedText = attrStr;
         self.letteringLabel.font = self.letteringFont;
         self.letteringLabel.textColor = self.textColor;
         [self.letteringLabel sizeToFit];
@@ -97,6 +99,7 @@
     CGFloat textTotalHeight = numberVerticalHeight + self.letteringVerticalSpacing + letteringVerticalHeight;
 
     CGRect frame = self.numberLabel.frame;
+    frame.size.height = numberVerticalHeight;
     frame.origin.x = (viewSize.width - frame.size.width) * 0.5f;
     frame.origin.y = (viewSize.height - textTotalHeight) * 0.5f;
     self.numberLabel.frame = CGRectIntegral(frame);
@@ -106,6 +109,7 @@
         y += self.letteringVerticalSpacing;
 
         frame = self.letteringLabel.frame;
+        frame.size.height = letteringVerticalHeight;
         frame.origin.y = y;
         frame.origin.x = (viewSize.width - frame.size.width) * 0.5f;
         self.letteringLabel.frame = CGRectIntegral(frame);
@@ -130,7 +134,7 @@
 
 - (void)buttonDidDragOutside:(id)sender
 {
-    [self.circleView setHighlighted:YES animated:NO];
+    [self.circleView setHighlighted:NO animated:NO];
 }
 
 #pragma mark - Accessors -

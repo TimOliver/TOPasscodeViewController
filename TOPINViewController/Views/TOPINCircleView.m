@@ -46,14 +46,16 @@
 
     _isHighlighted = highlighted;
 
-    if (!animated) {
+    void (^animationBlock)() = ^{
         self.topView.alpha = highlighted ? 1.0f : 0.0f;
+    };
+
+    if (!animated) {
+        animationBlock();
         return;
     }
 
-    [UIView animateWithDuration:0.5f animations:^{
-        self.topView.alpha = highlighted ? 1.0f : 0.0f;
-    }];
+    [UIView animateWithDuration:0.5f animations:animationBlock];
 }
 
 - (void)setCircleImage:(UIImage *)circleImage
