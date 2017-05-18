@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "TOPINViewControllerConstants.h"
-
-@class TOPINView;
+#import "TOPINView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPINViewController : UIViewController
 
-@property (nonatomic, readonly) TOPINView *pinView;
 @property (nonatomic, assign) TOPINViewStyle style;
+
+@property (nonatomic, readonly) UIVisualEffectView *backgroundEffectView;
+@property (nonatomic, readonly) TOPINView *pinView;
 
 - (instancetype)initWithStyle:(TOPINViewStyle)style;
 

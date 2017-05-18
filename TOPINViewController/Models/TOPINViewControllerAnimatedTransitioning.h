@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class TOPINView;
+@class TOPINViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPINViewControllerAnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
 
+@property (nonatomic, weak, readonly) TOPINViewController *pinViewController;
 @property (nonatomic, assign) BOOL dismissing;
 
-- (instancetype)initWithPINView:(TOPINView *)pinView dismissing:(BOOL)dismissing;
+- (instancetype)initWithPINViewController:(TOPINViewController *)pinViewController dismissing:(BOOL)dismissing;
 
 @end
 

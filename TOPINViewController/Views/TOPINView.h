@@ -19,8 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) TOPINViewStyle style;
 
-@property (nonatomic, readonly) UIView *containerView;
-@property (nonatomic, readonly) UIVisualEffectView *backgroundEffectView;
 @property (nonatomic, readonly) TOPINCircleRowView *circleRowView;
 @property (nonatomic, readonly) TOPINCircleKeypadView *keypadView;
 @property (nonatomic, readonly) UILabel *titleLabel;

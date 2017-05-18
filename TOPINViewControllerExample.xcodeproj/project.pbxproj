@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		221AC74E1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */; };
+		228F4EB51ECD6F5500D58D0B /* TOPINImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F4EB41ECD6F5500D58D0B /* TOPINImage.m */; };
 		22F806A81ECABB3D0053C94E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806A71ECABB3D0053C94E /* main.m */; };
 		22F806AB1ECABB3D0053C94E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806AA1ECABB3D0053C94E /* AppDelegate.m */; };
 		22F806AE1ECABB3D0053C94E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806AD1ECABB3D0053C94E /* ViewController.m */; };
@@ -37,6 +38,8 @@
 /* Begin PBXFileReference section */
 		221AC74C1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINCircleKeypadView.h; sourceTree = "<group>"; };
 		221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleKeypadView.m; sourceTree = "<group>"; };
+		228F4EB31ECD6F5500D58D0B /* TOPINImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TOPINImage.h; path = Models/TOPINImage.h; sourceTree = "<group>"; };
+		228F4EB41ECD6F5500D58D0B /* TOPINImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TOPINImage.m; path = Models/TOPINImage.m; sourceTree = "<group>"; };
 		22F806A31ECABB3D0053C94E /* TOPINViewControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOPINViewControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F806A71ECABB3D0053C94E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22F806A91ECABB3D0053C94E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -179,6 +182,8 @@
 			children = (
 				22F806E41ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.h */,
 				22F806E51ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.m */,
+				228F4EB31ECD6F5500D58D0B /* TOPINImage.h */,
+				228F4EB41ECD6F5500D58D0B /* TOPINImage.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 				22F806AE1ECABB3D0053C94E /* ViewController.m in Sources */,
 				22F806D01ECAC33E0053C94E /* TOPINViewController.m in Sources */,
 				22F806AB1ECABB3D0053C94E /* AppDelegate.m in Sources */,
+				228F4EB51ECD6F5500D58D0B /* TOPINImage.m in Sources */,
 				22F806E61ECAD8290053C94E /* TOPINViewControllerAnimatedTransitioning.m in Sources */,
 				22F806DD1ECACDCF0053C94E /* TOPINCircleView.m in Sources */,
 				22F806A81ECABB3D0053C94E /* main.m in Sources */,

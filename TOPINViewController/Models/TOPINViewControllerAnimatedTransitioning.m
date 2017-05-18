@@ -7,20 +7,18 @@
 //
 
 #import "TOPINViewControllerAnimatedTransitioning.h"
-#import "TOPINView.h"
+#import "TOPINViewController.h"
 
 @interface TOPINViewControllerAnimatedTransitioning ()
-
-@property (nonatomic, weak) TOPINView *pinView;
-
+@property (nonatomic, weak) TOPINViewController *pinViewController;
 @end
 
 @implementation TOPINViewControllerAnimatedTransitioning
 
-- (instancetype)initWithPINView:(TOPINView *)pinView dismissing:(BOOL)dismissing
+- (instancetype)initWithPINViewController:(TOPINViewController *)pinViewController dismissing:(BOOL)dismissing
 {
     if (self = [super init]) {
-        _pinView = pinView;
+        _pinViewController = pinViewController;
         _dismissing = dismissing;
     }
 
@@ -35,14 +33,14 @@
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
 {
     UIView *containerView = transitionContext.containerView;
-    UIVisualEffectView *backgroundView = self.pinView.backgroundEffectView;
+    UIVisualEffectView *backgroundView = self.pinViewController.backgroundEffectView;
     UIVisualEffect *backgroundEffect = backgroundView.effect;
 
     if (!self.dismissing) {
         backgroundView.effect = nil;
 
-        self.pinView.frame = containerView.bounds;
-        [containerView addSubview:self.pinView];
+        self.pinViewController.view.frame = containerView.bounds;
+        [containerView addSubview:self.pinViewController.view];
     }
 
     id animationBlock = ^{

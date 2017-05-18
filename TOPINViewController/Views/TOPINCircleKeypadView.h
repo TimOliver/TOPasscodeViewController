@@ -8,10 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class TOPINCircleButton;
 
 @interface TOPINCircleKeypadView : UIView
 
+/** The size of each input button (Default is 85) */
+@property (nonatomic, assign) CGFloat buttonDiameter;
+
+/** The stroke width of the buttons (Default is 1.5) */
+@property (nonatomic, assign) CGFloat buttonStrokeWidth;
+
+/** The spacing between the buttons. Default is (CGSize){25,15} */
+@property (nonatomic, assign) CGSize buttonSpacing;
+
+/** Show the 'ABC' lettering under the numbers */
+@property (nonatomic, assign) BOOL showLettering;
+
+/** Accessory views placed on either side of the '0' button */
+@property (nonatomic, strong) UIView *leftAccessoryView;
+@property (nonatomic, strong) UIView *rightAccessoryView;
+
+/** The controls making up each of the button views */
 @property (nonatomic, readonly) NSArray<TOPINCircleButton *> *pinButtons;
 
 @end
+
+NS_ASSUME_NONNULL_END

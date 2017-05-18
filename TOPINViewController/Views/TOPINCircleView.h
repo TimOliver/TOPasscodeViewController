@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TOPINCircleView : UIImageView
+@interface TOPINCircleView : UIView
 
 @property (nonatomic, strong) UIImage *circleImage;
 @property (nonatomic, strong) UIImage *highlightedCircleImage;
 
-@property (nonatomic, assign) BOOL isTapped;
+@property (nonatomic, assign) BOOL isHighlighted;
 
-- (void)setTapped:(BOOL)tapped animated:(BOOL)animated;
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
 
 @end
