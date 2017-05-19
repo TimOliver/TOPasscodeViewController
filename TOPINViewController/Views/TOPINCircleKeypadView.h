@@ -17,10 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 /** The vibrancy effect to be applied to each button background */
 @property (nonatomic, strong, nullable) UIVibrancyEffect *vibrancyEffect;
 
-/** The size of each input button (Default is 81) */
+/** The size of each input button */
 @property (nonatomic, assign) CGFloat buttonDiameter;
 
-/** The stroke width of the buttons (Default is 1.5) */
+/** The stroke width of the buttons */
 @property (nonatomic, assign) CGFloat buttonStrokeWidth;
 
 /** The spacing between the buttons. Default is (CGSize){25,15} */
@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** Show the 'ABC' lettering under the numbers */
 @property (nonatomic, assign) BOOL showLettering;
+
+/** The spacing in points between the letters */
+@property (nonatomic, assign) CGFloat letteringSpacing;
 
 /** Accessory views placed on either side of the '0' button */
 @property (nonatomic, strong, nullable) UIView *leftAccessoryView;

@@ -10,16 +10,17 @@
 
 @interface TOPINView ()
 
-@property (nonatomic, strong, readwrite) NSArray<TOPINCircleButton *> *pinButtons;
 @property (nonatomic, strong, readwrite) TOPINCircleRowView *circleRowView;
+@property (nonatomic, strong, readwrite) TOPINCircleKeypadView *keypadView;
+@property (nonatomic, strong, readwrite) UILabel *titleLabel;
 
 @end
 
 @implementation TOPINView
 
-- (instancetype)initWithStyle:(TOPINViewStyle)style
+- (instancetype)initWithFrame:(CGRect)frame style:(TOPINViewStyle)style
 {
-    if (self = [super initWithFrame:(CGRect){0,0,320,640}]) {
+    if (self = [super initWithFrame:frame]) {
         _style = style;
         [self setUpViewForStyle:_style];
         [self applyThemeForStyle:_style];

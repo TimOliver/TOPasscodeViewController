@@ -15,17 +15,26 @@ NS_ASSUME_NONNULL_BEGIN
 @class TOPINCircleRowView;
 @class TOPINCircleKeypadView;
 
-@interface TOPINView : UIView <UIViewControllerTransitioningDelegate>
+@interface TOPINView : UIView
 
+/* The visual style of the view */
 @property (nonatomic, assign) TOPINViewStyle style;
 
+/* The scaling of the subviews for the given width */
+@property (nonatomic, assign) TOPINViewContentSize contentSize;
+@property (nonatomic, assign) BOOL automaticallyAdjustContentSize;
+
+/* Customizable Accessory Views */
+@property (nonatomic, strong) UIView   *titleView;
+@property (nonatomic, strong) UIButton *leftButton;
+@property (nonatomic, strong) UIButton *rightButton;
+
+/* The default views always shown in this view */
 @property (nonatomic, readonly) TOPINCircleRowView *circleRowView;
 @property (nonatomic, readonly) TOPINCircleKeypadView *keypadView;
 @property (nonatomic, readonly) UILabel *titleLabel;
-@property (nonatomic, readonly) UIButton *leftButton;
-@property (nonatomic, readonly) UIButton *rightButton;
 
-- (instancetype)initWithStyle:(TOPINViewStyle)style;
+- (instancetype)initWithFrame:(CGRect)frame style:(TOPINViewStyle)style;
 
 @end
 
