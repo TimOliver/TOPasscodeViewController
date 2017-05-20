@@ -9,7 +9,19 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface TOPINViewContentConfiguration : NSObject
+@interface TOPINViewContentLayout : NSObject
+
+/* The Title View at the very top */
+@property (nonatomic, assign) CGFloat titleViewBottomSpacing;   // Space from the bottom of the title view to the title label
+
+/* The Title Label Explaining the PIN View */
+@property (nonatomic, assign) CGFloat titleLabelBottomSpacing;  // Space from the title label to the circles row
+@property (nonatomic, strong) UIFont *titleLabelFont;           // The font of the title label
+
+/* Circle Row Configuration */
+@property (nonatomic, assign) CGFloat circleRowDiameter; // The diameter of each circle representing a PIN number
+@property (nonatomic, assign) CGFloat circleRowSpacing;  // The spacing between each circle
+@property (nonatomic, assign) CGFloat circleRowBottomSpacing; // Space between the view used to indicate input
 
 /* Circle Button Shape and Layout */
 @property (nonatomic, assign) CGFloat circleButtonDiameter;     // The size of each PIN button
@@ -22,10 +34,9 @@
 @property (nonatomic, assign) CGFloat circleButtonLabelSpacing;         // The vertical spacing between the number and lettering labels
 @property (nonatomic, assign) CGFloat circleButtonLetteringSpacing;     // The spacing between the 'ABC' characters
 
-/* Circle Row Configuration */
-@property (nonatomic, assign) CGFloat circleRowDiameter; // The diameter of each circle representing a PIN number
-@property (nonatomic, assign) CGFloat circleRowSpacing; // The spacing between each circle
-
-
+/* Default layout configurations for the various sizes */
++ (TOPINViewContentLayout *)defaultSmallScreenContent;
++ (TOPINViewContentLayout *)defaultMediumScreenContent;
++ (TOPINViewContentLayout *)defaultLargeScreenContent;
 
 @end
