@@ -14,15 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 @class TOPINCircleButton;
 @class TOPINCircleRowView;
 @class TOPINCircleKeypadView;
+@class TOPINViewContentLayout;
 
 @interface TOPINView : UIView
 
 /* The visual style of the view */
 @property (nonatomic, assign) TOPINViewStyle style;
 
-/* The scaling of the subviews for the given width */
-@property (nonatomic, assign) TOPINViewContentSize contentSize;
-@property (nonatomic, assign) BOOL automaticallyAdjustContentSize;
+/* The text in the title view (Default is 'Enter Passcode') */
+@property (nonatomic, copy) NSString *titleText;
 
 /* Customizable Accessory Views */
 @property (nonatomic, strong) UIView   *titleView;
@@ -30,9 +30,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *rightButton;
 
 /* The default views always shown in this view */
+@property (nonatomic, readonly) UILabel *titleLabel;
 @property (nonatomic, readonly) TOPINCircleRowView *circleRowView;
 @property (nonatomic, readonly) TOPINCircleKeypadView *keypadView;
-@property (nonatomic, readonly) UILabel *titleLabel;
+
+/* The default layout object controlling the
+ sizing and placement of all this view's child elements. */
+@property (nonatomic, strong, null_resettable) TOPINViewContentLayout *defaultContentLayout;
+
+/* As needed, additional layout objects that will be checked and used in priority over
+ the default content layout. */
+@property (nonatomic, strong, nullable) NSArray<TOPINViewContentLayout *> *contentLayouts;
+
 
 - (instancetype)initWithFrame:(CGRect)frame style:(TOPINViewStyle)style;
 

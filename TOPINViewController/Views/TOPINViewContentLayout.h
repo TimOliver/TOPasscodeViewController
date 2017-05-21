@@ -11,7 +11,10 @@
 
 @interface TOPINViewContentLayout : NSObject
 
-/* The Title View at the very top */
+/* The width of the PIN view in which this layout object is sizing the content to fit. */
+@property (nonatomic, assign) CGFloat pinViewWidth;
+
+/* The title View at the very top */
 @property (nonatomic, assign) CGFloat titleViewBottomSpacing;   // Space from the bottom of the title view to the title label
 
 /* The Title Label Explaining the PIN View */
@@ -35,8 +38,8 @@
 @property (nonatomic, assign) CGFloat circleButtonLetteringSpacing;     // The spacing between the 'ABC' characters
 
 /* Default layout configurations for the various sizes */
-+ (TOPINViewContentLayout *)defaultSmallScreenContent;
-+ (TOPINViewContentLayout *)defaultMediumScreenContent;
-+ (TOPINViewContentLayout *)defaultLargeScreenContent;
++ (TOPINViewContentLayout *)defaultScreenContentLayout;       /* Default layout values. Designed for iPhone 6 Plus and above. */
++ (TOPINViewContentLayout *)mediumScreenContentLayout;        /* For medium screen sizes, like iPhone 6, or 1/4 view on iPad Pro. */
++ (TOPINViewContentLayout *)smallScreenContentLayout;  /* For the smallest screens, like iPhone SE, and 1/4 on standard size iPads/ */
 
 @end

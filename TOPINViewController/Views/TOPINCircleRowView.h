@@ -10,4 +10,9 @@
 
 @interface TOPINCircleRowView : UIView
 
+@property (nonatomic, assign) NSInteger numberOfCircles;
+@property (nonatomic, assign) NSInteger numberOfHighlightedCircles;
+
+- (void)setNumberOfHighlightedCircles:(NSInteger)numberOfHighlightedCircles animated:(BOOL)animated;
+
 @end

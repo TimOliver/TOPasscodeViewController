@@ -52,11 +52,6 @@
 {
     [super viewDidLoad];
     [self setUpBackgroundEffectViewForStyle:self.style];
-
-    TOPINCircleKeypadView *keypadView = [[TOPINCircleKeypadView alloc] init];
-    keypadView.vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:self.backgroundEffectView.effect];
-    keypadView.center = self.view.center;
-    [self.view addSubview:keypadView];
 }
 
 - (void)setUpPINViewForStyle:(TOPINViewStyle)style

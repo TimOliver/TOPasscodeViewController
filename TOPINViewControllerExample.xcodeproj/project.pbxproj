@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		221AC74E1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */; };
 		228F4EB51ECD6F5500D58D0B /* TOPINImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F4EB41ECD6F5500D58D0B /* TOPINImage.m */; };
-		228F4EB81ECEE22C00D58D0B /* TOPINViewContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F4EB71ECEE22C00D58D0B /* TOPINViewContentConfiguration.m */; };
+		228F4EB81ECEE22C00D58D0B /* TOPINViewContentLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F4EB71ECEE22C00D58D0B /* TOPINViewContentLayout.m */; };
 		22F806A81ECABB3D0053C94E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806A71ECABB3D0053C94E /* main.m */; };
 		22F806AB1ECABB3D0053C94E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806AA1ECABB3D0053C94E /* AppDelegate.m */; };
 		22F806AE1ECABB3D0053C94E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806AD1ECABB3D0053C94E /* ViewController.m */; };
@@ -41,8 +41,8 @@
 		221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleKeypadView.m; sourceTree = "<group>"; };
 		228F4EB31ECD6F5500D58D0B /* TOPINImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TOPINImage.h; path = Models/TOPINImage.h; sourceTree = "<group>"; };
 		228F4EB41ECD6F5500D58D0B /* TOPINImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TOPINImage.m; path = Models/TOPINImage.m; sourceTree = "<group>"; };
-		228F4EB61ECEE22C00D58D0B /* TOPINViewContentConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINViewContentConfiguration.h; sourceTree = "<group>"; };
-		228F4EB71ECEE22C00D58D0B /* TOPINViewContentConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINViewContentConfiguration.m; sourceTree = "<group>"; };
+		228F4EB61ECEE22C00D58D0B /* TOPINViewContentLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINViewContentLayout.h; sourceTree = "<group>"; };
+		228F4EB71ECEE22C00D58D0B /* TOPINViewContentLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINViewContentLayout.m; sourceTree = "<group>"; };
 		22F806A31ECABB3D0053C94E /* TOPINViewControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOPINViewControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F806A71ECABB3D0053C94E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22F806A91ECABB3D0053C94E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -168,8 +168,8 @@
 				22F806E21ECAD4FB0053C94E /* TOPINCircleRowView.m */,
 				221AC74C1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.h */,
 				221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */,
-				228F4EB61ECEE22C00D58D0B /* TOPINViewContentConfiguration.h */,
-				228F4EB71ECEE22C00D58D0B /* TOPINViewContentConfiguration.m */,
+				228F4EB61ECEE22C00D58D0B /* TOPINViewContentLayout.h */,
+				228F4EB71ECEE22C00D58D0B /* TOPINViewContentLayout.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -300,7 +300,7 @@
 			files = (
 				22F806DA1ECAC89E0053C94E /* TOPINCircleButton.m in Sources */,
 				22F806AE1ECABB3D0053C94E /* ViewController.m in Sources */,
-				228F4EB81ECEE22C00D58D0B /* TOPINViewContentConfiguration.m in Sources */,
+				228F4EB81ECEE22C00D58D0B /* TOPINViewContentLayout.m in Sources */,
 				22F806D01ECAC33E0053C94E /* TOPINViewController.m in Sources */,
 				22F806AB1ECABB3D0053C94E /* AppDelegate.m in Sources */,
 				228F4EB51ECD6F5500D58D0B /* TOPINImage.m in Sources */,
