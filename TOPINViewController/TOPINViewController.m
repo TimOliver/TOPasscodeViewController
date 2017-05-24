@@ -52,6 +52,7 @@
 {
     [super viewDidLoad];
     [self setUpBackgroundEffectViewForStyle:self.style];
+    [self setUpPINViewForStyle:self.style];
 }
 
 - (void)setUpPINViewForStyle:(TOPINViewStyle)style
@@ -112,12 +113,6 @@
 - (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
     return [[TOPINViewControllerAnimatedTransitioning alloc] initWithPINViewController:self dismissing:YES];
-}
-
-#pragma mark - Accessors -
-- (TOPINView *)pinView
-{
-    return (TOPINView *)self.view;
 }
 
 @end
