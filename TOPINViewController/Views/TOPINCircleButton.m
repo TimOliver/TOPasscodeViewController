@@ -26,21 +26,34 @@
 - (instancetype)initWithNumberString:(NSString *)numberString letteringString:(NSString *)letteringString
 {
     if (self = [super init]) {
-        self.userInteractionEnabled = YES;
-
         _numberString = numberString;
         _letteringString = letteringString;
-
-        _textColor = [UIColor whiteColor];
-        _numberFont = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];
-        _letteringFont = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
-        _letteringVerticalSpacing = 6.0f;
-
-        self.circleView = [[TOPINCircleView alloc] initWithFrame:self.bounds];
-        [self addSubview:self.circleView];
+        [self setUp];
     }
 
     return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        [self setUp];
+    }
+
+    return self;
+}
+
+- (void)setUp
+{
+    self.userInteractionEnabled = YES;
+    
+    _textColor = [UIColor whiteColor];
+    _numberFont = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];
+    _letteringFont = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
+    _letteringVerticalSpacing = 6.0f;
+
+    self.circleView = [[TOPINCircleView alloc] initWithFrame:self.bounds];
+    [self addSubview:self.circleView];
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview

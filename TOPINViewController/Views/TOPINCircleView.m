@@ -18,6 +18,8 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        self.userInteractionEnabled = NO;
+
         self.bottomView = [[UIImageView alloc] initWithFrame:self.bounds];
         self.bottomView.userInteractionEnabled = NO;
         self.bottomView.contentMode = UIViewContentModeCenter;

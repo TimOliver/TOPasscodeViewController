@@ -24,6 +24,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        self.userInteractionEnabled = YES;
         _buttonDiameter = 81.0f;
         _buttonSpacing = (CGSize){25,15};
         _buttonStrokeWidth = 1.5f;

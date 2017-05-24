@@ -25,13 +25,21 @@
 
 @implementation TOPINView
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        [self setUp];
+    }
+
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame style:(TOPINViewStyle)style
 {
     if (self = [super initWithFrame:frame]) {
         _style = style;
         [self setUp];
-        [self setUpView];
-        [self applyThemeForStyle:_style];
+
     }
 
     return self;
@@ -48,11 +56,19 @@
 
 - (void)setUp
 {
+    // Set up default properties
+    self.userInteractionEnabled = YES;
     _defaultContentLayout = [TOPINViewContentLayout defaultScreenContentLayout];
     _currentLayout = _defaultContentLayout;
     _contentLayouts = @[[TOPINViewContentLayout mediumScreenContentLayout],
                         [TOPINViewContentLayout smallScreenContentLayout]];
     _titleText = @"Enter Passcode";
+
+    // Start configuring views
+    [self setUpView];
+
+    // Configure the theme of all of the views
+    [self applyThemeForStyle:_style];
 }
 
 #pragma mark - View Setup -
@@ -65,10 +81,16 @@
     self.titleLabel.text = self.titleText;
     self.titleLabel.font = self.currentLayout.titleLabelFont;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.titleLabel sizeToFit];
     [self addSubview:self.titleLabel];
 
     // Set up circle rows
-    
+    self.circleRowView = [[TOPINCircleRowView alloc] init];
+    [self addSubview:self.circleRowView];
+
+    // Set up pad row
+    self.keypadView = [[TOPINCircleKeypadView alloc] init];
+    [self addSubview:self.keypadView];
 }
 
 - (void)applyThemeForStyle:(TOPINViewStyle)style
