@@ -113,8 +113,7 @@
 - (UIImage *)buttonImage
 {
     if (!_buttonImage) {
-        _buttonImage = [TOPINImage PINHollowCircleImageOfSize:self.buttonDiameter
-                                                      strokeWidth:self.buttonStrokeWidth];
+        _buttonImage = [TOPINImage PINHollowCircleImageOfSize:self.buttonDiameter strokeWidth:self.buttonStrokeWidth padding:1.0f];
     }
 
     return _buttonImage;
@@ -123,7 +122,7 @@
 - (UIImage *)tappedButtonImage
 {
     if (!_tappedButtonImage) {
-        _tappedButtonImage = [TOPINImage PINCircleImageOfSize:self.buttonDiameter inset:self.buttonStrokeWidth * 0.5f];
+        _tappedButtonImage = [TOPINImage PINCircleImageOfSize:self.buttonDiameter inset:self.buttonStrokeWidth * 0.5f padding:1.0f];
     }
 
     return _tappedButtonImage;
