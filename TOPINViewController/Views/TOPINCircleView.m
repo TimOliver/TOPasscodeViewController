@@ -20,13 +20,13 @@
     if (self = [super initWithFrame:frame]) {
         self.bottomView = [[UIImageView alloc] initWithFrame:self.bounds];
         self.bottomView.userInteractionEnabled = NO;
-        self.bottomView.contentMode = UIViewContentModeScaleAspectFit;
+        self.bottomView.contentMode = UIViewContentModeCenter;
         self.bottomView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:self.bottomView];
 
         self.topView = [[UIImageView alloc] initWithFrame:self.bounds];
         self.topView.userInteractionEnabled = NO;
-        self.topView.contentMode = UIViewContentModeScaleAspectFit;
+        self.topView.contentMode = UIViewContentModeCenter;
         self.topView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.topView.alpha = 0.0f;
         [self addSubview:self.topView];
