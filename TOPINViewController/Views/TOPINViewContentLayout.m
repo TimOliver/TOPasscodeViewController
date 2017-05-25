@@ -22,7 +22,7 @@
 
     /* The Title Label Explaining the PIN View */
     contentLayout.titleLabelBottomSpacing = 34.0f;
-    contentLayout.titleLabelFont = [UIFont systemFontOfSize: 15.0f];
+    contentLayout.titleLabelFont = [UIFont systemFontOfSize: 22.0f];
 
     /* Circle Row Configuration */
     contentLayout.circleRowDiameter = 15.5f;

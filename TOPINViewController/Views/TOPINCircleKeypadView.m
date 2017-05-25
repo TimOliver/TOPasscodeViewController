@@ -29,23 +29,18 @@
         _buttonSpacing = (CGSize){25,15};
         _buttonStrokeWidth = 1.5f;
         _showLettering = YES;
+        _buttonNumberFont = nil;
+        _buttonLetteringFont = nil;
+        _buttonLabelSpacing = FLT_MIN;
+        _buttonLetteringSpacing = FLT_MIN;
         [self sizeToFit];
     }
 
     return self;
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview
-{
-    [super willMoveToSuperview:newSuperview];
-    if (newSuperview == nil) { return; }
-    [self setUpButtons];
-}
-
 - (void)setUpButtons
 {
-    if (self.pinButtons) { return; }
-
     NSInteger numberOfButtons = 10;
     NSArray *letteredTitles = @[@"ABC", @"DEF", @"GHI", @"JKL",
                                 @"MNO", @"PQRS", @"TUV", @"WXYZ"];
@@ -72,7 +67,7 @@
         [buttons addObject:circleButton];
     }
 
-    self.pinButtons = [NSArray arrayWithArray:buttons];
+    _pinButtons = [NSArray arrayWithArray:buttons];
 }
 
 - (void)sizeToFit
@@ -110,7 +105,18 @@
     lastButton.frame = frame;
 }
 
-#pragma mark - Lazy Accessors -
+#pragma mark - Style Accessors -
+- (void)setVibrancyEffect:(UIVibrancyEffect *)vibrancyEffect
+{
+    if (vibrancyEffect == _vibrancyEffect) { return; }
+    _vibrancyEffect = vibrancyEffect;
+
+    for (TOPINCircleButton *button in self.pinButtons) {
+        button.vibrancyEffect = _vibrancyEffect;
+    }
+}
+
+#pragma mark - Lazy Getters -
 - (UIImage *)buttonImage
 {
     if (!_buttonImage) {
@@ -127,6 +133,88 @@
     }
 
     return _tappedButtonImage;
+}
+
+- (NSArray<TOPINCircleButton *> *)pinButtons
+{
+    if (_pinButtons) { return _pinButtons; }
+    [self setUpButtons];
+    return _pinButtons;
+}
+
+#pragma mark - Public Layout Setters -
+- (void)updateButtonsForCurrentState
+{
+    for (TOPINCircleButton *circleButton in self.pinButtons) {
+        circleButton.backgroundImage = self.buttonImage;
+        circleButton.hightlightedBackgroundImage = self.tappedButtonImage;
+        circleButton.numberFont = self.buttonNumberFont;
+        circleButton.letteringFont = self.buttonLetteringFont;
+        circleButton.letteringVerticalSpacing = self.buttonLabelSpacing;
+        circleButton.letteringCharacterSpacing = self.buttonLetteringSpacing;
+    }
+
+    [self setNeedsLayout];
+}
+
+- (void)setButtonDiameter:(CGFloat)buttonDiameter
+{
+    if (_buttonDiameter == buttonDiameter) { return; }
+    _buttonDiameter = buttonDiameter;
+    _tappedButtonImage = nil;
+    _buttonImage = nil;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonSpacing:(CGSize)buttonSpacing
+{
+    if (CGSizeEqualToSize(_buttonSpacing, buttonSpacing)) { return; }
+    _buttonSpacing = buttonSpacing;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonStrokeWidth:(CGFloat)buttonStrokeWidth
+{
+    if (_buttonStrokeWidth== buttonStrokeWidth) { return; }
+    _buttonStrokeWidth = buttonStrokeWidth;
+    _tappedButtonImage = nil;
+    _buttonImage = nil;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setShowLettering:(BOOL)showLettering
+{
+    if (_showLettering == showLettering) { return; }
+    _showLettering = showLettering;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonNumberFont:(UIFont *)buttonNumberFont
+{
+    if (_buttonNumberFont == buttonNumberFont) { return; }
+    _buttonNumberFont = buttonNumberFont;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonLetteringFont:(UIFont *)buttonLetteringFont
+{
+    if (buttonLetteringFont == _buttonLetteringFont) { return; }
+    _buttonLetteringFont = buttonLetteringFont;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonLabelSpacing:(CGFloat)buttonLabelSpacing
+{
+    if (buttonLabelSpacing == _buttonLabelSpacing) { return; }
+    _buttonLabelSpacing = buttonLabelSpacing;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonLetteringSpacing:(CGFloat)buttonLetteringSpacing
+{
+    if (buttonLetteringSpacing == _buttonLetteringSpacing) { return; }
+    _buttonLetteringSpacing = buttonLetteringSpacing;
+    [self updateButtonsForCurrentState];
 }
 
 @end

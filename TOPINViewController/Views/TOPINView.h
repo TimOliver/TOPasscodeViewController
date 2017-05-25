@@ -38,10 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
  sizing and placement of all this view's child elements. */
 @property (nonatomic, strong, null_resettable) TOPINViewContentLayout *defaultContentLayout;
 
-/* As needed, additional layout objects that will be checked and used in priority over
- the default content layout. */
+/* As needed, additional layout objects that will be checked and used in priority over the default content layout. */
 @property (nonatomic, strong, nullable) NSArray<TOPINViewContentLayout *> *contentLayouts;
-
 
 - (instancetype)initWithFrame:(CGRect)frame style:(TOPINViewStyle)style;
 

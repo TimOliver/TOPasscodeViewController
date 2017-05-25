@@ -78,7 +78,7 @@
         [self addSubview:self.numberLabel];
     }
 
-    if (self.vibrancyEffect && !self.vibrancyView) {
+    if (!self.vibrancyView) {
         self.vibrancyView = [[UIVisualEffectView alloc] initWithEffect:self.vibrancyEffect];
         self.vibrancyView.userInteractionEnabled = NO;
         [self.vibrancyView.contentView addSubview:self.circleView];
@@ -148,6 +148,13 @@
     CGRect frame = self.frame;
     frame.size = backgroundImage.size;
     self.frame = frame;
+}
+
+- (void)setVibrancyEffect:(UIVibrancyEffect *)vibrancyEffect
+{
+    if (_vibrancyEffect == vibrancyEffect) { return; }
+    _vibrancyEffect = vibrancyEffect;
+    self.vibrancyView.effect = _vibrancyEffect;
 }
 
 - (UIImage *)backgroundImage

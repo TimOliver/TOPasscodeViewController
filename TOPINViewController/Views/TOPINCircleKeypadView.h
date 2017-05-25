@@ -26,6 +26,18 @@ NS_ASSUME_NONNULL_BEGIN
 /** The spacing between the buttons. Default is (CGSize){25,15} */
 @property (nonatomic, assign) CGSize buttonSpacing;
 
+/** The font of the number in each button */
+@property (nonatomic, strong) UIFont *buttonNumberFont;
+
+/** The font of the lettering label */
+@property (nonatomic, strong) UIFont *buttonLetteringFont;
+
+/** The spacing between the lettering and the number label */
+@property (nonatomic, assign) CGFloat buttonLabelSpacing;
+
+/** The spacing between the letters in the lettering label */
+@property (nonatomic, assign) CGFloat buttonLetteringSpacing;
+
 /** Show the 'ABC' lettering under the numbers */
 @property (nonatomic, assign) BOOL showLettering;
 
