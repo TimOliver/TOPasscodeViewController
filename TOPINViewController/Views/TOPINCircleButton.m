@@ -48,53 +48,64 @@
     self.userInteractionEnabled = YES;
     
     _textColor = [UIColor whiteColor];
-    _numberFont = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];
-    _letteringFont = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
     _letteringVerticalSpacing = 6.0f;
+    _letteringCharacterSpacing = 3.0f;
 
-    self.circleView = [[TOPINCircleView alloc] initWithFrame:self.bounds];
-    [self addSubview:self.circleView];
-}
-
-- (void)willMoveToSuperview:(UIView *)newSuperview
-{
-    [super willMoveToSuperview:newSuperview];
     [self setUpSubviews];
-
-    [self addTarget:self action:@selector(buttonDidTouchDown:) forControlEvents:UIControlEventTouchDown];
-    [self addTarget:self action:@selector(buttonDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    [self addTarget:self action:@selector(buttonDidDragInside:) forControlEvents:UIControlEventTouchDragEnter];
-    [self addTarget:self action:@selector(buttonDidDragOutside:) forControlEvents:UIControlEventTouchDragExit];
+    [self setUpViewInteraction];
 }
 
 - (void)setUpSubviews
 {
+    if (!self.circleView) {
+        self.circleView = [[TOPINCircleView alloc] initWithFrame:self.bounds];
+        [self addSubview:self.circleView];
+    }
+
     if (!self.numberLabel) {
         self.numberLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.numberLabel.text = self.numberString;
-        self.numberLabel.font = self.numberFont;
+        self.numberLabel.font = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];;
         self.numberLabel.textColor = self.textColor;
         [self.numberLabel sizeToFit];
         [self addSubview:self.numberLabel];
     }
 
     if (!self.vibrancyView) {
-        self.vibrancyView = [[UIVisualEffectView alloc] initWithEffect:self.vibrancyEffect];
+        self.vibrancyView = [[UIVisualEffectView alloc] initWithEffect:nil];
         self.vibrancyView.userInteractionEnabled = NO;
         [self.vibrancyView.contentView addSubview:self.circleView];
         [self addSubview:self.vibrancyView];
     }
 
-    if (self.letteringString && !self.letteringLabel) {
+    if (!self.letteringLabel) {
         self.letteringLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc] initWithString:self.letteringString];
-        [attrStr addAttribute:NSKernAttributeName value:@(3.0) range:NSMakeRange(0, attrStr.length-1)];
-        self.letteringLabel.attributedText = attrStr;
-        self.letteringLabel.font = self.letteringFont;
+        self.letteringLabel.font = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
         self.letteringLabel.textColor = self.textColor;
         [self.letteringLabel sizeToFit];
         [self addSubview:self.letteringLabel];
+
+        [self updateLetteringLabelText];
     }
+}
+
+- (void)updateLetteringLabelText
+{
+    if (self.letteringString.length == 0) {
+        return;
+    }
+
+    NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc] initWithString:self.letteringString];
+    [attrStr addAttribute:NSKernAttributeName value:@(_letteringCharacterSpacing) range:NSMakeRange(0, attrStr.length-1)];
+    self.letteringLabel.attributedText = attrStr;
+}
+
+- (void)setUpViewInteraction
+{
+    [self addTarget:self action:@selector(buttonDidTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [self addTarget:self action:@selector(buttonDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [self addTarget:self action:@selector(buttonDidDragInside:) forControlEvents:UIControlEventTouchDragEnter];
+    [self addTarget:self action:@selector(buttonDidDragOutside:) forControlEvents:UIControlEventTouchDragExit];
 }
 
 - (void)layoutSubviews
@@ -157,19 +168,59 @@
     self.vibrancyView.effect = _vibrancyEffect;
 }
 
-- (UIImage *)backgroundImage
-{
-    return self.circleView.circleImage;
-}
+- (UIImage *)backgroundImage { return self.circleView.circleImage; }
 
 - (void)setHightlightedBackgroundImage:(UIImage *)hightlightedBackgroundImage
 {
     self.circleView.highlightedCircleImage = hightlightedBackgroundImage;
 }
 
-- (UIImage *)hightlightedBackgroundImage
+- (UIImage *)hightlightedBackgroundImage { return self.circleView.highlightedCircleImage; }
+
+- (void)setNumberFont:(UIFont *)numberFont
 {
-    return self.circleView.highlightedCircleImage;
+    self.numberLabel.font = numberFont;
+    [self setNeedsLayout];
+}
+
+- (UIFont *)numberFont { return self.numberLabel.font; }
+
+- (void)setLetteringFont:(UIFont *)letteringFont
+{
+    self.letteringLabel.font = letteringFont;
+    [self setNeedsLayout];
+}
+
+- (UIFont *)letteringFont { return self.letteringLabel.font; }
+
+- (void)setLetteringString:(NSString *)letteringString
+{
+    if (letteringString == _letteringString) { return; }
+    _letteringString = letteringString;
+    [self updateLetteringLabelText];
+    [self setNeedsLayout];
+}
+
+- (void)setLetteringCharacterSpacing:(CGFloat)letteringCharacterSpacing
+{
+    _letteringCharacterSpacing = letteringCharacterSpacing;
+    [self updateLetteringLabelText];
+    [self setNeedsLayout];
+}
+
+- (void)setLetteringVerticalSpacing:(CGFloat)letteringVerticalSpacing
+{
+    _letteringVerticalSpacing = letteringVerticalSpacing;
+    [self setNeedsLayout];
+}
+
+- (void)setTextColor:(UIColor *)textColor
+{
+    if (textColor == _textColor) { return; }
+    _textColor = textColor;
+
+    self.numberLabel.textColor = _textColor;
+    self.letteringLabel.textColor = _textColor;
 }
 
 @end
