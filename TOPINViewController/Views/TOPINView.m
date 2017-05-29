@@ -34,9 +34,9 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame style:(TOPINViewStyle)style
+- (instancetype)initWithStyle:(TOPINViewStyle)style
 {
-    if (self = [super initWithFrame:frame]) {
+    if (self = [super initWithFrame:CGRectMake(0,0,320,393)]) {
         _style = style;
         [self setUp];
 
@@ -58,7 +58,7 @@
 {
     // Set up default properties
     self.userInteractionEnabled = YES;
-    _defaultContentLayout = [TOPINViewContentLayout mediumScreenContentLayout];
+    _defaultContentLayout = [TOPINViewContentLayout smallScreenContentLayout];
     _currentLayout = _defaultContentLayout;
     _contentLayouts = @[[TOPINViewContentLayout mediumScreenContentLayout],
                         [TOPINViewContentLayout smallScreenContentLayout]];
@@ -113,6 +113,31 @@
     frame.origin.y = y;
     frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
     self.keypadView.frame = frame;
+}
+
+- (void)sizeToFitWidth:(CGFloat)width
+{
+    NSMutableArray *layouts = [NSMutableArray array];
+    [layouts addObject:self.defaultContentLayout];
+    [layouts addObjectsFromArray:self.contentLayouts];
+
+    // Loop through each layout (in ascending order) and pick the best one to fit this view
+    TOPINViewContentLayout *contentLayout = self.defaultContentLayout;
+    for (TOPINViewContentLayout *layout in layouts) {
+        if (width >= layout.viewWidth) {
+            contentLayout = layout;
+            break;
+        }
+    }
+
+    // Set the new layout
+    self.currentLayout = contentLayout;
+
+    // Update the views
+    [self updateSubviewsForContentLayout:contentLayout];
+
+    // Resize the views to fit
+    [self sizeToFit];
 }
 
 - (void)sizeToFit

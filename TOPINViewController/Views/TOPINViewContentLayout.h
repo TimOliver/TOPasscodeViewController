@@ -12,7 +12,7 @@
 @interface TOPINViewContentLayout : NSObject
 
 /* The width of the PIN view in which this layout object is sizing the content to fit. */
-@property (nonatomic, assign) CGFloat pinViewWidth;
+@property (nonatomic, assign) CGFloat viewWidth;
 
 /* The title View at the very top */
 @property (nonatomic, assign) CGFloat titleViewBottomSpacing;   // Space from the bottom of the title view to the title label

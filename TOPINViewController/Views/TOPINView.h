@@ -41,7 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 /* As needed, additional layout objects that will be checked and used in priority over the default content layout. */
 @property (nonatomic, strong, nullable) NSArray<TOPINViewContentLayout *> *contentLayouts;
 
-- (instancetype)initWithFrame:(CGRect)frame style:(TOPINViewStyle)style;
+/* Create a new instance with one of the style types */
+- (instancetype)initWithStyle:(TOPINViewStyle)style;
+
+/* Resize the view and all subviews for the optimum size to fit a super view of the suplied width. */
+- (void)sizeToFitWidth:(CGFloat)width;
 
 @end
 

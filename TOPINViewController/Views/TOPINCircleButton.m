@@ -112,12 +112,13 @@
     CGFloat numberVerticalHeight = self.numberFont.capHeight;
     CGFloat letteringVerticalHeight = self.letteringFont.capHeight;
 
-    CGFloat textTotalHeight = numberVerticalHeight + self.letteringVerticalSpacing + letteringVerticalHeight;
+    CGFloat textTotalHeight = (numberVerticalHeight+2.0f) + self.letteringVerticalSpacing + (letteringVerticalHeight+2.0f);
 
+    [self.numberLabel sizeToFit];
     CGRect frame = self.numberLabel.frame;
-    frame.size.height = numberVerticalHeight;
-    frame.origin.x = (viewSize.width - frame.size.width) * 0.5f;
-    frame.origin.y = (viewSize.height - textTotalHeight) * 0.5f;
+    frame.size.height = ceil(numberVerticalHeight) + 2.0f;
+    frame.origin.x = ceilf((viewSize.width - frame.size.width) * 0.5f);
+    frame.origin.y = floorf((viewSize.height - textTotalHeight) * 0.5f);
     self.numberLabel.frame = CGRectIntegral(frame);
 
     if (self.letteringLabel) {
@@ -127,8 +128,8 @@
         y += self.letteringVerticalSpacing;
 
         frame = self.letteringLabel.frame;
-        frame.size.height = letteringVerticalHeight;
-        frame.origin.y = y;
+        frame.size.height = ceil(letteringVerticalHeight) + 2.0f;
+        frame.origin.y = floorf(y);
         frame.origin.x = (viewSize.width - frame.size.width) * 0.5f;
         self.letteringLabel.frame = CGRectIntegral(frame);
     }

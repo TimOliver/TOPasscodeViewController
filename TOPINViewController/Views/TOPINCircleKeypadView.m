@@ -72,9 +72,11 @@
 
 - (void)sizeToFit
 {
+    CGFloat padding = 2.0f;
+
     CGRect frame = self.frame;
-    frame.size.width = (self.buttonDiameter * 3) + (self.buttonSpacing.width * 2);
-    frame.size.height = (self.buttonDiameter * 4) + (self.buttonSpacing.height * 3);
+    frame.size.width  = ((self.buttonDiameter + padding) * 3) + (self.buttonSpacing.width * 2);
+    frame.size.height = ((self.buttonDiameter + padding) * 4) + (self.buttonSpacing.height * 3);
     self.frame = frame;
 }
 
