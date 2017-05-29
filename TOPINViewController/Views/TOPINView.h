@@ -41,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIColor *keypadButtonTextColor;
 @property (nonatomic, strong, nullable) UIColor *keypadButtonHighlightedTextColor;
 
+/* Horizontal inset from edge of keypad view to button center */
+@property (nonatomic, readonly) CGFloat keypadButtonInset;
+
 /* The default layout object controlling the
  sizing and placement of all this view's child elements. */
 @property (nonatomic, strong, null_resettable) TOPINViewContentLayout *defaultContentLayout;

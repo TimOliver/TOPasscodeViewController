@@ -100,15 +100,13 @@
 
 - (void)setUpAccessoryButtons
 {
-    UIFont *buttonFont = [UIFont systemFontOfSize:15.0f];
+    UIFont *buttonFont = [UIFont systemFontOfSize:16.0f];
     BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
 
-    if (!self.leftAcessoryButton && self.allowBiometricValidation && !self.biometricButton) {
+    if (!self.leftAccessoryButton && self.allowBiometricValidation && !self.biometricButton) {
         self.biometricButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.biometricButton setTitle:@"Touch ID" forState:UIControlStateNormal];
         [self.biometricButton addTarget:self action:@selector(accessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        self.biometricButton.titleLabel.font = buttonFont;
-        [self.biometricButton sizeToFit];
 
         if (isPad) {
             self.pinView.leftButton = self.biometricButton;
@@ -127,7 +125,6 @@
         [self.cancelButton setTitle:NSLocalizedString(@"Cancel", @"Cancel") forState:UIControlStateNormal];
         self.cancelButton.titleLabel.font = buttonFont;
         [self.cancelButton addTarget:self action:@selector(accessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self.cancelButton sizeToFit];
         if (isPad) {
             self.pinView.rightButton = self.cancelButton;
         }
@@ -139,6 +136,8 @@
         [self.cancelButton removeFromSuperview];
         self.cancelButton = nil;
     }
+
+    [self updateAccessoryButtonFontsForWidth:self.view.bounds.size.width];
 }
 
 #pragma mark - View Management -
@@ -148,11 +147,18 @@
     [super viewDidLoad];
     [self setUpBackgroundEffectViewForStyle:self.style];
     [self setUpAccessoryButtons];
+    [self applyThemeForStyle:self.style];
 }
 
 - (void)viewDidLayoutSubviews
 {
     CGSize bounds = self.view.bounds.size;
+
+    // Update the accessory button sizes
+    [self updateAccessoryButtonFontsForWidth:bounds.width];
+
+    // Re-layout the accessory buttons
+    [self layoutAccessoryButtons];
 
     // Resize the pin view to scale to the new size
     [self.pinView sizeToFitWidth:bounds.width];
@@ -174,8 +180,48 @@
 
     self.biometricButton.tintColor = accessoryTintColor;
     self.cancelButton.tintColor = accessoryTintColor;
-    self.leftAcessoryButton.tintColor = accessoryTintColor;
+    self.leftAccessoryButton.tintColor = accessoryTintColor;
     self.rightAccessoryButton.tintColor = accessoryTintColor;
+}
+
+- (void)updateAccessoryButtonFontsForWidth:(CGFloat)width
+{
+    CGFloat pointSize = 17.0f;
+    if (width < TOPINViewContentSizeMedium) {
+        pointSize = 14.0f;
+    }
+    else if (width < TOPINViewWContentSizeDefault) {
+        pointSize = 15.0f;
+    }
+
+    UIFont *accessoryFont = [UIFont systemFontOfSize:pointSize];
+
+    self.biometricButton.titleLabel.font = accessoryFont;
+    self.cancelButton.titleLabel.font = accessoryFont;
+    self.leftAccessoryButton.titleLabel.font = accessoryFont;
+    self.rightAccessoryButton.titleLabel.font = accessoryFont;
+}
+
+- (void)layoutAccessoryButtons
+{
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) { return; }
+
+    CGFloat inset = self.pinView.keypadButtonInset;
+    CGPoint point = (CGPoint){0.0f, self.view.bounds.size.height - 45.0f};
+
+    UIButton *leftButton = self.leftAccessoryButton ? self.leftAccessoryButton : self.biometricButton;
+    if (leftButton) {
+        [leftButton sizeToFit];
+        point.x = self.pinView.frame.origin.x + inset;
+        leftButton.center = point;
+    }
+
+    UIButton *rightButton = self.rightAccessoryButton ? self.rightAccessoryButton : self.cancelButton;
+    if (rightButton) {
+        [rightButton sizeToFit];
+        point.x = CGRectGetMaxX(self.pinView.frame) - inset;
+        rightButton.center = point;
+    }
 }
 
 #pragma mark - Interactions -

@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, TOPINViewStyle) {
 
 /* Depending on the amount of horizontal space, the sizing of the elements */
 typedef NS_ENUM(NSInteger, TOPINViewContentSize) {
-    TOPINViewWContentSizeLarge = 414, // Default, 414 points and above (6 Plus, all remaining iPad sizes)
+    TOPINViewWContentSizeDefault = 414, // Default, 414 points and above (6 Plus, all remaining iPad sizes)
     TOPINViewContentSizeMedium = 375, // Greater or equal to 375 points: iPhone 6 / iPad Pro 1/4 split mode
     TOPINViewContentSizeSmall  = 320  // Greater or equal to 320 points: iPhone SE / iPad 1/4 split mode
 };

@@ -105,6 +105,24 @@
     CGRect frame = lastButton.frame;
     frame.origin.x += (frame.size.width + self.buttonSpacing.width);
     lastButton.frame = frame;
+
+    CGFloat midPointY = CGRectGetMidY(frame);
+
+    if (self.leftAccessoryView) {
+        CGRect leftButtonFrame = self.pinButtons.firstObject.frame;
+        CGFloat midPointX = CGRectGetMidX(leftButtonFrame);
+
+        [self.leftAccessoryView sizeToFit];
+        self.leftAccessoryView.center = (CGPoint){midPointX, midPointY};
+    }
+
+    if (self.rightAccessoryView) {
+        CGRect rightButtonFrame = self.pinButtons[2].frame;
+        CGFloat midPointX = CGRectGetMidX(rightButtonFrame);
+
+        [self.rightAccessoryView sizeToFit];
+        self.rightAccessoryView.center = (CGPoint){midPointX, midPointY};
+    }
 }
 
 #pragma mark - Style Accessors -
@@ -241,6 +259,22 @@
     if (buttonHighlightedTextColor == _buttonHighlightedTextColor) { return; }
     _buttonHighlightedTextColor = buttonHighlightedTextColor;
     [self updateButtonsForCurrentState];
+}
+
+- (void)setLeftAccessoryView:(UIView *)leftAccessoryView
+{
+    if (_leftAccessoryView == leftAccessoryView) { return; }
+    _leftAccessoryView = leftAccessoryView;
+    [self addSubview:_leftAccessoryView];
+    [self setNeedsLayout];
+}
+
+- (void)setRightAccessoryView:(UIView *)rightAccessoryView
+{
+    if (_rightAccessoryView == rightAccessoryView) { return; }
+    _rightAccessoryView = rightAccessoryView;
+    [self addSubview:_rightAccessoryView];
+    [self setNeedsLayout];
 }
 
 @end

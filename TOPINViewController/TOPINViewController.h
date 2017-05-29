@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) TOPINView *pinView;
 
 /** The left accessory button. Setting this will override the 'Touch ID' button. */
-@property (nonatomic, strong, nullable) UIButton *leftAcessoryButton;
+@property (nonatomic, strong, nullable) UIButton *leftAccessoryButton;
 
 /** The right accessory button. Setting this will override the 'Cancel' button. */
 @property (nonatomic, strong, nullable) UIButton *rightAccessoryButton;

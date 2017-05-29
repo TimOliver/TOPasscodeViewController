@@ -305,4 +305,24 @@
     [self applyThemeForStyle:style];
 }
 
+- (void)setLeftButton:(UIButton *)leftButton
+{
+    self.keypadView.leftAccessoryView = leftButton;
+}
+
+- (UIButton *)leftButton { return (UIButton *)self.keypadView.leftAccessoryView; }
+
+- (void)setRightButton:(UIButton *)rightButton
+{
+    self.keypadView.rightAccessoryView = rightButton;
+}
+
+- (UIButton *)rightButton { return (UIButton *)self.keypadView.rightAccessoryView; }
+
+- (CGFloat)keypadButtonInset
+{
+    UIView *button = self.keypadView.pinButtons.firstObject;
+    return CGRectGetMidX(button.frame);
+}
+
 @end
