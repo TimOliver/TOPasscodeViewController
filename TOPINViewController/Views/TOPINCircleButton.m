@@ -34,15 +34,6 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    if (self = [super initWithFrame:frame]) {
-        [self setUp];
-    }
-
-    return self;
-}
-
 - (void)setUp
 {
     self.userInteractionEnabled = YES;
@@ -84,7 +75,6 @@
         self.letteringLabel.textColor = self.textColor;
         [self.letteringLabel sizeToFit];
         [self addSubview:self.letteringLabel];
-
         [self updateLetteringLabelText];
     }
 }
@@ -102,6 +92,8 @@
 
 - (void)setUpViewInteraction
 {
+    if (self.allTargets.count) { return; }
+
     [self addTarget:self action:@selector(buttonDidTouchDown:) forControlEvents:UIControlEventTouchDown];
     [self addTarget:self action:@selector(buttonDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [self addTarget:self action:@selector(buttonDidDragInside:) forControlEvents:UIControlEventTouchDragEnter];
@@ -129,6 +121,8 @@
     self.numberLabel.frame = CGRectIntegral(frame);
 
     if (self.letteringLabel) {
+        [self.letteringLabel sizeToFit];
+
         CGFloat y = CGRectGetMaxY(frame);
         y += self.letteringVerticalSpacing;
 

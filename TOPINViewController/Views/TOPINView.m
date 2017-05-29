@@ -58,7 +58,7 @@
 {
     // Set up default properties
     self.userInteractionEnabled = YES;
-    _defaultContentLayout = [TOPINViewContentLayout smallScreenContentLayout];
+    _defaultContentLayout = [TOPINViewContentLayout mediumScreenContentLayout];
     _currentLayout = _defaultContentLayout;
     _contentLayouts = @[[TOPINViewContentLayout mediumScreenContentLayout],
                         [TOPINViewContentLayout smallScreenContentLayout]];
@@ -177,6 +177,10 @@
     self.circleRowView.circleSpacing = contentLayout.circleRowSpacing;
 
     // Keypad
+    self.keypadView.buttonNumberFont = contentLayout.circleButtonTitleLabelFont;
+    self.keypadView.buttonLetteringFont = contentLayout.circleButtonLetteringLabelFont;
+    self.keypadView.buttonLetteringSpacing = contentLayout.circleButtonLetteringSpacing;
+    self.keypadView.buttonLabelSpacing = contentLayout.circleButtonLabelSpacing;
     self.keypadView.buttonSpacing = contentLayout.circleButtonSpacing;
     self.keypadView.buttonDiameter = contentLayout.circleButtonDiameter;
 }
