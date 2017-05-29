@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat circleSpacing;
 
 /* The number of circles in this view (Default is 4) */
-@property (nonatomic, assign) NSInteger maximumLength;
+@property (nonatomic, assign) NSInteger requiredLength;
 
 /* From the left, the number of circles that are highlighted. */
 @property (nonatomic, assign) NSInteger length;
@@ -27,11 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
 /* The current passcode entered into this view */
 @property (nonatomic, copy) NSString *passcode;
 
-/* Init with a number of circles */
-- (instancetype)initWithNumberOfCircles:(NSInteger)numberOfCircles;
+/* Init with the target length needed for this passcode */
+- (instancetype)initWithRequiredLength:(NSInteger)length;
 
-/* Set the number of highlighted circles with a crossfade animation */
-- (void)setNumberOfHighlightedCircles:(NSInteger)numberOfHighlightedCircles animated:(BOOL)animated;
+/* Replace the passcode with this one, and animate the transition */
+- (void)setPasscode:(NSString *)passcode animated:(BOOL)animated;
+
+/* Add additional characters to the end of the passcode, and animate if desired. */
+- (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated;
 
 @end
 

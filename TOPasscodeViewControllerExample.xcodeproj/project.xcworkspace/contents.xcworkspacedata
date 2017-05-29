@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:TOPINViewControllerExample.xcodeproj">
+      location = "self:/Users/TiM/Projects/TOPINViewController/TOPasscodeViewControllerExample.xcodeproj">
    </FileRef>
 </Workspace>
