@@ -158,7 +158,7 @@
     [self updateAccessoryButtonFontsForWidth:bounds.width];
 
     // Re-layout the accessory buttons
-    [self layoutAccessoryButtons];
+    [self layoutAccessoryButtonsForWidth:bounds.width];
 
     // Resize the pin view to scale to the new size
     [self.pinView sizeToFitWidth:bounds.width];
@@ -191,7 +191,7 @@
         pointSize = 14.0f;
     }
     else if (width < TOPINViewWContentSizeDefault) {
-        pointSize = 15.0f;
+        pointSize = 16.0f;
     }
 
     UIFont *accessoryFont = [UIFont systemFontOfSize:pointSize];
@@ -202,12 +202,20 @@
     self.rightAccessoryButton.titleLabel.font = accessoryFont;
 }
 
-- (void)layoutAccessoryButtons
+- (void)layoutAccessoryButtonsForWidth:(CGFloat)width
 {
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) { return; }
 
+    CGFloat verticalInset = 54.0f;
+    if (width < TOPINViewContentSizeMedium) {
+        verticalInset = 37.0f;
+    }
+    else if (width < TOPINViewWContentSizeDefault) {
+        verticalInset = 43.0f;
+    }
+
     CGFloat inset = self.pinView.keypadButtonInset;
-    CGPoint point = (CGPoint){0.0f, self.view.bounds.size.height - 45.0f};
+    CGPoint point = (CGPoint){0.0f, self.view.bounds.size.height - verticalInset};
 
     UIButton *leftButton = self.leftAccessoryButton ? self.leftAccessoryButton : self.biometricButton;
     if (leftButton) {
