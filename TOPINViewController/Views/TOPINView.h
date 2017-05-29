@@ -25,9 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *titleText;
 
 /* Customizable Accessory Views */
-@property (nonatomic, strong) UIView   *titleView;
-@property (nonatomic, strong) UIButton *leftButton;
-@property (nonatomic, strong) UIButton *rightButton;
+@property (nonatomic, strong, nullable) UIView   *titleView;
+@property (nonatomic, strong, nullable) UIButton *leftButton;
+@property (nonatomic, strong, nullable) UIButton *rightButton;
 
 /* The default views always shown in this view */
 @property (nonatomic, readonly) UILabel *titleLabel;
