@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  (For security reasons, it is safer to fetch the saved PIN code only when this method is called, and
   then discard it immediately. This is why the view controller does not directly store it.)
 */
-- (BOOL)pinViewController:(TOPINViewController *)pinViewController correctInputWithCode:(NSInteger)code;
+- (BOOL)pinViewController:(TOPINViewController *)pinViewController correctInputWithCode:(NSString *)code;
 
 /** The user tapped the 'Cancel' button. Any dismissing of confidential content should be done in here. */
 - (void)didTapCancelInPINViewController:(TOPINViewController *)pinViewController;

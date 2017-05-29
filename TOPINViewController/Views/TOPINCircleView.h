@@ -10,11 +10,14 @@
 
 @interface TOPINCircleView : UIView
 
+/* The circle patterns used for neutral and highlighted states. */
 @property (nonatomic, strong) UIImage *circleImage;
 @property (nonatomic, strong) UIImage *highlightedCircleImage;
 
+/* Whether the highlighted view is visible. */
 @property (nonatomic, assign) BOOL isHighlighted;
 
+/* Animate the circle to be highlighted */
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
 
 @end
