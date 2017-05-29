@@ -44,6 +44,15 @@ NS_ASSUME_NONNULL_BEGIN
 /** The spacing in points between the letters */
 @property (nonatomic, assign) CGFloat letteringSpacing;
 
+/** The tint color of the button backgrounds */
+@property (nonatomic, strong) UIColor *buttonBackgroundColor;
+
+/** The color of the text elements in each button */
+@property (nonatomic, strong) UIColor *buttonTextColor;
+
+/** Optionally the color of text when it's tapped. */
+@property (nonatomic, strong, nullable) UIColor *buttonHighlightedTextColor;
+
 /** Accessory views placed on either side of the '0' button */
 @property (nonatomic, strong, nullable) UIView *leftAccessoryView;
 @property (nonatomic, strong, nullable) UIView *rightAccessoryView;

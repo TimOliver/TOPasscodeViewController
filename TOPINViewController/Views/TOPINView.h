@@ -34,6 +34,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) TOPINCircleRowView *circleRowView;
 @property (nonatomic, readonly) TOPINCircleKeypadView *keypadView;
 
+/* Overrides for theming the various elements. */
+@property (nonatomic, strong, nullable) UIColor *titleLabelColor;
+@property (nonatomic, strong, nullable) UIColor *inputProgressViewTintColor;
+@property (nonatomic, strong, nullable) UIColor *keypadButtonBackgroundColor;
+@property (nonatomic, strong, nullable) UIColor *keypadButtonTextColor;
+@property (nonatomic, strong, nullable) UIColor *keypadButtonHighlightedTextColor;
+
 /* The default layout object controlling the
  sizing and placement of all this view's child elements. */
 @property (nonatomic, strong, null_resettable) TOPINViewContentLayout *defaultContentLayout;

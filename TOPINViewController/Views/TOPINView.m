@@ -212,8 +212,14 @@
     BOOL isTranslucent = TOPINViewStyleIsTranslucent(style);
     BOOL isDark = TOPINViewStyleIsDark(style);
 
-    self.titleLabel.textColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+    // Set title label color
+    UIColor *titleLabelColor = self.titleLabelColor;
+    if (titleLabelColor == nil) {
+        titleLabelColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+    }
+    self.titleLabel.textColor = titleLabelColor;
 
+    // Add/remove the translucency effect to the buttons
     if (isTranslucent) {
         UIBlurEffect *blurEffect = [self blurEffectForStyle:style];
         UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:blurEffect];
@@ -224,6 +230,36 @@
         self.circleRowView.effect = nil;
         self.keypadView.vibrancyEffect = nil;
     }
+
+    UIColor *defaultTintColor = isDark ? [UIColor colorWithWhite:0.75 alpha:1.0f] : [UIColor colorWithWhite:0.3 alpha:1.0f];
+
+    // Set the tint color of the circle row view
+    UIColor *circleRowColor = self.inputProgressViewTintColor;
+    if (circleRowColor == nil) {
+        circleRowColor = defaultTintColor;
+    }
+    self.circleRowView.tintColor = defaultTintColor;
+
+    // Set the tint color of the keypad buttons
+    UIColor *keypadButtonBackgroundColor = self.keypadButtonBackgroundColor;
+    if (keypadButtonBackgroundColor == nil) {
+        keypadButtonBackgroundColor = defaultTintColor;
+    }
+    self.keypadView.tintColor = keypadButtonBackgroundColor;
+
+    // Set the color of the keypad button labels
+    UIColor *buttonTextColor = self.keypadButtonTextColor;
+    if (buttonTextColor == nil) {
+        buttonTextColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+    }
+    self.keypadView.buttonTextColor = buttonTextColor;
+
+    // Set the highlight color of the keypad button
+    UIColor *buttonHighlightedTextColor = self.keypadButtonHighlightedTextColor;
+    if (buttonHighlightedTextColor == nil) {
+        buttonHighlightedTextColor = isDark ? nil : [UIColor whiteColor];
+    }
+    self.keypadView.buttonHighlightedTextColor = buttonHighlightedTextColor;
 }
 
 #pragma mark - Internal Style Management -
@@ -260,6 +296,13 @@
 
     // Update the views
     [self updateSubviewsForContentLayout:currentLayout];
+}
+
+- (void)setStyle:(TOPINViewStyle)style
+{
+    if (style == _style) { return; }
+    _style = style;
+    [self applyThemeForStyle:style];
 }
 
 @end

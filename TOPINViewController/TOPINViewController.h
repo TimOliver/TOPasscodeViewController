@@ -26,11 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** The user tapped the 'Cancel' button. Any dismissing of confidential content should be done in here. */
 - (void)didTapCancelInPINViewController:(TOPINViewController *)pinViewController;
 
-/** When available, the user tapped the 'Touch ID' button. This method is where you should implement your
-    own Touch ID validation logic. For security reasons, this controller does not implement validation through
-    Touch ID itself. */
+/** When available, the user tapped the 'Touch ID' button, or the view controller itself automatically initiated
+    the Touch ID request on display. This method is where you should implement your
+    own Touch ID validation logic. For security reasons, this controller does not implement the Touch ID logic itself. */
 
-- (void)didTapBiometricsButtoninPINViewController:(TOPINViewController *)pinViewController;
+- (void)didInitiateBiometricValidationRequestInPINViewController:(TOPINViewController *)pinViewController;
 
 /** Called when the pin view was resized as a result of the view controller being resized.
     You can use this to resize your custom header view if necessary.
@@ -46,6 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** The base style of the PIN view controller. Can be configured further. */
 @property (nonatomic, assign) TOPINViewStyle style;
+
+/** Will show a 'Touch ID' button for that the user can tap to initiate Touch ID verification. (Default is YES if device allows it) */
+@property (nonatomic, assign) BOOL allowBiometricValidation;
 
 /** Optionally change the color of the title text label. */
 @property (nonatomic, strong, nullable) UIColor *titleLabelColor;
@@ -70,6 +73,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** The keypad and accessory views that are displayed in the center of this view */
 @property (nonatomic, readonly) TOPINView *pinView;
+
+/** The left accessory button. Setting this will override the 'Touch ID' button. */
+@property (nonatomic, strong, nullable) UIButton *leftAcessoryButton;
+
+/** The right accessory button. Setting this will override the 'Cancel' button. */
+@property (nonatomic, strong, nullable) UIButton *rightAccessoryButton;
 
 /** Create a new instance of this view controller with the preset style. */
 - (instancetype)initWithStyle:(TOPINViewStyle)style;

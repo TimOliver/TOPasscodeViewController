@@ -154,6 +154,9 @@
         circleButton.letteringFont = self.buttonLetteringFont;
         circleButton.letteringVerticalSpacing = self.buttonLabelSpacing;
         circleButton.letteringCharacterSpacing = self.buttonLetteringSpacing;
+        circleButton.tintColor = self.buttonBackgroundColor;
+        circleButton.textColor = self.buttonTextColor;
+        circleButton.highlightedTextColor = self.buttonHighlightedTextColor;
     }
 
     [self setNeedsLayout];
@@ -216,6 +219,27 @@
 {
     if (buttonLetteringSpacing == _buttonLetteringSpacing) { return; }
     _buttonLetteringSpacing = buttonLetteringSpacing;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonBackgroundColor:(UIColor *)buttonBackgroundColor
+{
+    if (buttonBackgroundColor == _buttonBackgroundColor) { return; }
+    _buttonBackgroundColor = buttonBackgroundColor;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonTextColor:(UIColor *)buttonTextColor
+{
+    if (buttonTextColor == _buttonTextColor) { return; }
+    _buttonTextColor = buttonTextColor;
+    [self updateButtonsForCurrentState];
+}
+
+- (void)setButtonHighlightedTextColor:(UIColor *)buttonHighlightedTextColor
+{
+    if (buttonHighlightedTextColor == _buttonHighlightedTextColor) { return; }
+    _buttonHighlightedTextColor = buttonHighlightedTextColor;
     [self updateButtonsForCurrentState];
 }
 

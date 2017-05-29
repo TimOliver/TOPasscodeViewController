@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		221AC74E1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */; };
+		221D96E21EDC03FF004314BF /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221D96E11EDC03FF004314BF /* LocalAuthentication.framework */; };
 		228F4EB51ECD6F5500D58D0B /* TOPINImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F4EB41ECD6F5500D58D0B /* TOPINImage.m */; };
 		228F4EB81ECEE22C00D58D0B /* TOPINViewContentLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F4EB71ECEE22C00D58D0B /* TOPINViewContentLayout.m */; };
 		22F806A81ECABB3D0053C94E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F806A71ECABB3D0053C94E /* main.m */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		221AC74C1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINCircleKeypadView.h; sourceTree = "<group>"; };
 		221AC74D1ECC3F9900F5D8C9 /* TOPINCircleKeypadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleKeypadView.m; sourceTree = "<group>"; };
+		221D96E11EDC03FF004314BF /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		228F4EB31ECD6F5500D58D0B /* TOPINImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TOPINImage.h; path = Models/TOPINImage.h; sourceTree = "<group>"; };
 		228F4EB41ECD6F5500D58D0B /* TOPINImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TOPINImage.m; path = Models/TOPINImage.m; sourceTree = "<group>"; };
 		228F4EB61ECEE22C00D58D0B /* TOPINViewContentLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINViewContentLayout.h; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				221D96E21EDC03FF004314BF /* LocalAuthentication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		221D96E01EDC03FF004314BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				221D96E11EDC03FF004314BF /* LocalAuthentication.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		22F8069A1ECABB3D0053C94E = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +108,7 @@
 				22F806A51ECABB3D0053C94E /* TOPINViewControllerExample */,
 				22F806BF1ECABB3D0053C94E /* TOPINViewControllerExampleTests */,
 				22F806A41ECABB3D0053C94E /* Products */,
+				221D96E01EDC03FF004314BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

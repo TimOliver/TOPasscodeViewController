@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIImage *hightlightedBackgroundImage;
 @property (nonatomic, strong) UIVibrancyEffect *vibrancyEffect;
 @property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong, nullable) UIColor *highlightedTextColor;
 
 @property (nonatomic, readonly) NSString *numberString;
 @property (nonatomic, readonly) NSString *letteringString;
