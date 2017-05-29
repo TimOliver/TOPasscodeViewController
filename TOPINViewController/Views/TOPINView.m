@@ -58,7 +58,7 @@
 {
     // Set up default properties
     self.userInteractionEnabled = YES;
-    _defaultContentLayout = [TOPINViewContentLayout smallScreenContentLayout];
+    _defaultContentLayout = [TOPINViewContentLayout defaultScreenContentLayout];
     _currentLayout = _defaultContentLayout;
     _contentLayouts = @[[TOPINViewContentLayout mediumScreenContentLayout],
                         [TOPINViewContentLayout smallScreenContentLayout]];
@@ -132,9 +132,6 @@
 
     // Set the new layout
     self.currentLayout = contentLayout;
-
-    // Update the views
-    [self updateSubviewsForContentLayout:contentLayout];
 
     // Resize the views to fit
     [self sizeToFit];
@@ -254,6 +251,15 @@
     if (!_defaultContentLayout) {
         _defaultContentLayout = [TOPINViewContentLayout defaultScreenContentLayout];
     }
+}
+
+- (void)setCurrentLayout:(TOPINViewContentLayout *)currentLayout
+{
+    if (_currentLayout == currentLayout) { return; }
+    _currentLayout = currentLayout;
+
+    // Update the views
+    [self updateSubviewsForContentLayout:currentLayout];
 }
 
 @end

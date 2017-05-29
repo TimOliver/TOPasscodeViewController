@@ -55,6 +55,17 @@
     [self setUpPINViewForStyle:self.style];
 }
 
+- (void)viewDidLayoutSubviews
+{
+    CGSize bounds = self.view.bounds.size;
+
+    // Resize the pin view to scale to the new size
+    [self.pinView sizeToFitWidth:bounds.width];
+
+    // Re-center the pin view
+    self.pinView.center = self.view.center;
+}
+
 - (void)setUpPINViewForStyle:(TOPINViewStyle)style
 {
     if (self.pinView) { return; }
