@@ -1,18 +1,18 @@
 //
-//  TOPINViewContentConfiguration.m
-//  TOPINViewControllerExample
+//  TOPasscodeViewContentConfiguration.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/19/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINViewContentLayout.h"
+#import "TOPasscodeViewContentLayout.h"
 
-@implementation TOPINViewContentLayout
+@implementation TOPasscodeViewContentLayout
 
-+ (TOPINViewContentLayout *)defaultScreenContentLayout
++ (TOPasscodeViewContentLayout *)defaultScreenContentLayout
 {
-    TOPINViewContentLayout *contentLayout = [[TOPINViewContentLayout alloc] init];
+    TOPasscodeViewContentLayout *contentLayout = [[TOPasscodeViewContentLayout alloc] init];
 
     /* Width of the PIN View */
     contentLayout.viewWidth = 414.0f;
@@ -43,9 +43,9 @@
     return contentLayout;
 }
 
-+ (TOPINViewContentLayout *)mediumScreenContentLayout
++ (TOPasscodeViewContentLayout *)mediumScreenContentLayout
 {
-    TOPINViewContentLayout *contentLayout = [[TOPINViewContentLayout alloc] init];
+    TOPasscodeViewContentLayout *contentLayout = [[TOPasscodeViewContentLayout alloc] init];
 
     /* Width of the PIN View */
     contentLayout.viewWidth = 375.0f;
@@ -76,9 +76,9 @@
     return contentLayout;
 }
 
-+ (TOPINViewContentLayout *)smallScreenContentLayout
++ (TOPasscodeViewContentLayout *)smallScreenContentLayout
 {
-    TOPINViewContentLayout *contentLayout = [[TOPINViewContentLayout alloc] init];
+    TOPasscodeViewContentLayout *contentLayout = [[TOPasscodeViewContentLayout alloc] init];
 
     /* Width of the PIN View */
     contentLayout.viewWidth = 320.0f;

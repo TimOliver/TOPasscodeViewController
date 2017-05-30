@@ -1,6 +1,6 @@
 //
-//  TOPINCircleRowView.h
-//  TOPINViewControllerExample
+//  TOPasscodeCircleRowView.h
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/15/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TOPINCircleRowView : UIVisualEffectView <UIKeyInput>
+@interface TOPasscodeNumberInputView : UIVisualEffectView <UIKeyInput>
 
 /* The size of each circle in this view (Default is 16) */
 @property (nonatomic, assign) CGFloat circleDiameter;

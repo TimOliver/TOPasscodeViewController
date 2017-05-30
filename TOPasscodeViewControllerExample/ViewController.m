@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "TOPINViewController.h"
+#import "TOPasscodeViewController.h"
 
 @interface ViewController ()
 
@@ -26,8 +26,8 @@
 
 - (IBAction)showButtonTapped:(id)sender
 {
-    TOPINViewController *pinViewController = [[TOPINViewController alloc] init];
-    [self presentViewController:pinViewController animated:YES completion:nil];
+    TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] init];
+    [self presentViewController:passcodeViewController animated:YES completion:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

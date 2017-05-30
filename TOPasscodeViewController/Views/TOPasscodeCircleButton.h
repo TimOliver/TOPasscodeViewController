@@ -1,6 +1,6 @@
 //
-//  TOPINCircleButton.h
-//  TOPINViewControllerExample
+//  TOPasscodeCircleButton.h
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/15/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TOPINCircleButton : UIControl
+@interface TOPasscodeCircleButton : UIControl
 
 // Required to be set by the user
 @property (nonatomic, strong) UIImage *backgroundImage;

@@ -1,25 +1,25 @@
 //
-//  TOPINCircleKeypadView.m
-//  TOPINViewControllerExample
+//  TOPasscodeCircleKeypadView.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/17/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINCircleKeypadView.h"
-#import "TOPINImage.h"
-#import "TOPINCircleButton.h"
+#import "TOPasscodeKeypadView.h"
+#import "TOPasscodeCircleImage.h"
+#import "TOPasscodeCircleButton.h"
 
-@interface TOPINCircleKeypadView()
+@interface TOPasscodeKeypadView()
 
 @property (nonatomic, strong) UIImage *buttonImage;
 @property (nonatomic, strong) UIImage *tappedButtonImage;
 
-@property (nonatomic, strong, readwrite) NSArray<TOPINCircleButton *> *pinButtons;
+@property (nonatomic, strong, readwrite) NSArray<TOPasscodeCircleButton *> *pinButtons;
 
 @end
 
-@implementation TOPINCircleKeypadView
+@implementation TOPasscodeKeypadView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -58,7 +58,7 @@
             letteringString = letteredTitles[i-1];
         }
 
-        TOPINCircleButton *circleButton = [[TOPINCircleButton alloc] initWithNumberString:numberString letteringString:letteringString];
+        TOPasscodeCircleButton *circleButton = [[TOPasscodeCircleButton alloc] initWithNumberString:numberString letteringString:letteringString];
         circleButton.backgroundImage = self.buttonImage;
         circleButton.hightlightedBackgroundImage = self.tappedButtonImage;
         circleButton.vibrancyEffect = self.vibrancyEffect;
@@ -86,7 +86,7 @@
 
     NSInteger i = 0;
     CGPoint origin = CGPointZero;
-    for (TOPINCircleButton *button in self.pinButtons) {
+    for (TOPasscodeCircleButton *button in self.pinButtons) {
         CGRect frame = button.frame;
         frame.origin = origin;
         button.frame = frame;
@@ -101,7 +101,7 @@
         }
     }
 
-    TOPINCircleButton *lastButton = self.pinButtons.lastObject;
+    TOPasscodeCircleButton *lastButton = self.pinButtons.lastObject;
     CGRect frame = lastButton.frame;
     frame.origin.x += (frame.size.width + self.buttonSpacing.width);
     lastButton.frame = frame;
@@ -131,7 +131,7 @@
     if (vibrancyEffect == _vibrancyEffect) { return; }
     _vibrancyEffect = vibrancyEffect;
 
-    for (TOPINCircleButton *button in self.pinButtons) {
+    for (TOPasscodeCircleButton *button in self.pinButtons) {
         button.vibrancyEffect = _vibrancyEffect;
     }
 }
@@ -140,7 +140,7 @@
 - (UIImage *)buttonImage
 {
     if (!_buttonImage) {
-        _buttonImage = [TOPINImage PINHollowCircleImageOfSize:self.buttonDiameter strokeWidth:self.buttonStrokeWidth padding:1.0f];
+        _buttonImage = [TOPasscodeCircleImage hollowCircleImageOfSize:self.buttonDiameter strokeWidth:self.buttonStrokeWidth padding:1.0f];
     }
 
     return _buttonImage;
@@ -149,13 +149,13 @@
 - (UIImage *)tappedButtonImage
 {
     if (!_tappedButtonImage) {
-        _tappedButtonImage = [TOPINImage PINCircleImageOfSize:self.buttonDiameter inset:self.buttonStrokeWidth * 0.5f padding:1.0f];
+        _tappedButtonImage = [TOPasscodeCircleImage circleImageOfSize:self.buttonDiameter inset:self.buttonStrokeWidth * 0.5f padding:1.0f];
     }
 
     return _tappedButtonImage;
 }
 
-- (NSArray<TOPINCircleButton *> *)pinButtons
+- (NSArray<TOPasscodeCircleButton *> *)pinButtons
 {
     if (_pinButtons) { return _pinButtons; }
     [self setUpButtons];
@@ -165,7 +165,7 @@
 #pragma mark - Public Layout Setters -
 - (void)updateButtonsForCurrentState
 {
-    for (TOPINCircleButton *circleButton in self.pinButtons) {
+    for (TOPasscodeCircleButton *circleButton in self.pinButtons) {
         circleButton.backgroundImage = self.buttonImage;
         circleButton.hightlightedBackgroundImage = self.tappedButtonImage;
         circleButton.numberFont = self.buttonNumberFont;

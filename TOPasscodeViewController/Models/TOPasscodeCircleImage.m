@@ -1,16 +1,16 @@
 //
-//  TOPINImage.m
-//  TOPINViewControllerExample
+//  TOPasscodeImage.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/17/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINImage.h"
+#import "TOPasscodeCircleImage.h"
 
-@implementation TOPINImage
+@implementation TOPasscodeCircleImage
 
-+ (UIImage *)PINCircleImageOfSize:(CGFloat)size inset:(CGFloat)inset padding:(CGFloat)padding
++ (UIImage *)circleImageOfSize:(CGFloat)size inset:(CGFloat)inset padding:(CGFloat)padding
 {
     UIImage *image = nil;
     CGSize imageSize = (CGSize){size + (padding * 2), size + (padding * 2)};
@@ -32,7 +32,7 @@
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
-+ (UIImage *)PINHollowCircleImageOfSize:(CGFloat)size strokeWidth:(CGFloat)strokeWidth padding:(CGFloat)padding
++ (UIImage *)hollowCircleImageOfSize:(CGFloat)size strokeWidth:(CGFloat)strokeWidth padding:(CGFloat)padding
 {
     UIImage *image = nil;
     CGSize canvasSize = (CGSize){size + (padding * 2), size + (padding * 2)};

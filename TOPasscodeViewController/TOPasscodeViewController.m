@@ -1,21 +1,21 @@
 //
-//  TOPINViewController.m
-//  TOPINViewControllerExample
+//  TOPasscodeViewController.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/15/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINViewController.h"
-#import "TOPINView.h"
-#import "TOPINViewControllerAnimatedTransitioning.h"
-#import "TOPINCircleKeypadView.h"
+#import "TOPasscodeViewController.h"
+#import "TOPasscodeView.h"
+#import "TOPasscodeViewControllerAnimatedTransitioning.h"
+#import "TOPasscodeKeypadView.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
-@interface TOPINViewController () <UIViewControllerTransitioningDelegate>
+@interface TOPasscodeViewController () <UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong, readwrite) UIVisualEffectView *backgroundEffectView;
-@property (nonatomic, strong, readwrite) TOPINView *pinView;
+@property (nonatomic, strong, readwrite) TOPasscodeView *passcodeView;
 @property (nonatomic, strong) UIButton *biometricButton;
 @property (nonatomic, strong) UIButton *cancelButton;
 
@@ -23,11 +23,11 @@
 
 @end
 
-@implementation TOPINViewController
+@implementation TOPasscodeViewController
 
 #pragma mark - Instance Creation -
 
-- (instancetype)initWithStyle:(TOPINViewStyle)style
+- (instancetype)initWithStyle:(TOPasscodeViewStyle)style
 {
     if (self = [super initWithNibName:nil bundle:nil]) {
         _style = style;
@@ -56,14 +56,14 @@
     _authContext = [LAContext new];
     _allowBiometricValidation = [_authContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
 
-    if (TOPINViewStyleIsTranslucent(self.style)) {
+    if (TOPasscodeViewStyleIsTranslucent(self.style)) {
         self.modalPresentationStyle = UIModalPresentationOverFullScreen;
     }
 }
 
-- (void)setUpBackgroundEffectViewForStyle:(TOPINViewStyle)style
+- (void)setUpBackgroundEffectViewForStyle:(TOPasscodeViewStyle)style
 {
-    BOOL translucent = TOPINViewStyleIsTranslucent(style);
+    BOOL translucent = TOPasscodeViewStyleIsTranslucent(style);
 
     // Return if it already exists when it should
     if (translucent && self.backgroundEffectView) { return; }
@@ -86,12 +86,12 @@
     [self.view insertSubview:self.backgroundEffectView atIndex:0];
 }
 
-- (UIBlurEffectStyle)blurEffectStyleForStyle:(TOPINViewStyle)style
+- (UIBlurEffectStyle)blurEffectStyleForStyle:(TOPasscodeViewStyle)style
 {
     switch (self.style) {
-        case TOPINViewStyleTranslucentDark: return UIBlurEffectStyleDark;
-        case TOPINViewStyleTranslucentLight: return UIBlurEffectStyleLight;
-        case TOPINViewStyleTranslucentExtraLight: return UIBlurEffectStyleExtraLight;
+        case TOPasscodeViewStyleTranslucentDark: return UIBlurEffectStyleDark;
+        case TOPasscodeViewStyleTranslucentLight: return UIBlurEffectStyleLight;
+        case TOPasscodeViewStyleTranslucentExtraLight: return UIBlurEffectStyleExtraLight;
         default: return 0;
     }
 
@@ -168,9 +168,9 @@
 }
 
 #pragma mark - View Styling -
-- (void)applyThemeForStyle:(TOPINViewStyle)style
+- (void)applyThemeForStyle:(TOPasscodeViewStyle)style
 {
-    BOOL isDark = TOPINViewStyleIsDark(style);
+    BOOL isDark = TOPasscodeViewStyleIsDark(style);
 
     // Apply the tint color to the accessory buttons
     UIColor *accessoryTintColor = self.accessoryButtonTintColor;
@@ -187,10 +187,10 @@
 - (void)updateAccessoryButtonFontsForWidth:(CGFloat)width
 {
     CGFloat pointSize = 17.0f;
-    if (width < TOPINViewContentSizeMedium) {
+    if (width < TOPasscodeViewContentSizeMedium) {
         pointSize = 14.0f;
     }
-    else if (width < TOPINViewWContentSizeDefault) {
+    else if (width < TOPasscodeViewContentSizeDefault) {
         pointSize = 16.0f;
     }
 
@@ -207,10 +207,10 @@
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) { return; }
 
     CGFloat verticalInset = 54.0f;
-    if (width < TOPINViewContentSizeMedium) {
+    if (width < TOPasscodeViewContentSizeMedium) {
         verticalInset = 37.0f;
     }
-    else if (width < TOPINViewWContentSizeDefault) {
+    else if (width < TOPasscodeViewContentSizeDefault) {
         verticalInset = 43.0f;
     }
 
@@ -252,29 +252,29 @@
                                                                             presentingController:(UIViewController *)presenting
                                                                                 sourceController:(UIViewController *)source
 {
-    return [[TOPINViewControllerAnimatedTransitioning alloc] initWithPINViewController:self dismissing:NO];
+    return [[TOPasscodeViewControllerAnimatedTransitioning alloc] initWithPasscodeViewController:self dismissing:NO];
 }
 
 - (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    return [[TOPINViewControllerAnimatedTransitioning alloc] initWithPINViewController:self dismissing:YES];
+    return [[TOPasscodeViewControllerAnimatedTransitioning alloc] initWithPasscodeViewController:self dismissing:YES];
 }
 
 #pragma mark - Public Accessors -
-- (TOPINView *)pinView
+- (TOPasscodeView *)pinView
 {
-    if (_pinView) { return _pinView; }
+    if (_passcodeView) { return _passcodeView; }
 
-    _pinView = [[TOPINView alloc] initWithStyle:self.style];
-    _pinView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin |
+    _passcodeView = [[TOPasscodeView alloc] initWithStyle:self.style];
+    _passcodeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin |
                                     UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    [_pinView sizeToFit];
-    _pinView.center = self.view.center;
-    [self.view addSubview:_pinView];
-    return _pinView;
+    [_passcodeView sizeToFit];
+    _passcodeView.center = self.view.center;
+    [self.view addSubview:_passcodeView];
+    return _passcodeView;
 }
 
-- (void)setStyle:(TOPINViewStyle)style
+- (void)setStyle:(TOPasscodeViewStyle)style
 {
     if (style == _style) { return; }
     _style = style;

@@ -1,24 +1,24 @@
 //
-//  TOPINCircleRowView.m
-//  TOPINViewControllerExample
+//  TOPasscodeCircleRowView.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/15/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINCircleRowView.h"
-#import "TOPINCircleView.h"
-#import "TOPINImage.h"
+#import "TOPasscodeNumberInputView.h"
+#import "TOPasscodeCircleView.h"
+#import "TOPasscodeCircleImage.h"
 
-@interface TOPINCircleRowView ()
-@property (nonatomic, strong) NSMutableArray<TOPINCircleView *> *circleViews;
+@interface TOPasscodeNumberInputView ()
+@property (nonatomic, strong) NSMutableArray<TOPasscodeCircleView *> *circleViews;
 
 @property (nonatomic, strong) UIImage *circleImage;
 @property (nonatomic, strong) UIImage *highlightedCircleImage;
 
 @end
 
-@implementation TOPINCircleRowView
+@implementation TOPasscodeNumberInputView
 
 #pragma mark - View Set-up -
 
@@ -62,7 +62,7 @@
     CGRect frame = CGRectZero;
     frame.size = (CGSize){self.circleDiameter + 2.0f, self.circleDiameter + 2.0f};
 
-    for (TOPINCircleView *circleView in self.circleViews) {
+    for (TOPasscodeCircleView *circleView in self.circleViews) {
         circleView.frame = frame;
         frame.origin.x += self.circleDiameter + self.circleSpacing;
     }
@@ -71,10 +71,10 @@
 #pragma mark - Circle View Management -
 - (void)updateCircleImagesForDiameter:(CGFloat)diameter
 {
-    self.circleImage = [TOPINImage PINHollowCircleImageOfSize:diameter strokeWidth:1.0f padding:1.0f];
-    self.highlightedCircleImage = [TOPINImage PINCircleImageOfSize:diameter inset:0.5f padding:1.0f];
+    self.circleImage = [TOPasscodeCircleImage hollowCircleImageOfSize:diameter strokeWidth:1.0f padding:1.0f];
+    self.highlightedCircleImage = [TOPasscodeCircleImage circleImageOfSize:diameter inset:0.5f padding:1.0f];
 
-    for (TOPINCircleView *circleView in self.circleViews) {
+    for (TOPasscodeCircleView *circleView in self.circleViews) {
         circleView.circleImage = self.circleImage;
         circleView.highlightedCircleImage = self.highlightedCircleImage;
     }
@@ -88,7 +88,7 @@
 
     // Remove any extraneous circle views
     while (self.circleViews.count > numberOfCircles) {
-        TOPINCircleView *lastView = self.circleViews.lastObject;
+        TOPasscodeCircleView *lastView = self.circleViews.lastObject;
         [lastView removeFromSuperview];
         [self.circleViews removeLastObject];
     }
@@ -96,7 +96,7 @@
     // Add any circles needed
     CGRect frame = (CGRect){CGPointZero, {self.circleDiameter, self.circleDiameter}};
     while (self.circleViews.count < numberOfCircles) {
-        TOPINCircleView *newCircleView = [[TOPINCircleView alloc] initWithFrame:frame];
+        TOPasscodeCircleView *newCircleView = [[TOPasscodeCircleView alloc] initWithFrame:frame];
         newCircleView.circleImage = self.circleImage;
         newCircleView.highlightedCircleImage = self.highlightedCircleImage;
         [self.contentView addSubview:newCircleView];

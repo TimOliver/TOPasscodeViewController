@@ -1,19 +1,19 @@
 //
-//  TOPINCircleButton.m
-//  TOPINViewControllerExample
+//  TOPasscodeCircleButton.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/15/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINCircleButton.h"
-#import "TOPINCircleView.h"
+#import "TOPasscodeCircleButton.h"
+#import "TOPasscodeCircleView.h"
 
-@interface TOPINCircleButton ()
+@interface TOPasscodeCircleButton ()
 
 @property (nonatomic, strong) UILabel *numberLabel;
 @property (nonatomic, strong) UILabel *letteringLabel;
-@property (nonatomic, strong) TOPINCircleView *circleView;
+@property (nonatomic, strong) TOPasscodeCircleView *circleView;
 @property (nonatomic, strong) UIVisualEffectView *vibrancyView;
 
 @property (nonatomic, readwrite, copy) NSString *numberString;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation TOPINCircleButton
+@implementation TOPasscodeCircleButton
 
 - (instancetype)initWithNumberString:(NSString *)numberString letteringString:(NSString *)letteringString
 {
@@ -49,7 +49,7 @@
 - (void)setUpSubviews
 {
     if (!self.circleView) {
-        self.circleView = [[TOPINCircleView alloc] initWithFrame:self.bounds];
+        self.circleView = [[TOPasscodeCircleView alloc] initWithFrame:self.bounds];
         [self addSubview:self.circleView];
     }
 

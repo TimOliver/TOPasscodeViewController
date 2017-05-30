@@ -1,19 +1,19 @@
 //
-//  TOPINCircleView.m
-//  TOPINViewControllerExample
+//  TOPasscodeCircleView.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/15/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINCircleView.h"
+#import "TOPasscodeCircleView.h"
 
-@interface TOPINCircleView ()
+@interface TOPasscodeCircleView ()
 @property (nonatomic, strong) UIImageView *bottomView;
 @property (nonatomic, strong) UIImageView *topView;
 @end
 
-@implementation TOPINCircleView
+@implementation TOPasscodeCircleView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

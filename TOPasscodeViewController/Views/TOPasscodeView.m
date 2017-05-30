@@ -1,29 +1,29 @@
 //
-//  TOPINView.m
-//  TOPINViewControllerExample
+//  TOPasscodeView.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/15/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINView.h"
-#import "TOPINViewContentLayout.h"
-#import "TOPINCircleButton.h"
-#import "TOPINCircleRowView.h"
-#import "TOPINCircleKeypadView.h"
+#import "TOPasscodeView.h"
+#import "TOPasscodeViewContentLayout.h"
+#import "TOPasscodeCircleButton.h"
+#import "TOPasscodeNumberInputView.h"
+#import "TOPasscodeKeypadView.h"
 
-@interface TOPINView ()
+@interface TOPasscodeView ()
 
 /* The current layout object used to configure this view */
-@property (nonatomic, weak) TOPINViewContentLayout *currentLayout;
+@property (nonatomic, weak) TOPasscodeViewContentLayout *currentLayout;
 
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
-@property (nonatomic, strong, readwrite) TOPINCircleKeypadView *keypadView;
-@property (nonatomic, strong, readwrite) TOPINCircleRowView *circleRowView;
+@property (nonatomic, strong, readwrite) TOPasscodeKeypadView *keypadView;
+@property (nonatomic, strong, readwrite) TOPasscodeNumberInputView *numberInputView;
 
 @end
 
-@implementation TOPINView
+@implementation TOPasscodeView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -34,7 +34,7 @@
     return self;
 }
 
-- (instancetype)initWithStyle:(TOPINViewStyle)style
+- (instancetype)initWithStyle:(TOPasscodeViewStyle)style
 {
     if (self = [super initWithFrame:CGRectMake(0,0,320,393)]) {
         _style = style;
@@ -58,10 +58,10 @@
 {
     // Set up default properties
     self.userInteractionEnabled = YES;
-    _defaultContentLayout = [TOPINViewContentLayout defaultScreenContentLayout];
+    _defaultContentLayout = [TOPasscodeViewContentLayout defaultScreenContentLayout];
     _currentLayout = _defaultContentLayout;
-    _contentLayouts = @[[TOPINViewContentLayout mediumScreenContentLayout],
-                        [TOPINViewContentLayout smallScreenContentLayout]];
+    _contentLayouts = @[[TOPasscodeViewContentLayout mediumScreenContentLayout],
+                        [TOPasscodeViewContentLayout smallScreenContentLayout]];
     _titleText = @"Enter Passcode";
 
     // Start configuring views
@@ -101,10 +101,10 @@
     y = CGRectGetMaxY(frame) + self.currentLayout.titleLabelBottomSpacing;
 
     // Circle Row View
-    frame = self.circleRowView.frame;
+    frame = self.numberInputView.frame;
     frame.origin.y = y;
     frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
-    self.circleRowView.frame = frame;
+    self.numberInputView.frame = frame;
 
     y = CGRectGetMaxY(frame) + self.currentLayout.circleRowBottomSpacing;
 
@@ -122,8 +122,8 @@
     [layouts addObjectsFromArray:self.contentLayouts];
 
     // Loop through each layout (in ascending order) and pick the best one to fit this view
-    TOPINViewContentLayout *contentLayout = self.defaultContentLayout;
-    for (TOPINViewContentLayout *layout in layouts) {
+    TOPasscodeViewContentLayout *contentLayout = self.defaultContentLayout;
+    for (TOPasscodeViewContentLayout *layout in layouts) {
         if (width >= layout.viewWidth) {
             contentLayout = layout;
             break;
@@ -140,7 +140,7 @@
 - (void)sizeToFit
 {
     [self.titleLabel sizeToFit];
-    [self.circleRowView sizeToFit];
+    [self.numberInputView sizeToFit];
     [self.keypadView sizeToFit];
 
     CGRect frame = self.frame;
@@ -158,7 +158,7 @@
     frame.size.height += self.currentLayout.titleLabelBottomSpacing;
 
     // Add height for the circle rows
-    frame.size.height += self.circleRowView.frame.size.height;
+    frame.size.height += self.numberInputView.frame.size.height;
     frame.size.height += self.currentLayout.circleRowBottomSpacing;
 
     // Add height for the keypad
@@ -181,22 +181,22 @@
     [self addSubview:self.titleLabel];
 
     // Set up circle rows
-    self.circleRowView = [[TOPINCircleRowView alloc] init];
-    [self addSubview:self.circleRowView];
+    self.numberInputView = [[TOPasscodeNumberInputView alloc] init];
+    [self addSubview:self.numberInputView];
 
     // Set up pad row
-    self.keypadView = [[TOPINCircleKeypadView alloc] init];
+    self.keypadView = [[TOPasscodeKeypadView alloc] init];
     [self addSubview:self.keypadView];
 }
 
-- (void)updateSubviewsForContentLayout:(TOPINViewContentLayout *)contentLayout
+- (void)updateSubviewsForContentLayout:(TOPasscodeViewContentLayout *)contentLayout
 {
     // Title View
     self.titleLabel.font = contentLayout.titleLabelFont;
 
     // Circle Row View
-    self.circleRowView.circleDiameter = contentLayout.circleRowDiameter;
-    self.circleRowView.circleSpacing = contentLayout.circleRowSpacing;
+    self.numberInputView.circleDiameter = contentLayout.circleRowDiameter;
+    self.numberInputView.circleSpacing = contentLayout.circleRowSpacing;
 
     // Keypad
     self.keypadView.buttonNumberFont = contentLayout.circleButtonTitleLabelFont;
@@ -207,10 +207,10 @@
     self.keypadView.buttonDiameter = contentLayout.circleButtonDiameter;
 }
 
-- (void)applyThemeForStyle:(TOPINViewStyle)style
+- (void)applyThemeForStyle:(TOPasscodeViewStyle)style
 {
-    BOOL isTranslucent = TOPINViewStyleIsTranslucent(style);
-    BOOL isDark = TOPINViewStyleIsDark(style);
+    BOOL isTranslucent = TOPasscodeViewStyleIsTranslucent(style);
+    BOOL isDark = TOPasscodeViewStyleIsDark(style);
 
     // Set title label color
     UIColor *titleLabelColor = self.titleLabelColor;
@@ -223,11 +223,11 @@
     if (isTranslucent) {
         UIBlurEffect *blurEffect = [self blurEffectForStyle:style];
         UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:blurEffect];
-        self.circleRowView.effect = vibrancyEffect;
+        self.numberInputView.effect = vibrancyEffect;
         self.keypadView.vibrancyEffect = vibrancyEffect;
     }
     else {
-        self.circleRowView.effect = nil;
+        self.numberInputView.effect = nil;
         self.keypadView.vibrancyEffect = nil;
     }
 
@@ -238,7 +238,7 @@
     if (circleRowColor == nil) {
         circleRowColor = defaultTintColor;
     }
-    self.circleRowView.tintColor = defaultTintColor;
+    self.numberInputView.tintColor = defaultTintColor;
 
     // Set the tint color of the keypad buttons
     UIColor *keypadButtonBackgroundColor = self.keypadButtonBackgroundColor;
@@ -263,14 +263,14 @@
 }
 
 #pragma mark - Internal Style Management -
-- (UIBlurEffect *)blurEffectForStyle:(TOPINViewStyle)style
+- (UIBlurEffect *)blurEffectForStyle:(TOPasscodeViewStyle)style
 {
     switch (style) {
-        case TOPINViewStyleTranslucentDark:
+        case TOPasscodeViewStyleTranslucentDark:
             return [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        case TOPINViewStyleTranslucentLight:
+        case TOPasscodeViewStyleTranslucentLight:
             return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-        case TOPINViewStyleTranslucentExtraLight:
+        case TOPasscodeViewStyleTranslucentExtraLight:
             return [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
         default: return nil;
     }
@@ -279,17 +279,17 @@
 }
 
 #pragma mark - Accessors -
-- (void)setDefaultContentLayout:(TOPINViewContentLayout *)defaultContentLayout
+- (void)setDefaultContentLayout:(TOPasscodeViewContentLayout *)defaultContentLayout
 {
     if (defaultContentLayout == _defaultContentLayout) { return; }
     _defaultContentLayout = defaultContentLayout;
 
     if (!_defaultContentLayout) {
-        _defaultContentLayout = [TOPINViewContentLayout defaultScreenContentLayout];
+        _defaultContentLayout = [TOPasscodeViewContentLayout defaultScreenContentLayout];
     }
 }
 
-- (void)setCurrentLayout:(TOPINViewContentLayout *)currentLayout
+- (void)setCurrentLayout:(TOPasscodeViewContentLayout *)currentLayout
 {
     if (_currentLayout == currentLayout) { return; }
     _currentLayout = currentLayout;
@@ -298,7 +298,7 @@
     [self updateSubviewsForContentLayout:currentLayout];
 }
 
-- (void)setStyle:(TOPINViewStyle)style
+- (void)setStyle:(TOPasscodeViewStyle)style
 {
     if (style == _style) { return; }
     _style = style;

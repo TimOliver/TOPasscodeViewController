@@ -1,24 +1,24 @@
 //
-//  TOPINViewControllerAnimatedTransitioning.m
-//  TOPINViewControllerExample
+//  TOPasscodeViewControllerAnimatedTransitioning.m
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/15/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPINViewControllerAnimatedTransitioning.h"
-#import "TOPINViewController.h"
+#import "TOPasscodeViewControllerAnimatedTransitioning.h"
+#import "TOPasscodeViewController.h"
 
-@interface TOPINViewControllerAnimatedTransitioning ()
-@property (nonatomic, weak) TOPINViewController *pinViewController;
+@interface TOPasscodeViewControllerAnimatedTransitioning ()
+@property (nonatomic, weak) TOPasscodeViewController *passcodeViewController;
 @end
 
-@implementation TOPINViewControllerAnimatedTransitioning
+@implementation TOPasscodeViewControllerAnimatedTransitioning
 
-- (instancetype)initWithPINViewController:(TOPINViewController *)pinViewController dismissing:(BOOL)dismissing
+- (instancetype)initWithPasscodeViewController:(TOPasscodeViewController *)passcodeViewController dismissing:(BOOL)dismissing
 {
     if (self = [super init]) {
-        _pinViewController = pinViewController;
+        _passcodeViewController = passcodeViewController;
         _dismissing = dismissing;
     }
 
@@ -33,14 +33,14 @@
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
 {
     UIView *containerView = transitionContext.containerView;
-    UIVisualEffectView *backgroundView = self.pinViewController.backgroundEffectView;
+    UIVisualEffectView *backgroundView = self.passcodeViewController.backgroundEffectView;
     UIVisualEffect *backgroundEffect = backgroundView.effect;
 
     if (!self.dismissing) {
         backgroundView.effect = nil;
 
-        self.pinViewController.view.frame = containerView.bounds;
-        [containerView addSubview:self.pinViewController.view];
+        self.passcodeViewController.view.frame = containerView.bounds;
+        [containerView addSubview:self.passcodeViewController.view];
     }
 
     id animationBlock = ^{

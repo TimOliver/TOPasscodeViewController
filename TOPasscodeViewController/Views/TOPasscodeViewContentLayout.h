@@ -1,6 +1,6 @@
 //
-//  TOPINViewContentConfiguration.h
-//  TOPINViewControllerExample
+//  TOPasscodeViewContentConfiguration.h
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/19/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface TOPINViewContentLayout : NSObject
+@interface TOPasscodeViewContentLayout : NSObject
 
 /* The width of the PIN view in which this layout object is sizing the content to fit. */
 @property (nonatomic, assign) CGFloat viewWidth;
@@ -38,8 +38,8 @@
 @property (nonatomic, assign) CGFloat circleButtonLetteringSpacing;     // The spacing between the 'ABC' characters
 
 /* Default layout configurations for the various sizes */
-+ (TOPINViewContentLayout *)defaultScreenContentLayout;       /* Default layout values. Designed for iPhone 6 Plus and above. */
-+ (TOPINViewContentLayout *)mediumScreenContentLayout;        /* For medium screen sizes, like iPhone 6, or 1/4 view on iPad Pro. */
-+ (TOPINViewContentLayout *)smallScreenContentLayout;  /* For the smallest screens, like iPhone SE, and 1/4 on standard size iPads/ */
++ (TOPasscodeViewContentLayout *)defaultScreenContentLayout;       /* Default layout values. Designed for iPhone 6 Plus and above. */
++ (TOPasscodeViewContentLayout *)mediumScreenContentLayout;        /* For medium screen sizes, like iPhone 6, or 1/4 view on iPad Pro. */
++ (TOPasscodeViewContentLayout *)smallScreenContentLayout;  /* For the smallest screens, like iPhone SE, and 1/4 on standard size iPads/ */
 
 @end

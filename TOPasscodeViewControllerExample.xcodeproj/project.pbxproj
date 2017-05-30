@@ -8,20 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		221D96E21EDC03FF004314BF /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221D96E11EDC03FF004314BF /* LocalAuthentication.framework */; };
-		22D3611E1EDCC1CC002E5D35 /* TOPINImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610A1EDCC1CC002E5D35 /* TOPINImage.m */; };
-		22D3611F1EDCC1CC002E5D35 /* TOPINViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610C1EDCC1CC002E5D35 /* TOPINViewControllerAnimatedTransitioning.m */; };
-		22D361201EDCC1CC002E5D35 /* TOPINViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361101EDCC1CC002E5D35 /* TOPINViewController.m */; };
-		22D361211EDCC1CC002E5D35 /* TOPINCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361131EDCC1CC002E5D35 /* TOPINCircleButton.m */; };
-		22D361221EDCC1CC002E5D35 /* TOPINCircleKeypadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361151EDCC1CC002E5D35 /* TOPINCircleKeypadView.m */; };
-		22D361231EDCC1CC002E5D35 /* TOPINCircleRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361171EDCC1CC002E5D35 /* TOPINCircleRowView.m */; };
-		22D361241EDCC1CC002E5D35 /* TOPINCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361191EDCC1CC002E5D35 /* TOPINCircleView.m */; };
-		22D361251EDCC1CC002E5D35 /* TOPINView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3611B1EDCC1CC002E5D35 /* TOPINView.m */; };
-		22D361261EDCC1CC002E5D35 /* TOPINViewContentLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3611D1EDCC1CC002E5D35 /* TOPINViewContentLayout.m */; };
+		22D3611E1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */; };
+		22D3611F1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610C1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m */; };
+		22D361201EDCC1CC002E5D35 /* TOPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361101EDCC1CC002E5D35 /* TOPasscodeViewController.m */; };
+		22D361211EDCC1CC002E5D35 /* TOPasscodeCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361131EDCC1CC002E5D35 /* TOPasscodeCircleButton.m */; };
+		22D361221EDCC1CC002E5D35 /* TOPasscodeKeypadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361151EDCC1CC002E5D35 /* TOPasscodeKeypadView.m */; };
+		22D361231EDCC1CC002E5D35 /* TOPasscodeNumberInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361171EDCC1CC002E5D35 /* TOPasscodeNumberInputView.m */; };
+		22D361241EDCC1CC002E5D35 /* TOPasscodeCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361191EDCC1CC002E5D35 /* TOPasscodeCircleView.m */; };
+		22D361251EDCC1CC002E5D35 /* TOPasscodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3611B1EDCC1CC002E5D35 /* TOPasscodeView.m */; };
+		22D361261EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3611D1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.m */; };
 		22D361341EDCC1D7002E5D35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361291EDCC1D7002E5D35 /* AppDelegate.m */; };
 		22D361351EDCC1D7002E5D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22D3612A1EDCC1D7002E5D35 /* Assets.xcassets */; };
 		22D361361EDCC1D7002E5D35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22D3612B1EDCC1D7002E5D35 /* LaunchScreen.storyboard */; };
 		22D361371EDCC1D7002E5D35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22D3612D1EDCC1D7002E5D35 /* Main.storyboard */; };
-		22D361381EDCC1D7002E5D35 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D3612F1EDCC1D7002E5D35 /* Info.plist */; };
 		22D361391EDCC1D7002E5D35 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361301EDCC1D7002E5D35 /* main.m */; };
 		22D3613A1EDCC1D7002E5D35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361321EDCC1D7002E5D35 /* ViewController.m */; };
 		22D3613B1EDCC1D7002E5D35 /* wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22D361331EDCC1D7002E5D35 /* wallpaper.jpg */; };
@@ -41,25 +40,25 @@
 
 /* Begin PBXFileReference section */
 		221D96E11EDC03FF004314BF /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
-		22D361091EDCC1CC002E5D35 /* TOPINImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINImage.h; sourceTree = "<group>"; };
-		22D3610A1EDCC1CC002E5D35 /* TOPINImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINImage.m; sourceTree = "<group>"; };
-		22D3610B1EDCC1CC002E5D35 /* TOPINViewControllerAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINViewControllerAnimatedTransitioning.h; sourceTree = "<group>"; };
-		22D3610C1EDCC1CC002E5D35 /* TOPINViewControllerAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINViewControllerAnimatedTransitioning.m; sourceTree = "<group>"; };
-		22D3610E1EDCC1CC002E5D35 /* TOPINViewControllerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINViewControllerConstants.h; sourceTree = "<group>"; };
-		22D3610F1EDCC1CC002E5D35 /* TOPINViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINViewController.h; sourceTree = "<group>"; };
-		22D361101EDCC1CC002E5D35 /* TOPINViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINViewController.m; sourceTree = "<group>"; };
-		22D361121EDCC1CC002E5D35 /* TOPINCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINCircleButton.h; sourceTree = "<group>"; };
-		22D361131EDCC1CC002E5D35 /* TOPINCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleButton.m; sourceTree = "<group>"; };
-		22D361141EDCC1CC002E5D35 /* TOPINCircleKeypadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINCircleKeypadView.h; sourceTree = "<group>"; };
-		22D361151EDCC1CC002E5D35 /* TOPINCircleKeypadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleKeypadView.m; sourceTree = "<group>"; };
-		22D361161EDCC1CC002E5D35 /* TOPINCircleRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINCircleRowView.h; sourceTree = "<group>"; };
-		22D361171EDCC1CC002E5D35 /* TOPINCircleRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleRowView.m; sourceTree = "<group>"; };
-		22D361181EDCC1CC002E5D35 /* TOPINCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINCircleView.h; sourceTree = "<group>"; };
-		22D361191EDCC1CC002E5D35 /* TOPINCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINCircleView.m; sourceTree = "<group>"; };
-		22D3611A1EDCC1CC002E5D35 /* TOPINView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINView.h; sourceTree = "<group>"; };
-		22D3611B1EDCC1CC002E5D35 /* TOPINView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINView.m; sourceTree = "<group>"; };
-		22D3611C1EDCC1CC002E5D35 /* TOPINViewContentLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPINViewContentLayout.h; sourceTree = "<group>"; };
-		22D3611D1EDCC1CC002E5D35 /* TOPINViewContentLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINViewContentLayout.m; sourceTree = "<group>"; };
+		22D361091EDCC1CC002E5D35 /* TOPasscodeCircleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeCircleImage.h; sourceTree = "<group>"; };
+		22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeCircleImage.m; sourceTree = "<group>"; };
+		22D3610B1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeViewControllerAnimatedTransitioning.h; sourceTree = "<group>"; };
+		22D3610C1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeViewControllerAnimatedTransitioning.m; sourceTree = "<group>"; };
+		22D3610E1EDCC1CC002E5D35 /* TOPasscodeViewControllerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeViewControllerConstants.h; sourceTree = "<group>"; };
+		22D3610F1EDCC1CC002E5D35 /* TOPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeViewController.h; sourceTree = "<group>"; };
+		22D361101EDCC1CC002E5D35 /* TOPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeViewController.m; sourceTree = "<group>"; };
+		22D361121EDCC1CC002E5D35 /* TOPasscodeCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeCircleButton.h; sourceTree = "<group>"; };
+		22D361131EDCC1CC002E5D35 /* TOPasscodeCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeCircleButton.m; sourceTree = "<group>"; };
+		22D361141EDCC1CC002E5D35 /* TOPasscodeKeypadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeKeypadView.h; sourceTree = "<group>"; };
+		22D361151EDCC1CC002E5D35 /* TOPasscodeKeypadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeKeypadView.m; sourceTree = "<group>"; };
+		22D361161EDCC1CC002E5D35 /* TOPasscodeNumberInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeNumberInputView.h; sourceTree = "<group>"; };
+		22D361171EDCC1CC002E5D35 /* TOPasscodeNumberInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeNumberInputView.m; sourceTree = "<group>"; };
+		22D361181EDCC1CC002E5D35 /* TOPasscodeCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeCircleView.h; sourceTree = "<group>"; };
+		22D361191EDCC1CC002E5D35 /* TOPasscodeCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeCircleView.m; sourceTree = "<group>"; };
+		22D3611A1EDCC1CC002E5D35 /* TOPasscodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeView.h; sourceTree = "<group>"; };
+		22D3611B1EDCC1CC002E5D35 /* TOPasscodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeView.m; sourceTree = "<group>"; };
+		22D3611C1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeViewContentLayout.h; sourceTree = "<group>"; };
+		22D3611D1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeViewContentLayout.m; sourceTree = "<group>"; };
 		22D361281EDCC1D7002E5D35 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22D361291EDCC1D7002E5D35 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		22D3612A1EDCC1D7002E5D35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,8 +105,8 @@
 		22D361071EDCC1CC002E5D35 /* TOPasscodeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				22D3610F1EDCC1CC002E5D35 /* TOPINViewController.h */,
-				22D361101EDCC1CC002E5D35 /* TOPINViewController.m */,
+				22D3610F1EDCC1CC002E5D35 /* TOPasscodeViewController.h */,
+				22D361101EDCC1CC002E5D35 /* TOPasscodeViewController.m */,
 				22D361081EDCC1CC002E5D35 /* Models */,
 				22D361111EDCC1CC002E5D35 /* Views */,
 				22D3610D1EDCC1CC002E5D35 /* Supporting */,
@@ -118,10 +117,10 @@
 		22D361081EDCC1CC002E5D35 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				22D361091EDCC1CC002E5D35 /* TOPINImage.h */,
-				22D3610A1EDCC1CC002E5D35 /* TOPINImage.m */,
-				22D3610B1EDCC1CC002E5D35 /* TOPINViewControllerAnimatedTransitioning.h */,
-				22D3610C1EDCC1CC002E5D35 /* TOPINViewControllerAnimatedTransitioning.m */,
+				22D361091EDCC1CC002E5D35 /* TOPasscodeCircleImage.h */,
+				22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */,
+				22D3610B1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.h */,
+				22D3610C1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -129,7 +128,7 @@
 		22D3610D1EDCC1CC002E5D35 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
-				22D3610E1EDCC1CC002E5D35 /* TOPINViewControllerConstants.h */,
+				22D3610E1EDCC1CC002E5D35 /* TOPasscodeViewControllerConstants.h */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -137,18 +136,18 @@
 		22D361111EDCC1CC002E5D35 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				22D361121EDCC1CC002E5D35 /* TOPINCircleButton.h */,
-				22D361131EDCC1CC002E5D35 /* TOPINCircleButton.m */,
-				22D361141EDCC1CC002E5D35 /* TOPINCircleKeypadView.h */,
-				22D361151EDCC1CC002E5D35 /* TOPINCircleKeypadView.m */,
-				22D361161EDCC1CC002E5D35 /* TOPINCircleRowView.h */,
-				22D361171EDCC1CC002E5D35 /* TOPINCircleRowView.m */,
-				22D361181EDCC1CC002E5D35 /* TOPINCircleView.h */,
-				22D361191EDCC1CC002E5D35 /* TOPINCircleView.m */,
-				22D3611A1EDCC1CC002E5D35 /* TOPINView.h */,
-				22D3611B1EDCC1CC002E5D35 /* TOPINView.m */,
-				22D3611C1EDCC1CC002E5D35 /* TOPINViewContentLayout.h */,
-				22D3611D1EDCC1CC002E5D35 /* TOPINViewContentLayout.m */,
+				22D3611A1EDCC1CC002E5D35 /* TOPasscodeView.h */,
+				22D3611B1EDCC1CC002E5D35 /* TOPasscodeView.m */,
+				22D3611C1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.h */,
+				22D3611D1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.m */,
+				22D361181EDCC1CC002E5D35 /* TOPasscodeCircleView.h */,
+				22D361191EDCC1CC002E5D35 /* TOPasscodeCircleView.m */,
+				22D361121EDCC1CC002E5D35 /* TOPasscodeCircleButton.h */,
+				22D361131EDCC1CC002E5D35 /* TOPasscodeCircleButton.m */,
+				22D361141EDCC1CC002E5D35 /* TOPasscodeKeypadView.h */,
+				22D361151EDCC1CC002E5D35 /* TOPasscodeKeypadView.m */,
+				22D361161EDCC1CC002E5D35 /* TOPasscodeNumberInputView.h */,
+				22D361171EDCC1CC002E5D35 /* TOPasscodeNumberInputView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -283,7 +282,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22D361381EDCC1D7002E5D35 /* Info.plist in Resources */,
 				22D361371EDCC1D7002E5D35 /* Main.storyboard in Resources */,
 				22D361351EDCC1D7002E5D35 /* Assets.xcassets in Resources */,
 				22D361361EDCC1D7002E5D35 /* LaunchScreen.storyboard in Resources */,
@@ -306,18 +304,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22D3611F1EDCC1CC002E5D35 /* TOPINViewControllerAnimatedTransitioning.m in Sources */,
-				22D361201EDCC1CC002E5D35 /* TOPINViewController.m in Sources */,
-				22D3611E1EDCC1CC002E5D35 /* TOPINImage.m in Sources */,
-				22D361241EDCC1CC002E5D35 /* TOPINCircleView.m in Sources */,
+				22D3611F1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m in Sources */,
+				22D361201EDCC1CC002E5D35 /* TOPasscodeViewController.m in Sources */,
+				22D3611E1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m in Sources */,
+				22D361241EDCC1CC002E5D35 /* TOPasscodeCircleView.m in Sources */,
 				22D361341EDCC1D7002E5D35 /* AppDelegate.m in Sources */,
-				22D361251EDCC1CC002E5D35 /* TOPINView.m in Sources */,
+				22D361251EDCC1CC002E5D35 /* TOPasscodeView.m in Sources */,
 				22D3613A1EDCC1D7002E5D35 /* ViewController.m in Sources */,
-				22D361211EDCC1CC002E5D35 /* TOPINCircleButton.m in Sources */,
-				22D361261EDCC1CC002E5D35 /* TOPINViewContentLayout.m in Sources */,
-				22D361231EDCC1CC002E5D35 /* TOPINCircleRowView.m in Sources */,
+				22D361211EDCC1CC002E5D35 /* TOPasscodeCircleButton.m in Sources */,
+				22D361261EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.m in Sources */,
+				22D361231EDCC1CC002E5D35 /* TOPasscodeNumberInputView.m in Sources */,
 				22D361391EDCC1D7002E5D35 /* main.m in Sources */,
-				22D361221EDCC1CC002E5D35 /* TOPINCircleKeypadView.m in Sources */,
+				22D361221EDCC1CC002E5D35 /* TOPasscodeKeypadView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

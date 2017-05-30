@@ -1,6 +1,6 @@
 //
-//  TOPINCircleKeypadView.h
-//  TOPINViewControllerExample
+//  TOPasscodeCircleKeypadView.h
+//  TOPasscodeViewControllerExample
 //
 //  Created by Tim Oliver on 5/17/17.
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TOPINCircleButton;
+@class TOPasscodeCircleButton;
 
-@interface TOPINCircleKeypadView : UIView
+@interface TOPasscodeKeypadView : UIView
 
 /** The vibrancy effect to be applied to each button background */
 @property (nonatomic, strong, nullable) UIVibrancyEffect *vibrancyEffect;
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIView *rightAccessoryView;
 
 /** The controls making up each of the button views */
-@property (nonatomic, readonly) NSArray<TOPINCircleButton *> *pinButtons;
+@property (nonatomic, readonly) NSArray<TOPasscodeCircleButton *> *pinButtons;
 
 @end
 
