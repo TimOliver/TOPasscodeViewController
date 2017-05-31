@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* Add additional characters to the end of the passcode, and animate if desired. */
 - (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated;
 
+/* Delete a number of characters from the end, animated if desired. */
+- (void)deletePasscodeCharactersOfCount:(NSInteger)deleteCount animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

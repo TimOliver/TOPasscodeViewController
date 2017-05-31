@@ -107,9 +107,34 @@
 }
 
 #pragma mark - Text Input Protocol -
+- (BOOL)canBecomeFirstResponder { return YES; }
+- (BOOL)canResignFirstResponder { return YES; }
+
 - (BOOL)hasText
 {
     return self.passcode.length > 0;
+}
+
+- (void)insertText:(NSString *)text
+{
+    [self appendPasscodeCharacters:text animated:YES];
+}
+- (void)deleteBackward
+{
+    [self deletePasscodeCharactersOfCount:1 animated:YES];
+}
+
+- (UIKeyboardType)keyboardType { return UIKeyboardTypeNumberPad; }
+
+#pragma mark - Text Input -
+- (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated
+{
+
+}
+
+- (void)deletePasscodeCharactersOfCount:(NSInteger)deleteCount animated:(BOOL)animated
+{
+
 }
 
 #pragma mark - Public Accessors -
