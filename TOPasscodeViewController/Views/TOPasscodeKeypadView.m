@@ -41,11 +41,14 @@
 
 - (void)setUpButtons
 {
+    NSMutableArray *buttons = [NSMutableArray array];
+
     NSInteger numberOfButtons = 10;
     NSArray *letteredTitles = @[@"ABC", @"DEF", @"GHI", @"JKL",
                                 @"MNO", @"PQRS", @"TUV", @"WXYZ"];
 
-    NSMutableArray *buttons = [NSMutableArray array];
+    __weak typeof(self) weakSelf = self;
+
     for (NSInteger i = 0; i < numberOfButtons; i++) {
         // Work out the button number text
         NSInteger buttonNumber = i + 1;
@@ -58,12 +61,21 @@
             letteringString = letteredTitles[i-1];
         }
 
+        // Create a new button
         TOPasscodeCircleButton *circleButton = [[TOPasscodeCircleButton alloc] initWithNumberString:numberString letteringString:letteringString];
         circleButton.backgroundImage = self.buttonImage;
         circleButton.hightlightedBackgroundImage = self.tappedButtonImage;
         circleButton.vibrancyEffect = self.vibrancyEffect;
-        [self addSubview:circleButton];
 
+        // Add handler for when button is tapped
+        circleButton.buttonTappedHandler = ^{
+            if (weakSelf.buttonTappedHandler) {
+                weakSelf.buttonTappedHandler(buttonNumber);
+            }
+        };
+
+        // Add the button
+        [self addSubview:circleButton];
         [buttons addObject:circleButton];
     }
 

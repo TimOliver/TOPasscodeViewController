@@ -60,6 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** The controls making up each of the button views */
 @property (nonatomic, readonly) NSArray<TOPasscodeCircleButton *> *pinButtons;
 
+/** The block that is triggered whenever a user taps one of the buttons */
+@property (nonatomic, copy) void (^buttonTappedHandler)(NSInteger buttonNumber);
+
 @end
 
 NS_ASSUME_NONNULL_END
