@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2205DFBA1EDF42A00071BC7F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205DFB91EDF42A00071BC7F /* AudioToolbox.framework */; };
 		221D96E21EDC03FF004314BF /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221D96E11EDC03FF004314BF /* LocalAuthentication.framework */; };
 		22D3611E1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */; };
 		22D3611F1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610C1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2205DFB91EDF42A00071BC7F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		221D96E11EDC03FF004314BF /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		22D361091EDCC1CC002E5D35 /* TOPasscodeCircleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeCircleImage.h; sourceTree = "<group>"; };
 		22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeCircleImage.m; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2205DFBA1EDF42A00071BC7F /* AudioToolbox.framework in Frameworks */,
 				221D96E21EDC03FF004314BF /* LocalAuthentication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,6 +100,7 @@
 		221D96E01EDC03FF004314BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2205DFB91EDF42A00071BC7F /* AudioToolbox.framework */,
 				221D96E11EDC03FF004314BF /* LocalAuthentication.framework */,
 			);
 			name = Frameworks;

@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger requiredLength;
 
 /* The current passcode entered into this view */
-@property (nonatomic, copy) NSString *passcode;
+@property (nonatomic, copy, nullable) NSString *passcode;
 
 /* If this view is directly receiving input, this can change the `UIKeyboard` appearance. */
 @property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
@@ -31,13 +31,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithRequiredLength:(NSInteger)length;
 
 /* Replace the passcode with this one, and animate the transition */
-- (void)setPasscode:(NSString *)passcode animated:(BOOL)animated;
+- (void)setPasscode:(nullable NSString *)passcode animated:(BOOL)animated;
 
 /* Add additional characters to the end of the passcode, and animate if desired. */
 - (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated;
 
 /* Delete a number of characters from the end, animated if desired. */
 - (void)deletePasscodeCharactersOfCount:(NSInteger)deleteCount animated:(BOOL)animated;
+
+/* Plays a shaking animation and resets the passcode back to empty */
+- (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact;
 
 @end
 

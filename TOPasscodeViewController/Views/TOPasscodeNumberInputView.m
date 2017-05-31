@@ -10,6 +10,8 @@
 #import "TOPasscodeCircleView.h"
 #import "TOPasscodeCircleImage.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 @interface TOPasscodeNumberInputView ()
 @property (nonatomic, strong) NSMutableArray<TOPasscodeCircleView *> *circleViews;
 
@@ -108,12 +110,8 @@
 
 #pragma mark - Text Input Protocol -
 - (BOOL)canBecomeFirstResponder { return YES; }
-- (BOOL)canResignFirstResponder { return YES; }
 
-- (BOOL)hasText
-{
-    return self.passcode.length > 0;
-}
+- (BOOL)hasText { return self.passcode.length > 0; }
 
 - (void)insertText:(NSString *)text
 {
@@ -163,6 +161,37 @@
         [circleView setHighlighted:(i < count) animated:animated];
         i++;
     }
+}
+
+- (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact
+{
+    [self setPasscode:nil animated:animated];
+
+    if (impact) {
+        // https://stackoverflow.com/questions/41444274/how-to-check-if-haptic-engine-uifeedbackgenerator-is-supported
+        AudioServicesPlaySystemSoundWithCompletion(1521, nil);
+    }
+
+    if (!animated) { return; }
+
+    CGPoint center = self.center;
+    CGPoint offset = center;
+    offset.x -= self.frame.size.width * 0.3f;
+
+    // Play the view sliding out and then springing back in
+    id completionBlock = ^(BOOL finished) {
+        [UIView animateWithDuration:1.0f
+                              delay:0.0f
+             usingSpringWithDamping:0.15f
+              initialSpringVelocity:10.0f
+                            options:0 animations:^{
+                                self.center = center;
+                            }completion:nil];
+    };
+
+    [UIView animateWithDuration:0.05f animations:^{
+        self.center = offset;
+    }completion:completionBlock];
 }
 
 #pragma mark - Public Accessors -
