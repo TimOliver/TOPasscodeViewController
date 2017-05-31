@@ -26,12 +26,16 @@
 
 - (IBAction)showButtonTapped:(id)sender
 {
-    TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] init];
+    TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:TOPasscodeViewStyleTranslucentExtraLight];
     [self presentViewController:passcodeViewController animated:YES completion:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
+    if (self.presentedViewController) {
+        return [self.presentedViewController preferredStatusBarStyle];
+    }
+
     return UIStatusBarStyleLightContent;
 }
 @end
