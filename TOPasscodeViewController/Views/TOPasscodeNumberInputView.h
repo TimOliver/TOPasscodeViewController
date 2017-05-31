@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* The current passcode entered into this view */
 @property (nonatomic, copy) NSString *passcode;
 
+/* If this view is directly receiving input, this can change the `UIKeyboard` appearance. */
+@property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
+
 /* Init with the target length needed for this passcode */
 - (instancetype)initWithRequiredLength:(NSInteger)length;
 

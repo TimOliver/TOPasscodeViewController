@@ -127,6 +127,11 @@
 - (UIKeyboardType)keyboardType { return UIKeyboardTypeNumberPad; }
 
 #pragma mark - Text Input -
+- (void)setPasscode:(NSString *)passcode animated:(BOOL)animated
+{
+
+}
+
 - (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated
 {
 
@@ -138,6 +143,11 @@
 }
 
 #pragma mark - Public Accessors -
+
+- (void)setPasscode:(NSString *)passcode
+{
+    [self setPasscode:passcode animated:NO];
+}
 
 - (void)setCircleSpacing:(CGFloat)circleSpacing
 {

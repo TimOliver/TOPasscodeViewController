@@ -182,6 +182,7 @@
 
     // Set up circle rows
     self.numberInputView = [[TOPasscodeNumberInputView alloc] init];
+    self.numberInputView.keyboardAppearance = UIKeyboardAppearanceDark;
     [self addSubview:self.numberInputView];
 
     // Set up pad row
