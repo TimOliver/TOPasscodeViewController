@@ -129,17 +129,38 @@
 #pragma mark - Text Input -
 - (void)setPasscode:(NSString *)passcode animated:(BOOL)animated
 {
+    if ([passcode isEqualToString:self.passcode]) { return; }
+    _passcode = @"";
 
+    NSInteger length = MIN(passcode.length, self.requiredLength);
+
+    for (NSInteger i = 0; i < length; i++) {
+        NSInteger intValue = [[passcode substringWithRange:NSMakeRange(i, 1)] integerValue];
+        _passcode = [_passcode stringByAppendingFormat:@"%ld", intValue];
+    }
+
+    [self updateHighlightedCirclesWithCount:_passcode.length animated:animated];
 }
 
 - (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated
 {
-
+    if (characters == nil) { return; }
+    [self setPasscode:[self.passcode stringByAppendingString:characters] animated:animated];
 }
 
 - (void)deletePasscodeCharactersOfCount:(NSInteger)deleteCount animated:(BOOL)animated
 {
+    if (deleteCount <= 0) { return; }
+    [self setPasscode:[self.passcode substringToIndex:(self.passcode.length - 1)] animated:animated];
+}
 
+- (void)updateHighlightedCirclesWithCount:(NSInteger)count animated:(BOOL)animated
+{
+    NSInteger i = 0;
+    for (TOPasscodeCircleView *circleView in self.circleViews) {
+        [circleView setHighlighted:(i < count) animated:animated];
+        i++;
+    }
 }
 
 #pragma mark - Public Accessors -
