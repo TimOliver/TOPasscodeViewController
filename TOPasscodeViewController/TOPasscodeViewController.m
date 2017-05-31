@@ -10,6 +10,7 @@
 #import "TOPasscodeView.h"
 #import "TOPasscodeViewControllerAnimatedTransitioning.h"
 #import "TOPasscodeKeypadView.h"
+#import "TOPasscodeNumberInputView.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
 @interface TOPasscodeViewController () <UIViewControllerTransitioningDelegate>
@@ -141,7 +142,6 @@
 }
 
 #pragma mark - View Management -
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -165,6 +165,17 @@
 
     // Re-center the pin view
     self.passcodeView.center = self.view.center;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return TOPasscodeViewStyleIsDark(self.style) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 #pragma mark - View Styling -
