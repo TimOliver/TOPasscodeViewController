@@ -109,7 +109,7 @@
         [self.biometricButton addTarget:self action:@selector(accessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
         if (isPad) {
-            self.pinView.leftButton = self.biometricButton;
+            self.passcodeView.leftButton = self.biometricButton;
         }
         else {
             [self.view addSubview:self.biometricButton];
@@ -126,7 +126,7 @@
         self.cancelButton.titleLabel.font = buttonFont;
         [self.cancelButton addTarget:self action:@selector(accessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         if (isPad) {
-            self.pinView.rightButton = self.cancelButton;
+            self.passcodeView.rightButton = self.cancelButton;
         }
         else {
             [self.view addSubview:self.cancelButton];
@@ -161,10 +161,10 @@
     [self layoutAccessoryButtonsForWidth:bounds.width];
 
     // Resize the pin view to scale to the new size
-    [self.pinView sizeToFitWidth:bounds.width];
+    [self.passcodeView sizeToFitWidth:bounds.width];
 
     // Re-center the pin view
-    self.pinView.center = self.view.center;
+    self.passcodeView.center = self.view.center;
 }
 
 #pragma mark - View Styling -
@@ -214,20 +214,20 @@
         verticalInset = 43.0f;
     }
 
-    CGFloat inset = self.pinView.keypadButtonInset;
+    CGFloat inset = self.passcodeView.keypadButtonInset;
     CGPoint point = (CGPoint){0.0f, self.view.bounds.size.height - verticalInset};
 
     UIButton *leftButton = self.leftAccessoryButton ? self.leftAccessoryButton : self.biometricButton;
     if (leftButton) {
         [leftButton sizeToFit];
-        point.x = self.pinView.frame.origin.x + inset;
+        point.x = self.passcodeView.frame.origin.x + inset;
         leftButton.center = point;
     }
 
     UIButton *rightButton = self.rightAccessoryButton ? self.rightAccessoryButton : self.cancelButton;
     if (rightButton) {
         [rightButton sizeToFit];
-        point.x = CGRectGetMaxX(self.pinView.frame) - inset;
+        point.x = CGRectGetMaxX(self.passcodeView.frame) - inset;
         rightButton.center = point;
     }
 }
@@ -236,13 +236,13 @@
 - (void)accessoryButtonTapped:(id)sender
 {
     if (sender == self.cancelButton) {
-        if ([self.delegate respondsToSelector:@selector(didTapCancelInPINViewController:)]) {
-            [self.delegate didTapCancelInPINViewController:self];
+        if ([self.delegate respondsToSelector:@selector(didTapCancelInPasscodeViewController:)]) {
+            [self.delegate didTapCancelInPasscodeViewController:self];
         }
     }
     else if (sender == self.biometricButton) {
-        if ([self.delegate respondsToSelector:@selector(didInitiateBiometricValidationRequestInPINViewController:)]) {
-            [self.delegate didInitiateBiometricValidationRequestInPINViewController:self];
+        if ([self.delegate respondsToSelector:@selector(didInitiateBiometricValidationRequestInPasscodeViewController:)]) {
+            [self.delegate didInitiateBiometricValidationRequestInPasscodeViewController:self];
         }
     }
 }
@@ -261,7 +261,7 @@
 }
 
 #pragma mark - Public Accessors -
-- (TOPasscodeView *)pinView
+- (TOPasscodeView *)passcodeView
 {
     if (_passcodeView) { return _passcodeView; }
 
@@ -279,7 +279,7 @@
     if (style == _style) { return; }
     _style = style;
 
-    self.pinView.style = style;
+    self.passcodeView.style = style;
     [self setUpBackgroundEffectViewForStyle:style];
 }
 
@@ -299,38 +299,38 @@
 
 - (void)setTitleLabelColor:(UIColor *)titleLabelColor
 {
-    self.pinView.titleLabelColor = titleLabelColor;
+    self.passcodeView.titleLabelColor = titleLabelColor;
 }
 
-- (UIColor *)titleLabelColor { return self.pinView.titleLabelColor; }
+- (UIColor *)titleLabelColor { return self.passcodeView.titleLabelColor; }
 
 - (void)setInputProgressViewTintColor:(UIColor *)inputProgressViewTintColor
 {
-    self.pinView.inputProgressViewTintColor = inputProgressViewTintColor;
+    self.passcodeView.inputProgressViewTintColor = inputProgressViewTintColor;
 }
 
-- (UIColor *)inputProgressViewTintColor { return self.pinView.inputProgressViewTintColor; }
+- (UIColor *)inputProgressViewTintColor { return self.passcodeView.inputProgressViewTintColor; }
 
 - (void)setkeypadButtonBackgroundTintColor:(UIColor *)keypadButtonBackgroundTintColor
 {
-    self.pinView.keypadButtonBackgroundColor = keypadButtonBackgroundTintColor;
+    self.passcodeView.keypadButtonBackgroundColor = keypadButtonBackgroundTintColor;
 }
 
-- (UIColor *)keypadButtonBackgroundTintColor { return self.pinView.keypadButtonBackgroundColor; }
+- (UIColor *)keypadButtonBackgroundTintColor { return self.passcodeView.keypadButtonBackgroundColor; }
 
 - (void)setKeypadButtonTextColor:(UIColor *)keypadButtonTextColor
 {
-    self.pinView.keypadButtonTextColor = keypadButtonTextColor;
+    self.passcodeView.keypadButtonTextColor = keypadButtonTextColor;
 }
 
-- (UIColor *)keypadButtonTextColor { return self.pinView.keypadButtonTextColor; }
+- (UIColor *)keypadButtonTextColor { return self.passcodeView.keypadButtonTextColor; }
 
 - (void)setKeypadButtonHighlightedTextColor:(UIColor *)keypadButtonHighlightedTextColor
 {
-    self.pinView.keypadButtonHighlightedTextColor = keypadButtonHighlightedTextColor;
+    self.passcodeView.keypadButtonHighlightedTextColor = keypadButtonHighlightedTextColor;
 }
 
-- (UIColor *)keypadButtonHighlightedTextColor { return self.pinView.keypadButtonHighlightedTextColor; }
+- (UIColor *)keypadButtonHighlightedTextColor { return self.passcodeView.keypadButtonHighlightedTextColor; }
 
 - (void)setAccessoryButtonTintColor:(UIColor *)accessoryButtonTintColor
 {
