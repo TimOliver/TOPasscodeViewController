@@ -106,6 +106,8 @@
     [self setNeedsLayout];
 }
 
+#pragma mark - Text Input Protocol -
+
 #pragma mark - Public Accessors -
 
 - (void)setCircleSpacing:(CGFloat)circleSpacing

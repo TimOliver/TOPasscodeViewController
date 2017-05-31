@@ -21,9 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 /* The number of circles in this view (Default is 4) */
 @property (nonatomic, assign) NSInteger requiredLength;
 
-/* From the left, the number of circles that are highlighted. */
-@property (nonatomic, assign) NSInteger length;
-
 /* The current passcode entered into this view */
 @property (nonatomic, copy) NSString *passcode;
 
