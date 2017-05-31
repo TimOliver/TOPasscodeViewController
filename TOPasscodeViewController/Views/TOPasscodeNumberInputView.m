@@ -117,7 +117,7 @@
 
 - (void)insertText:(NSString *)text
 {
-    [self appendPasscodeCharacters:text animated:YES];
+    [self appendPasscodeCharacters:text animated:NO];
 }
 - (void)deleteBackward
 {
@@ -150,7 +150,7 @@
 
 - (void)deletePasscodeCharactersOfCount:(NSInteger)deleteCount animated:(BOOL)animated
 {
-    if (deleteCount <= 0) { return; }
+    if (deleteCount <= 0 || self.passcode.length <= 0) { return; }
     [self setPasscode:[self.passcode substringToIndex:(self.passcode.length - 1)] animated:animated];
 }
 
