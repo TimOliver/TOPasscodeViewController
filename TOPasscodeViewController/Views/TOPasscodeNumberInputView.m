@@ -107,6 +107,10 @@
 }
 
 #pragma mark - Text Input Protocol -
+- (BOOL)hasText
+{
+    return self.passcode.length > 0;
+}
 
 #pragma mark - Public Accessors -
 
