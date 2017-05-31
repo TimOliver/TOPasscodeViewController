@@ -129,7 +129,7 @@
 #pragma mark - Text Input -
 - (void)setPasscode:(NSString *)passcode animated:(BOOL)animated
 {
-    if ([passcode isEqualToString:self.passcode]) { return; }
+    if (passcode == self.passcode) { return; }
     _passcode = @"";
 
     NSInteger length = MIN(passcode.length, self.requiredLength);
@@ -145,7 +145,9 @@
 - (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated
 {
     if (characters == nil) { return; }
-    [self setPasscode:[self.passcode stringByAppendingString:characters] animated:animated];
+    if (_passcode == nil) { _passcode = @""; }
+
+    [self setPasscode:[_passcode stringByAppendingString:characters] animated:animated];
 }
 
 - (void)deletePasscodeCharactersOfCount:(NSInteger)deleteCount animated:(BOOL)animated
