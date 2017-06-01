@@ -26,7 +26,7 @@
 
 - (IBAction)showButtonTapped:(id)sender
 {
-    TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:TOPasscodeViewStyleTranslucentLight];
+    TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:TOPasscodeViewStyleTranslucentDark];
     [self presentViewController:passcodeViewController animated:YES completion:nil];
 }
 
