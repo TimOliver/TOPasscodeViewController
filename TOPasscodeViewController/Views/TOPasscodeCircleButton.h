@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithNumberString:(NSString *)numberString letteringString:(NSString *)letteringString;
 
+// Automatically called when tapped
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

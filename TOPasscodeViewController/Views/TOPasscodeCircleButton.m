@@ -11,6 +11,7 @@
 
 @interface TOPasscodeCircleButton ()
 
+@property (nonatomic, strong) UIView *labelContainerView;
 @property (nonatomic, strong) UILabel *numberLabel;
 @property (nonatomic, strong) UILabel *letteringLabel;
 @property (nonatomic, strong) TOPasscodeCircleView *circleView;
@@ -53,13 +54,20 @@
         [self addSubview:self.circleView];
     }
 
+    if (!self.labelContainerView) {
+        self.labelContainerView = [[UIView alloc] initWithFrame:self.bounds];
+        self.labelContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.labelContainerView.userInteractionEnabled = NO;
+        [self addSubview:self.labelContainerView];
+    }
+
     if (!self.numberLabel) {
         self.numberLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.numberLabel.text = self.numberString;
         self.numberLabel.font = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];;
         self.numberLabel.textColor = self.textColor;
         [self.numberLabel sizeToFit];
-        [self addSubview:self.numberLabel];
+        [self.labelContainerView addSubview:self.numberLabel];
     }
 
     if (!self.vibrancyView) {
@@ -74,7 +82,7 @@
         self.letteringLabel.font = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
         self.letteringLabel.textColor = self.textColor;
         [self.letteringLabel sizeToFit];
-        [self addSubview:self.letteringLabel];
+        [self.labelContainerView addSubview:self.letteringLabel];
         [self updateLetteringLabelText];
     }
 }
@@ -139,14 +147,37 @@
 - (void)buttonDidTouchDown:(id)sender
 {
     if (self.buttonTappedHandler) { self.buttonTappedHandler(); }
-    [self.circleView setHighlighted:YES animated:NO];
+    [self setHighlighted:YES animated:NO];
 }
 
-- (void)buttonDidTouchUpInside:(id)sender { [self.circleView setHighlighted:NO animated:YES]; }
-- (void)buttonDidDragInside:(id)sender    { [self.circleView setHighlighted:YES animated:NO]; }
-- (void)buttonDidDragOutside:(id)sender   { [self.circleView setHighlighted:NO animated:YES]; }
+- (void)buttonDidTouchUpInside:(id)sender { [self setHighlighted:NO animated:YES]; }
+- (void)buttonDidDragInside:(id)sender    { [self setHighlighted:YES animated:NO]; }
+- (void)buttonDidDragOutside:(id)sender   { [self setHighlighted:NO animated:YES]; }
 
 #pragma mark - Accessors -
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [self.circleView setHighlighted:highlighted animated:animated];
+
+    if (!self.highlightedTextColor) { return; }
+
+    void (^textFadeBlock)() = ^{
+        self.numberLabel.textColor = highlighted ? self.highlightedTextColor : self.textColor;
+        self.letteringLabel.textColor = highlighted ? self.highlightedTextColor : self.textColor;
+    };
+
+    if (!animated) {
+        textFadeBlock();
+        return;
+    }
+
+    [UIView transitionWithView:self.labelContainerView
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:textFadeBlock
+                    completion:nil];
+}
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage
 {
