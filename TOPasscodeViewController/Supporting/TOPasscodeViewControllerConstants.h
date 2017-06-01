@@ -10,7 +10,6 @@
 typedef NS_ENUM(NSInteger, TOPasscodeViewStyle) {
     TOPasscodeViewStyleTranslucentDark,
     TOPasscodeViewStyleTranslucentLight,
-    TOPasscodeViewStyleTranslucentExtraLight,
     TOPasscodeViewStyleOpaqueDark,
     TOPasscodeViewStyleOpaqueLight
 };
@@ -23,9 +22,9 @@ typedef NS_ENUM(NSInteger, TOPasscodeViewContentSize) {
 };
 
 static inline BOOL TOPasscodeViewStyleIsTranslucent(TOPasscodeViewStyle style) {
-    return style <= TOPasscodeViewStyleTranslucentExtraLight;
+    return style <= TOPasscodeViewStyleTranslucentLight;
 }
 
 static inline BOOL TOPasscodeViewStyleIsDark(TOPasscodeViewStyle style) {
-    return style == TOPasscodeViewStyleTranslucentDark || style == TOPasscodeViewStyleOpaqueDark;
+    return style < TOPasscodeViewStyleTranslucentLight || style == TOPasscodeViewStyleOpaqueDark;
 }

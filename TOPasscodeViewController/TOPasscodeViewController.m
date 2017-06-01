@@ -91,8 +91,7 @@
 {
     switch (self.style) {
         case TOPasscodeViewStyleTranslucentDark: return UIBlurEffectStyleDark;
-        case TOPasscodeViewStyleTranslucentLight: return UIBlurEffectStyleLight;
-        case TOPasscodeViewStyleTranslucentExtraLight: return UIBlurEffectStyleExtraLight;
+        case TOPasscodeViewStyleTranslucentLight: return UIBlurEffectStyleExtraLight;
         default: return 0;
     }
 
