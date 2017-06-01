@@ -56,7 +56,7 @@
                           delay:0.0f
          usingSpringWithDamping:1.0f
           initialSpringVelocity:0.3f
-                        options:0
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:animationBlock
                      completion:completedBlock];
 }
