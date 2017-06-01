@@ -64,6 +64,11 @@
                         [TOPasscodeViewContentLayout smallScreenContentLayout]];
     _titleText = @"Enter Passcode";
 
+    // This is necessary otherwise the view is
+    // rasterized during alpha animation events,
+    // which breaks the translucency effect
+    self.layer.allowsGroupOpacity = NO;
+
     // Start configuring views
     [self setUpView];
 
@@ -182,11 +187,11 @@
 
     // Set up circle rows
     self.numberInputView = [[TOPasscodeNumberInputView alloc] init];
-    self.numberInputView.keyboardAppearance = UIKeyboardAppearanceDark;
     [self addSubview:self.numberInputView];
 
     // Set up pad row
     self.keypadView = [[TOPasscodeKeypadView alloc] init];
+    self.keypadView.buttonTappedHandler = ^(NSInteger button) { NSLog(@"%ld", button); };
     [self addSubview:self.keypadView];
 }
 
@@ -270,8 +275,6 @@
         case TOPasscodeViewStyleTranslucentDark:
             return [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         case TOPasscodeViewStyleTranslucentLight:
-            return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-        case TOPasscodeViewStyleTranslucentExtraLight:
             return [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
         default: return nil;
     }
