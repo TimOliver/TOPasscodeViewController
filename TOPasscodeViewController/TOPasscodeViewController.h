@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  (For security reasons, it is safer to fetch the saved PIN code only when this method is called, and
   then discard it immediately. This is why the view controller does not directly store it.)
 */
-- (BOOL)passcodeViewController:(TOPasscodeViewController *)passcodeViewController correctInputWithCode:(NSString *)code;
+- (BOOL)passcodeViewController:(TOPasscodeViewController *)passcodeViewController isCorrectCode:(NSString *)code;
 
 /** The user tapped the 'Cancel' button. Any dismissing of confidential content should be done in here. */
 - (void)didTapCancelInPasscodeViewController:(TOPasscodeViewController *)passcodeViewController;
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
     the Touch ID request on display. This method is where you should implement your
     own Touch ID validation logic. For security reasons, this controller does not implement the Touch ID logic itself. */
 
-- (void)didInitiateBiometricValidationRequestInPasscodeViewController:(TOPasscodeViewController *)passcodeViewController;
+- (void)didPerformBiometricValidationRequestInPasscodeViewController:(TOPasscodeViewController *)passcodeViewController;
 
 /** Called when the pin view was resized as a result of the view controller being resized.
     You can use this to resize your custom header view if necessary.

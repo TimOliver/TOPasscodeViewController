@@ -251,8 +251,8 @@
         }
     }
     else if (sender == self.biometricButton) {
-        if ([self.delegate respondsToSelector:@selector(didInitiateBiometricValidationRequestInPasscodeViewController:)]) {
-            [self.delegate didInitiateBiometricValidationRequestInPasscodeViewController:self];
+        if ([self.delegate respondsToSelector:@selector(didPerformBiometricValidationRequestInPasscodeViewController:)]) {
+            [self.delegate didPerformBiometricValidationRequestInPasscodeViewController:self];
         }
     }
 }
