@@ -17,8 +17,8 @@
 
 @property (nonatomic, strong, readwrite) UIVisualEffectView *backgroundEffectView;
 @property (nonatomic, strong, readwrite) TOPasscodeView *passcodeView;
-@property (nonatomic, strong) UIButton *biometricButton;
-@property (nonatomic, strong) UIButton *cancelButton;
+@property (nonatomic, strong, readwrite) UIButton *biometricButton;
+@property (nonatomic, strong, readwrite) UIButton *cancelButton;
 
 @property (nonatomic, strong) LAContext *authContext;
 
@@ -144,6 +144,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.layer.allowsGroupOpacity = NO;
     [self setUpBackgroundEffectViewForStyle:self.style];
     [self setUpAccessoryButtons];
     [self applyThemeForStyle:self.style];

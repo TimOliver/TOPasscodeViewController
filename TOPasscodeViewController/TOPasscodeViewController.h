@@ -74,6 +74,12 @@ NS_ASSUME_NONNULL_BEGIN
 /** The keypad and accessory views that are displayed in the center of this view */
 @property (nonatomic, readonly) TOPasscodeView *passcodeView;
 
+/** The Touch ID button, visible if biometrics is enabled and `leftAccessoryButton` is nil. */
+@property (nonatomic, readonly) UIButton *biometricButton;
+
+/** The Cancel, visible if `rightAccessoryButton` is nil. */
+@property (nonatomic, readonly) UIButton *cancelButton;
+
 /** The left accessory button. Setting this will override the 'Touch ID' button. */
 @property (nonatomic, strong, nullable) UIButton *leftAccessoryButton;
 
