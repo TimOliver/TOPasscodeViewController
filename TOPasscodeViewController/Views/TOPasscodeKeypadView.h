@@ -53,6 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** Optionally the color of text when it's tapped. */
 @property (nonatomic, strong, nullable) UIColor *buttonHighlightedTextColor;
 
+/** The alpha value of all non-translucent views */
+@property (nonatomic, assign) CGFloat contentAlpha;
+
 /** Accessory views placed on either side of the '0' button */
 @property (nonatomic, strong, nullable) UIView *leftAccessoryView;
 @property (nonatomic, strong, nullable) UIView *rightAccessoryView;

@@ -28,7 +28,7 @@
 
 - (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext
 {
-    return 1.0f;
+    return 0.5f;
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
@@ -47,7 +47,7 @@
     }
 
     CGFloat alpha = self.dismissing ? 1.0f : 0.0f;
-    passcodeView.alpha = alpha;
+    passcodeView.contentAlpha = alpha;
 
     // Animate the accessory views
     if (isPhone) {
@@ -61,7 +61,7 @@
         backgroundView.effect = self.dismissing ? nil : backgroundEffect;
 
         CGFloat toAlpha = self.dismissing ? 0.0f : 1.0f;
-        passcodeView.alpha = toAlpha;
+        passcodeView.contentAlpha = toAlpha;
         if (isPhone) {
             self.passcodeViewController.leftAccessoryButton.alpha = toAlpha;
             self.passcodeViewController.rightAccessoryButton.alpha = toAlpha;
@@ -77,8 +77,8 @@
 
     [UIView animateWithDuration:[self transitionDuration:transitionContext]
                           delay:0.0f
-         usingSpringWithDamping:1.0f
-          initialSpringVelocity:0.3f
+//         usingSpringWithDamping:1.0f
+//          initialSpringVelocity:0.3f
                         options:UIViewAnimationOptionAllowUserInteraction
                      animations:animationBlock
                      completion:completedBlock];

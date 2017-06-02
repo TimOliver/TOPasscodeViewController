@@ -27,6 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 /* If this view is directly receiving input, this can change the `UIKeyboard` appearance. */
 @property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
+/* The alpha value of the circle views in this view */
+@property (nonatomic, assign) CGFloat circleAlpha;
+
+/** Called when the number of digits has been entered */
+@property (nonatomic, copy) void (^passcodeCompletedHandler)(NSString *code);
+
 /* Init with the target length needed for this passcode */
 - (instancetype)initWithRequiredLength:(NSInteger)length;
 

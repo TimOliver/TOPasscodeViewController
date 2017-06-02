@@ -11,11 +11,11 @@
 
 @interface TOPasscodeCircleButton ()
 
-@property (nonatomic, strong) UIView *labelContainerView;
-@property (nonatomic, strong) UILabel *numberLabel;
-@property (nonatomic, strong) UILabel *letteringLabel;
-@property (nonatomic, strong) TOPasscodeCircleView *circleView;
-@property (nonatomic, strong) UIVisualEffectView *vibrancyView;
+@property (nonatomic, strong, readwrite) UIView *labelContainerView;
+@property (nonatomic, strong, readwrite) UILabel *numberLabel;
+@property (nonatomic, strong, readwrite) UILabel *letteringLabel;
+@property (nonatomic, strong, readwrite) TOPasscodeCircleView *circleView;
+@property (nonatomic, strong, readwrite) UIVisualEffectView *vibrancyView;
 
 @property (nonatomic, readwrite, copy) NSString *numberString;
 @property (nonatomic, readwrite, copy) NSString *letteringString;

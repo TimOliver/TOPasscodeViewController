@@ -258,6 +258,28 @@
     }
 }
 
+- (void)didCompleteEnteringPasscode:(NSString *)passcode
+{
+    if (![self.delegate respondsToSelector:@selector(passcodeViewController:isCorrectCode:)]) {
+        return;
+    }
+
+    // Validate the code
+    BOOL isCorrect = [self.delegate passcodeViewController:self isCorrectCode:passcode];
+    if (!isCorrect) {
+        [self.passcodeView resetPasscodeAnimated:YES playImpact:YES];
+        return;
+    }
+
+    // Perform handler if correctly entered
+    if ([self.delegate respondsToSelector:@selector(didInputCorrectPasscodeInPasscodeViewController:)]) {
+        [self.delegate didInputCorrectPasscodeInPasscodeViewController:self];
+    }
+    else {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 #pragma mark - Transitioning Delegate -
 - (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
                                                                             presentingController:(UIViewController *)presenting
@@ -282,6 +304,12 @@
     [_passcodeView sizeToFit];
     _passcodeView.center = self.view.center;
     [self.view addSubview:_passcodeView];
+
+    __weak typeof(self) weakSelf = self;
+    _passcodeView.passcodeCompletedHandler = ^(NSString *passcode) {
+        [weakSelf didCompleteEnteringPasscode:passcode];
+    };
+
     return _passcodeView;
 }
 

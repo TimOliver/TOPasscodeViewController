@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol TOPasscodeViewControllerDelegate <NSObject>
 
+@optional
+
 /** 
  Return YES if the user entered the expected PIN code. Return NO if it was incorrect.
  (For security reasons, it is safer to fetch the saved PIN code only when this method is called, and
@@ -25,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** The user tapped the 'Cancel' button. Any dismissing of confidential content should be done in here. */
 - (void)didTapCancelInPasscodeViewController:(TOPasscodeViewController *)passcodeViewController;
+
+/** The user successfully entered the correct code, as validated by `isCorrectCode:` */
+- (void)didInputCorrectPasscodeInPasscodeViewController:(TOPasscodeViewController *)passcodeViewController;
 
 /** When available, the user tapped the 'Touch ID' button, or the view controller itself automatically initiated
     the Touch ID request on display. This method is where you should implement your

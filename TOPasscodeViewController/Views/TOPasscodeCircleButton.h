@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class TOPasscodeCircleView;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeCircleButton : UIControl
@@ -21,6 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSString *numberString;
 @property (nonatomic, readonly) NSString *letteringString;
+
+// The internal views
+@property (nonatomic, readonly) UIView *labelContainerView;
+@property (nonatomic, readonly) UILabel *numberLabel;
+@property (nonatomic, readonly) UILabel *letteringLabel;
+@property (nonatomic, readonly) TOPasscodeCircleView *circleView;
+@property (nonatomic, readonly) UIVisualEffectView *vibrancyView;
 
 // Has initial default values
 @property (nonatomic, strong) UIFont *numberFont;

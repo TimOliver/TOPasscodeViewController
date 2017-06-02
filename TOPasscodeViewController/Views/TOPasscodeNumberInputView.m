@@ -138,13 +138,18 @@
     }
 
     [self updateHighlightedCirclesWithCount:_passcode.length animated:animated];
+
+    if (_passcode.length >= self.requiredLength && self.passcodeCompletedHandler) {
+        self.passcodeCompletedHandler(_passcode);
+    }
 }
 
 - (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated
 {
     if (characters == nil) { return; }
-    if (_passcode == nil) { _passcode = @""; }
+    if (_passcode.length >= self.requiredLength) { return; }
 
+    if (_passcode == nil) { _passcode = @""; }
     [self setPasscode:[_passcode stringByAppendingString:characters] animated:animated];
 }
 
@@ -223,6 +228,15 @@
     _requiredLength = requiredLength;
     [self setUpCircleViewsOfCount:requiredLength];
     [self sizeToFit];
+}
+
+- (void)setCircleAlpha:(CGFloat)circleAlpha
+{
+    _circleAlpha = circleAlpha;
+
+    for (TOPasscodeCircleView *circleView in self.circleViews) {
+        circleView.alpha = circleAlpha;
+    }
 }
 
 @end

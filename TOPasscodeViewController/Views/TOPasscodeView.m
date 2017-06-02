@@ -64,11 +64,6 @@
                         [TOPasscodeViewContentLayout smallScreenContentLayout]];
     _titleText = @"Enter Passcode";
 
-    // This is necessary otherwise the view is
-    // rasterized during alpha animation events,
-    // which breaks the translucency effect
-    self.layer.allowsGroupOpacity = NO;
-
     // Start configuring views
     [self setUpView];
 
@@ -176,6 +171,8 @@
 #pragma mark - View Setup -
 - (void)setUpView
 {
+    __weak typeof(self) weakSelf = self;
+
     self.backgroundColor = [UIColor clearColor];
 
     // Set up title label
@@ -187,11 +184,19 @@
 
     // Set up circle rows
     self.numberInputView = [[TOPasscodeNumberInputView alloc] init];
+    self.numberInputView.passcodeCompletedHandler = ^(NSString *passcode) {
+        if (weakSelf.passcodeCompletedHandler) {
+            weakSelf.passcodeCompletedHandler(passcode);
+        }
+    };
     [self addSubview:self.numberInputView];
 
     // Set up pad row
     self.keypadView = [[TOPasscodeKeypadView alloc] init];
-    self.keypadView.buttonTappedHandler = ^(NSInteger button) { NSLog(@"%ld", button); };
+    self.keypadView.buttonTappedHandler = ^(NSInteger button) {
+        NSString *numberString = [NSString stringWithFormat:@"%ld", button];
+        [weakSelf.numberInputView appendPasscodeCharacters:numberString animated:NO];
+    };
     [self addSubview:self.keypadView];
 }
 
@@ -268,6 +273,12 @@
     self.keypadView.buttonHighlightedTextColor = buttonHighlightedTextColor;
 }
 
+#pragma mark - Passcode Management -
+- (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact
+{
+    [self.numberInputView resetPasscodeAnimated:animated playImpact:impact];
+}
+
 #pragma mark - Internal Style Management -
 - (UIBlurEffect *)blurEffectForStyle:(TOPasscodeViewStyle)style
 {
@@ -327,6 +338,27 @@
 {
     UIView *button = self.keypadView.pinButtons.firstObject;
     return CGRectGetMidX(button.frame);
+}
+
+- (void)setContentAlpha:(CGFloat)contentAlpha
+{
+
+    _contentAlpha = contentAlpha;
+
+    self.titleView.alpha = contentAlpha;
+    self.titleLabel.alpha = contentAlpha;
+    self.numberInputView.circleAlpha = contentAlpha;
+    self.keypadView.contentAlpha = contentAlpha;
+}
+
+- (void)setPasscode:(NSString *)passcode
+{
+    [self.numberInputView setPasscode:passcode];
+}
+
+- (NSString *)passcode
+{
+    return self.numberInputView.passcode;
 }
 
 @end

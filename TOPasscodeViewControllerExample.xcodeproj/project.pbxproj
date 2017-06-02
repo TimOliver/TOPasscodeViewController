@@ -142,14 +142,14 @@
 			children = (
 				22D3611A1EDCC1CC002E5D35 /* TOPasscodeView.h */,
 				22D3611B1EDCC1CC002E5D35 /* TOPasscodeView.m */,
-				22D3611C1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.h */,
-				22D3611D1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.m */,
 				22D361181EDCC1CC002E5D35 /* TOPasscodeCircleView.h */,
 				22D361191EDCC1CC002E5D35 /* TOPasscodeCircleView.m */,
 				22D361121EDCC1CC002E5D35 /* TOPasscodeCircleButton.h */,
 				22D361131EDCC1CC002E5D35 /* TOPasscodeCircleButton.m */,
 				22D361141EDCC1CC002E5D35 /* TOPasscodeKeypadView.h */,
 				22D361151EDCC1CC002E5D35 /* TOPasscodeKeypadView.m */,
+				22D3611C1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.h */,
+				22D3611D1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.m */,
 				22D361161EDCC1CC002E5D35 /* TOPasscodeNumberInputView.h */,
 				22D361171EDCC1CC002E5D35 /* TOPasscodeNumberInputView.m */,
 			);

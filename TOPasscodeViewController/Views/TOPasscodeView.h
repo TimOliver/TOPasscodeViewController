@@ -44,6 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
 /* Horizontal inset from edge of keypad view to button center */
 @property (nonatomic, readonly) CGFloat keypadButtonInset;
 
+/* An animatable property for animating the non-translucent subviews */
+@property (nonatomic, assign) CGFloat contentAlpha;
+
+/* The passcode currently entered into this view */
+@property (nonatomic, copy, nullable) NSString *passcode;
+
 /* The default layout object controlling the
  sizing and placement of all this view's child elements. */
 @property (nonatomic, strong, null_resettable) TOPasscodeViewContentLayout *defaultContentLayout;
@@ -51,11 +57,17 @@ NS_ASSUME_NONNULL_BEGIN
 /* As needed, additional layout objects that will be checked and used in priority over the default content layout. */
 @property (nonatomic, strong, nullable) NSArray<TOPasscodeViewContentLayout *> *contentLayouts;
 
+/* Callback triggered when the user has finished entering the passcode */
+@property (nonatomic, copy, nullable) void (^passcodeCompletedHandler)(NSString *passcode);
+
 /* Create a new instance with one of the style types */
 - (instancetype)initWithStyle:(TOPasscodeViewStyle)style;
 
 /* Resize the view and all subviews for the optimum size to fit a super view of the suplied width. */
 - (void)sizeToFitWidth:(CGFloat)width;
+
+/* Reset the passcode to nil and optionally play animation / vibration to match */
+- (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact;
 
 @end
 

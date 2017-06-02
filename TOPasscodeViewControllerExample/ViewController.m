@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "TOPasscodeViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <TOPasscodeViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 
@@ -27,7 +27,18 @@
 - (IBAction)showButtonTapped:(id)sender
 {
     TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:TOPasscodeViewStyleTranslucentDark];
+    passcodeViewController.delegate = self;
     [self presentViewController:passcodeViewController animated:YES completion:nil];
+}
+
+- (void)didTapCancelInPasscodeViewController:(TOPasscodeViewController *)passcodeViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)passcodeViewController:(TOPasscodeViewController *)passcodeViewController isCorrectCode:(NSString *)code
+{
+    return [code isEqualToString:@"1234"];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
