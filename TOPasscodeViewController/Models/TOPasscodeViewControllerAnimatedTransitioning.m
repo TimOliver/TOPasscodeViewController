@@ -35,15 +35,24 @@
 {
     BOOL isPhone = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
     UIView *containerView = transitionContext.containerView;
-    UIVisualEffectView *backgroundView = self.passcodeViewController.backgroundEffectView;
-    UIVisualEffect *backgroundEffect = backgroundView.effect;
+    UIVisualEffectView *backgroundEffectView = self.passcodeViewController.backgroundEffectView;
+    UIView *backgroundView = self.passcodeViewController.backgroundView;
+    UIVisualEffect *backgroundEffect = backgroundEffectView.effect;
     TOPasscodeView *passcodeView = self.passcodeViewController.passcodeView;
+
     // Set the initial properties when presenting
     if (!self.dismissing) {
-        backgroundView.effect = nil;
+        backgroundEffectView.effect = nil;
+        backgroundView.alpha = 0.0f;
 
         self.passcodeViewController.view.frame = containerView.bounds;
         [containerView addSubview:self.passcodeViewController.view];
+    }
+    else {
+        UIViewController *baseController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+        if (baseController.view.superview == nil) {
+            [containerView insertSubview:baseController.view atIndex:0];
+        }
     }
 
     CGFloat alpha = self.dismissing ? 1.0f : 0.0f;
@@ -58,7 +67,8 @@
     }
 
     id animationBlock = ^{
-        backgroundView.effect = self.dismissing ? nil : backgroundEffect;
+        backgroundEffectView.effect = self.dismissing ? nil : backgroundEffect;
+        backgroundView.alpha = self.dismissing ? 0.0f : 1.0f;
 
         CGFloat toAlpha = self.dismissing ? 0.0f : 1.0f;
         passcodeView.contentAlpha = toAlpha;
@@ -71,7 +81,7 @@
     };
 
     id completedBlock = ^(BOOL completed) {
-        backgroundView.effect = backgroundEffect;
+        backgroundEffectView.effect = backgroundEffect;
         [transitionContext completeTransition:completed];
     };
 

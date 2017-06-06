@@ -16,6 +16,7 @@
 @interface TOPasscodeViewController () <UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong, readwrite) UIVisualEffectView *backgroundEffectView;
+@property (nonatomic, strong, readwrite) UIView *backgroundView;
 @property (nonatomic, strong, readwrite) TOPasscodeView *passcodeView;
 @property (nonatomic, strong, readwrite) UIButton *biometricButton;
 @property (nonatomic, strong, readwrite) UIButton *cancelButton;
@@ -53,12 +54,17 @@
 {
     self.transitioningDelegate = self;
 
+    self.view.backgroundColor = [UIColor clearColor];
+
     // Show 'Touch ID' button if it's available
     _authContext = [LAContext new];
     _allowBiometricValidation = [_authContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
 
     if (TOPasscodeViewStyleIsTranslucent(self.style)) {
         self.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    }
+    else {
+        self.modalPresentationStyle = UIModalPresentationFullScreen;
     }
 }
 
@@ -85,6 +91,25 @@
     self.backgroundEffectView.frame = self.view.bounds;
     self.backgroundEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view insertSubview:self.backgroundEffectView atIndex:0];
+}
+
+- (void)setUpBackgroundViewForStyle:(TOPasscodeViewStyle)style
+{
+    BOOL translucent = TOPasscodeViewStyleIsTranslucent(style);
+
+    if (!translucent && self.backgroundView) { return; }
+
+    if (translucent && !self.backgroundView) { return; }
+
+    if (translucent) {
+        [self.backgroundView removeFromSuperview];
+        self.backgroundView = nil;
+        return;
+    }
+
+    self.backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view insertSubview:self.backgroundView atIndex:0];
 }
 
 - (UIBlurEffectStyle)blurEffectStyleForStyle:(TOPasscodeViewStyle)style
@@ -146,6 +171,7 @@
     [super viewDidLoad];
     self.view.layer.allowsGroupOpacity = NO;
     [self setUpBackgroundEffectViewForStyle:self.style];
+    [self setUpBackgroundViewForStyle:self.style];
     [self setUpAccessoryButtons];
     [self applyThemeForStyle:self.style];
 }
@@ -193,6 +219,8 @@
     self.cancelButton.tintColor = accessoryTintColor;
     self.leftAccessoryButton.tintColor = accessoryTintColor;
     self.rightAccessoryButton.tintColor = accessoryTintColor;
+
+    self.backgroundView.backgroundColor = isDark ? [UIColor colorWithWhite:0.1f alpha:1.0f] : [UIColor whiteColor];
 }
 
 - (void)updateAccessoryButtonFontsForWidth:(CGFloat)width

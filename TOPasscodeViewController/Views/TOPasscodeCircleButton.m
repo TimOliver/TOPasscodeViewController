@@ -122,6 +122,8 @@
 
     CGFloat textTotalHeight = (numberVerticalHeight+2.0f) + self.letteringVerticalSpacing + (letteringVerticalHeight+2.0f);
 
+    [self bringSubviewToFront:self.labelContainerView];
+
     [self.numberLabel sizeToFit];
     CGRect frame = self.numberLabel.frame;
     frame.size.height = ceil(numberVerticalHeight) + 2.0f;

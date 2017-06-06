@@ -242,8 +242,8 @@
         self.keypadView.vibrancyEffect = nil;
     }
 
-    UIColor *defaultTintColor = isDark ? [UIColor colorWithWhite:0.75 alpha:1.0f] : [UIColor colorWithWhite:0.3 alpha:1.0f];
-
+    UIColor *defaultTintColor = isDark ? [UIColor colorWithWhite:0.85 alpha:1.0f] : [UIColor colorWithWhite:0.3 alpha:1.0f];
+    
     // Set the tint color of the circle row view
     UIColor *circleRowColor = self.inputProgressViewTintColor;
     if (circleRowColor == nil) {
@@ -268,7 +268,12 @@
     // Set the highlight color of the keypad button
     UIColor *buttonHighlightedTextColor = self.keypadButtonHighlightedTextColor;
     if (buttonHighlightedTextColor == nil) {
-        buttonHighlightedTextColor = isDark ? nil : [UIColor whiteColor];
+        if (isTranslucent) {
+            buttonHighlightedTextColor = isDark ? nil : [UIColor whiteColor];
+        }
+        else {
+            buttonHighlightedTextColor = isDark ? [UIColor blackColor] : [UIColor whiteColor];
+        }
     }
     self.keypadView.buttonHighlightedTextColor = buttonHighlightedTextColor;
 }
@@ -342,7 +347,6 @@
 
 - (void)setContentAlpha:(CGFloat)contentAlpha
 {
-
     _contentAlpha = contentAlpha;
 
     self.titleView.alpha = contentAlpha;

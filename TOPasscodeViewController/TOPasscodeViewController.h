@@ -76,6 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** Controls the transluceny of the PIN background when the style has been set to translucent. */
 @property (nonatomic, readonly) UIVisualEffectView *backgroundEffectView;
 
+/** Opaque, background view when the style is opaque */
+@property (nonatomic, readonly) UIView *backgroundView;
+
 /** The keypad and accessory views that are displayed in the center of this view */
 @property (nonatomic, readonly) TOPasscodeView *passcodeView;
 
