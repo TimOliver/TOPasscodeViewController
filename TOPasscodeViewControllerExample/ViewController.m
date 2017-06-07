@@ -45,6 +45,7 @@
     controller.style = self.style;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:navController animated:YES completion:nil];
 
     __weak typeof(self) weakSelf = self;

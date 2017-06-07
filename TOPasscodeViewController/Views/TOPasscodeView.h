@@ -57,6 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* As needed, additional layout objects that will be checked and used in priority over the default content layout. */
 @property (nonatomic, strong, nullable) NSArray<TOPasscodeViewContentLayout *> *contentLayouts;
 
+/* Callback triggered each time the user taps a key */
+@property (nonatomic, copy, nullable) void (^passcodeDigitEnteredHandler)();
+
 /* Callback triggered when the user has finished entering the passcode */
 @property (nonatomic, copy, nullable) void (^passcodeCompletedHandler)(NSString *passcode);
 
@@ -68,6 +71,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* Reset the passcode to nil and optionally play animation / vibration to match */
 - (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact;
+
+/* Delete the last character from the passcode */
+- (void)deleteLastPasscodeCharacterAnimated:(BOOL)animated;
 
 @end
 

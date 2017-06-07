@@ -196,6 +196,10 @@
     self.keypadView.buttonTappedHandler = ^(NSInteger button) {
         NSString *numberString = [NSString stringWithFormat:@"%ld", button];
         [weakSelf.numberInputView appendPasscodeCharacters:numberString animated:NO];
+
+        if (weakSelf.passcodeDigitEnteredHandler) {
+            weakSelf.passcodeDigitEnteredHandler();
+        }
     };
     [self addSubview:self.keypadView];
 }
@@ -284,6 +288,11 @@
     [self.numberInputView resetPasscodeAnimated:animated playImpact:impact];
 }
 
+- (void)deleteLastPasscodeCharacterAnimated:(BOOL)animated
+{
+    [self.numberInputView deletePasscodeCharactersOfCount:1 animated:animated];
+}
+
 #pragma mark - Internal Style Management -
 - (UIBlurEffect *)blurEffectForStyle:(TOPasscodeViewStyle)style
 {
@@ -353,6 +362,8 @@
     self.titleLabel.alpha = contentAlpha;
     self.numberInputView.circleAlpha = contentAlpha;
     self.keypadView.contentAlpha = contentAlpha;
+    self.leftButton.alpha = contentAlpha;
+    self.rightButton.alpha = contentAlpha;
 }
 
 - (void)setPasscode:(NSString *)passcode

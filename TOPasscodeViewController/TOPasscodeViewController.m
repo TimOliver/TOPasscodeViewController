@@ -275,6 +275,12 @@
 - (void)accessoryButtonTapped:(id)sender
 {
     if (sender == self.cancelButton) {
+        if (self.passcodeView.passcode.length > 0) {
+            [self.passcodeView deleteLastPasscodeCharacterAnimated:YES];
+            [self keypadButtonTapped];
+            return;
+        }
+
         if ([self.delegate respondsToSelector:@selector(didTapCancelInPasscodeViewController:)]) {
             [self.delegate didTapCancelInPasscodeViewController:self];
         }
@@ -284,6 +290,14 @@
             [self.delegate didPerformBiometricValidationRequestInPasscodeViewController:self];
         }
     }
+}
+
+- (void)keypadButtonTapped
+{
+    NSString *title = self.passcodeView.passcode.length > 0 ? @"Delete" : @"Cancel";
+    [UIView performWithoutAnimation:^{
+        [self.cancelButton setTitle:title forState:UIControlStateNormal];
+    }];
 }
 
 - (void)didCompleteEnteringPasscode:(NSString *)passcode
@@ -336,6 +350,10 @@
     __weak typeof(self) weakSelf = self;
     _passcodeView.passcodeCompletedHandler = ^(NSString *passcode) {
         [weakSelf didCompleteEnteringPasscode:passcode];
+    };
+
+    _passcodeView.passcodeDigitEnteredHandler = ^{
+        [weakSelf keypadButtonTapped];
     };
 
     return _passcodeView;
