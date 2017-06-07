@@ -11,7 +11,6 @@
 #import "TOPasscodeViewControllerAnimatedTransitioning.h"
 #import "TOPasscodeKeypadView.h"
 #import "TOPasscodeNumberInputView.h"
-#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface TOPasscodeViewController () <UIViewControllerTransitioningDelegate>
 
@@ -20,8 +19,6 @@
 @property (nonatomic, strong, readwrite) TOPasscodeView *passcodeView;
 @property (nonatomic, strong, readwrite) UIButton *biometricButton;
 @property (nonatomic, strong, readwrite) UIButton *cancelButton;
-
-@property (nonatomic, strong) LAContext *authContext;
 
 @end
 
@@ -55,10 +52,6 @@
     self.transitioningDelegate = self;
 
     self.view.backgroundColor = [UIColor clearColor];
-
-    // Show 'Touch ID' button if it's available
-    _authContext = [LAContext new];
-    _allowBiometricValidation = [_authContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
 
     if (TOPasscodeViewStyleIsTranslucent(self.style)) {
         self.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -141,8 +134,10 @@
         }
     }
     else {
-        [self.biometricButton removeFromSuperview];
-        self.biometricButton = nil;
+        if (self.leftAccessoryButton) {
+            [self.biometricButton removeFromSuperview];
+            self.biometricButton = nil;
+        }
     }
 
     if (!self.rightAccessoryButton && !self.cancelButton) {
@@ -158,8 +153,10 @@
         }
     }
     else {
-        [self.cancelButton removeFromSuperview];
-        self.cancelButton = nil;
+        if (self.rightAccessoryButton) {
+            [self.cancelButton removeFromSuperview];
+            self.cancelButton = nil;
+        }
     }
 
     [self updateAccessoryButtonFontsForWidth:self.view.bounds.size.width];
@@ -374,12 +371,9 @@
         return;
     }
 
-    if (allowBiometricValidation) {
-        _allowBiometricValidation = [self.authContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
-    }
-    else {
-        _allowBiometricValidation = NO;
-    }
+    _allowBiometricValidation = allowBiometricValidation;
+    [self setUpAccessoryButtons];
+    [self applyThemeForStyle:self.style];
 }
 
 - (void)setTitleLabelColor:(UIColor *)titleLabelColor

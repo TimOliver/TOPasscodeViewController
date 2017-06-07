@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "TOPasscodeViewController.h"
 #import "SettingsViewController.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface ViewController () <TOPasscodeViewControllerDelegate>
 
@@ -17,6 +18,9 @@
 
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIView *dimmingView;
+
+@property (nonatomic, strong) LAContext *authContext;
+@property (nonatomic, assign) BOOL biometricsAvailable;
 
 @end
 
@@ -29,12 +33,17 @@
 
     // Enable mipmaps so the rescaled image will look properly sampled
     self.imageView.layer.minificationFilter = kCAFilterTrilinear;
+
+    // Show 'Touch ID' button if it's available
+    self.authContext = [[LAContext alloc] init];
+    self.biometricsAvailable = [self.authContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
 }
 
 - (IBAction)showButtonTapped:(id)sender
 {
     TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:self.style];
     passcodeViewController.delegate = self;
+    passcodeViewController.allowBiometricValidation = self.biometricsAvailable;
     [self presentViewController:passcodeViewController animated:YES completion:nil];
 }
 
@@ -66,6 +75,22 @@
 - (BOOL)passcodeViewController:(TOPasscodeViewController *)passcodeViewController isCorrectCode:(NSString *)code
 {
     return [code isEqualToString:self.passcode];
+}
+
+- (void)didPerformBiometricValidationRequestInPasscodeViewController:(TOPasscodeViewController *)passcodeViewController
+{
+    __weak typeof(self) weakSelf = self;
+    NSString *reason = @"Touch ID to continue using this app";
+    id reply = ^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"%@", error.localizedDescription);
+            return;
+        }
+
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    };
+
+    [self.authContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:reason reply:reply];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
