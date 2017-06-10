@@ -6,12 +6,18 @@
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-/* The visual style of the PIN view controller */
+/* The visual style of the asscode view controller */
 typedef NS_ENUM(NSInteger, TOPasscodeViewStyle) {
     TOPasscodeViewStyleTranslucentDark,
     TOPasscodeViewStyleTranslucentLight,
     TOPasscodeViewStyleOpaqueDark,
     TOPasscodeViewStyleOpaqueLight
+};
+
+/* The visual style of the passcode settings view controller. */
+typedef NS_ENUM(NSInteger, TOPasscodeSettingsViewStyle) {
+    TOPasscodeSettingsViewStyleLight,
+    TOPasscodeSettingsViewStyleDark
 };
 
 /* Depending on the amount of horizontal space, the sizing of the elements */

@@ -11,6 +11,7 @@
 		221D96E21EDC03FF004314BF /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221D96E11EDC03FF004314BF /* LocalAuthentication.framework */; };
 		226EFC031EE3FA490033B079 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 226EFC021EE3FA490033B079 /* SettingsViewController.m */; };
 		2271931D1EE3E0D4000324B7 /* TOBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271931C1EE3E0D4000324B7 /* TOBlurView.m */; };
+		2296607C1EEBE1A10064C581 /* TOPasscodeNumberLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2296607B1EEBE1A10064C581 /* TOPasscodeNumberLabel.m */; };
 		22D3611E1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */; };
 		22D3611F1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610C1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m */; };
 		22D361201EDCC1CC002E5D35 /* TOPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361101EDCC1CC002E5D35 /* TOPasscodeViewController.m */; };
@@ -29,6 +30,7 @@
 		22D3613B1EDCC1D7002E5D35 /* wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22D361331EDCC1D7002E5D35 /* wallpaper.jpg */; };
 		22D3613F1EDCC1EA002E5D35 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D3613D1EDCC1EA002E5D35 /* Info.plist */; };
 		22D361401EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3613E1EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m */; };
+		22D5C81A1EE9F99600745F9A /* TOPasscodeSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		226EFC021EE3FA490033B079 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2271931B1EE3E0D4000324B7 /* TOBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOBlurView.h; sourceTree = "<group>"; };
 		2271931C1EE3E0D4000324B7 /* TOBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOBlurView.m; sourceTree = "<group>"; };
+		2296607A1EEBE1A10064C581 /* TOPasscodeNumberLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOPasscodeNumberLabel.h; sourceTree = "<group>"; };
+		2296607B1EEBE1A10064C581 /* TOPasscodeNumberLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeNumberLabel.m; sourceTree = "<group>"; };
 		22D361091EDCC1CC002E5D35 /* TOPasscodeCircleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeCircleImage.h; sourceTree = "<group>"; };
 		22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeCircleImage.m; sourceTree = "<group>"; };
 		22D3610B1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOPasscodeViewControllerAnimatedTransitioning.h; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 		22D361331EDCC1D7002E5D35 /* wallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wallpaper.jpg; sourceTree = "<group>"; };
 		22D3613D1EDCC1EA002E5D35 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22D3613E1EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINViewControllerExampleTests.m; sourceTree = "<group>"; };
+		22D5C8181EE9F99600745F9A /* TOPasscodeSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOPasscodeSettingsViewController.h; sourceTree = "<group>"; };
+		22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeSettingsViewController.m; sourceTree = "<group>"; };
 		22F806A31ECABB3D0053C94E /* TOPasscodeViewControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOPasscodeViewControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F806BC1ECABB3D0053C94E /* TOPasscodeViewControllerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TOPasscodeViewControllerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -117,6 +123,8 @@
 			children = (
 				22D3610F1EDCC1CC002E5D35 /* TOPasscodeViewController.h */,
 				22D361101EDCC1CC002E5D35 /* TOPasscodeViewController.m */,
+				22D5C8181EE9F99600745F9A /* TOPasscodeSettingsViewController.h */,
+				22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */,
 				22D361081EDCC1CC002E5D35 /* Models */,
 				22D361111EDCC1CC002E5D35 /* Views */,
 				22D3610D1EDCC1CC002E5D35 /* Supporting */,
@@ -152,6 +160,8 @@
 				22D361191EDCC1CC002E5D35 /* TOPasscodeCircleView.m */,
 				22D361121EDCC1CC002E5D35 /* TOPasscodeCircleButton.h */,
 				22D361131EDCC1CC002E5D35 /* TOPasscodeCircleButton.m */,
+				2296607A1EEBE1A10064C581 /* TOPasscodeNumberLabel.h */,
+				2296607B1EEBE1A10064C581 /* TOPasscodeNumberLabel.m */,
 				22D361141EDCC1CC002E5D35 /* TOPasscodeKeypadView.h */,
 				22D361151EDCC1CC002E5D35 /* TOPasscodeKeypadView.m */,
 				22D3611C1EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.h */,
@@ -319,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D3611F1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m in Sources */,
+				22D5C81A1EE9F99600745F9A /* TOPasscodeSettingsViewController.m in Sources */,
 				22D361201EDCC1CC002E5D35 /* TOPasscodeViewController.m in Sources */,
 				22D3611E1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m in Sources */,
 				22D361241EDCC1CC002E5D35 /* TOPasscodeCircleView.m in Sources */,
@@ -327,6 +338,7 @@
 				22D3613A1EDCC1D7002E5D35 /* ViewController.m in Sources */,
 				22D361211EDCC1CC002E5D35 /* TOPasscodeCircleButton.m in Sources */,
 				22D361261EDCC1CC002E5D35 /* TOPasscodeViewContentLayout.m in Sources */,
+				2296607C1EEBE1A10064C581 /* TOPasscodeNumberLabel.m in Sources */,
 				22D361231EDCC1CC002E5D35 /* TOPasscodeNumberInputView.m in Sources */,
 				22D361391EDCC1D7002E5D35 /* main.m in Sources */,
 				2271931D1EE3E0D4000324B7 /* TOBlurView.m in Sources */,

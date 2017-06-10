@@ -8,12 +8,11 @@
 
 #import "TOPasscodeCircleButton.h"
 #import "TOPasscodeCircleView.h"
+#import "TOPasscodeNumberLabel.h"
 
 @interface TOPasscodeCircleButton ()
 
-@property (nonatomic, strong, readwrite) UIView *labelContainerView;
-@property (nonatomic, strong, readwrite) UILabel *numberLabel;
-@property (nonatomic, strong, readwrite) UILabel *letteringLabel;
+@property (nonatomic, strong, readwrite) TOPasscodeNumberLabel *numberLabel;
 @property (nonatomic, strong, readwrite) TOPasscodeCircleView *circleView;
 @property (nonatomic, strong, readwrite) UIVisualEffectView *vibrancyView;
 
@@ -54,20 +53,11 @@
         [self addSubview:self.circleView];
     }
 
-    if (!self.labelContainerView) {
-        self.labelContainerView = [[UIView alloc] initWithFrame:self.bounds];
-        self.labelContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.labelContainerView.userInteractionEnabled = NO;
-        [self addSubview:self.labelContainerView];
-    }
-
     if (!self.numberLabel) {
-        self.numberLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.numberLabel.text = self.numberString;
-        self.numberLabel.font = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];;
-        self.numberLabel.textColor = self.textColor;
-        [self.numberLabel sizeToFit];
-        [self.labelContainerView addSubview:self.numberLabel];
+        self.numberLabel = [[TOPasscodeNumberLabel alloc] initWithFrame:self.bounds];
+        self.numberLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.numberLabel.userInteractionEnabled = NO;
+        [self addSubview:self.numberLabel];
     }
 
     if (!self.vibrancyView) {
@@ -76,26 +66,6 @@
         [self.vibrancyView.contentView addSubview:self.circleView];
         [self addSubview:self.vibrancyView];
     }
-
-    if (!self.letteringLabel) {
-        self.letteringLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.letteringLabel.font = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
-        self.letteringLabel.textColor = self.textColor;
-        [self.letteringLabel sizeToFit];
-        [self.labelContainerView addSubview:self.letteringLabel];
-        [self updateLetteringLabelText];
-    }
-}
-
-- (void)updateLetteringLabelText
-{
-    if (self.letteringString.length == 0) {
-        return;
-    }
-
-    NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc] initWithString:self.letteringString];
-    [attrStr addAttribute:NSKernAttributeName value:@(_letteringCharacterSpacing) range:NSMakeRange(0, attrStr.length-1)];
-    self.letteringLabel.attributedText = attrStr;
 }
 
 - (void)setUpViewInteraction

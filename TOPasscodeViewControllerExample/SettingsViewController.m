@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "TOPasscodeSettingsViewController.h"
 
 @interface SettingsViewController ()
 
@@ -104,7 +105,8 @@
         [tableView reloadRowsAtIndexPaths:@[lastIndex, indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
     else {
-
+        TOPasscodeSettingsViewController *settingsController = [[TOPasscodeSettingsViewController alloc] init];
+        [self.navigationController pushViewController:settingsController animated:YES];
     }
 }
 
