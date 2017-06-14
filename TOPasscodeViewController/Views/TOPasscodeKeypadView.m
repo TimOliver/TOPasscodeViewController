@@ -10,6 +10,7 @@
 #import "TOPasscodeCircleImage.h"
 #import "TOPasscodeCircleButton.h"
 #import "TOPasscodeCircleView.h"
+#import "TOPasscodeButtonLabel.h"
 
 @interface TOPasscodeKeypadView()
 
@@ -295,7 +296,7 @@
     _contentAlpha = contentAlpha;
 
     for (TOPasscodeCircleButton *button in self.pinButtons) {
-        button.labelContainerView.alpha = contentAlpha;
+        button.buttonLabel.alpha = contentAlpha;
         button.circleView.alpha = contentAlpha;
     }
 }

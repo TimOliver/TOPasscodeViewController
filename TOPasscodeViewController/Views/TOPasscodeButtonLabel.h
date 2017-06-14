@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TOPasscodeNumberLabel : UIView
+@interface TOPasscodeButtonLabel : UIView
 
 // The strings of both labels
-@property (nonatomic, readonly) NSString *numberString;
-@property (nonatomic, readonly) NSString *letteringString;
+@property (nonatomic, copy) NSString *numberString;
+@property (nonatomic, copy) NSString *letteringString;
 
 // The color of both labels
 @property (nonatomic, strong) UIColor *textColor;
@@ -21,9 +21,7 @@
 @property (nonatomic, readonly) UILabel *numberLabel;
 @property (nonatomic, readonly) UILabel *letteringLabel;
 
-// Has initial default values
-@property (nonatomic, strong) UIFont *numberFont;
-@property (nonatomic, strong) UIFont *letteringFont;
+// Has initial default values   
 @property (nonatomic, assign) CGFloat letteringCharacterSpacing;
 @property (nonatomic, assign) CGFloat letteringVerticalSpacing;
 

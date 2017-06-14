@@ -9,24 +9,30 @@
 #import <UIKit/UIKit.h>
 
 @class TOPasscodeCircleView;
-@class TOPasscodeNumberLabel;
+@class TOPasscodeButtonLabel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeCircleButton : UIControl
 
-// Required to be set by the user
+// Required to be set before this view can be properly rendered
 @property (nonatomic, strong) UIImage *backgroundImage;
 @property (nonatomic, strong) UIImage *hightlightedBackgroundImage;
 @property (nonatomic, strong) UIVibrancyEffect *vibrancyEffect;
+
+// Properties with default values
 @property (nonatomic, strong) UIColor *textColor;
 @property (nonatomic, strong, nullable) UIColor *highlightedTextColor;
+@property (nonatomic, strong) UIFont *numberFont;
+@property (nonatomic, strong) UIFont *letteringFont;
+@property (nonatomic, assign) CGFloat letteringCharacterSpacing;
+@property (nonatomic, assign) CGFloat letteringVerticalSpacing;
 
 @property (nonatomic, readonly) NSString *numberString;
 @property (nonatomic, readonly) NSString *letteringString;
 
 // The internal views
-@property (nonatomic, readonly) TOPasscodeNumberLabel *numberLabel;
+@property (nonatomic, readonly) TOPasscodeButtonLabel *buttonLabel;
 @property (nonatomic, readonly) TOPasscodeCircleView *circleView;
 @property (nonatomic, readonly) UIVisualEffectView *vibrancyView;
 

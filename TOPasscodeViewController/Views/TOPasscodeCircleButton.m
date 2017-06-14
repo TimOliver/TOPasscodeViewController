@@ -8,11 +8,11 @@
 
 #import "TOPasscodeCircleButton.h"
 #import "TOPasscodeCircleView.h"
-#import "TOPasscodeNumberLabel.h"
+#import "TOPasscodeButtonLabel.h"
 
 @interface TOPasscodeCircleButton ()
 
-@property (nonatomic, strong, readwrite) TOPasscodeNumberLabel *numberLabel;
+@property (nonatomic, strong, readwrite) TOPasscodeButtonLabel *buttonLabel;
 @property (nonatomic, strong, readwrite) TOPasscodeCircleView *circleView;
 @property (nonatomic, strong, readwrite) UIVisualEffectView *vibrancyView;
 
@@ -39,8 +39,6 @@
     self.userInteractionEnabled = YES;
     
     _textColor = [UIColor whiteColor];
-    _letteringVerticalSpacing = 6.0f;
-    _letteringCharacterSpacing = 3.0f;
 
     [self setUpSubviews];
     [self setUpViewInteraction];
@@ -53,11 +51,16 @@
         [self addSubview:self.circleView];
     }
 
-    if (!self.numberLabel) {
-        self.numberLabel = [[TOPasscodeNumberLabel alloc] initWithFrame:self.bounds];
-        self.numberLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.numberLabel.userInteractionEnabled = NO;
-        [self addSubview:self.numberLabel];
+    if (!self.buttonLabel) {
+        self.buttonLabel = [[TOPasscodeButtonLabel alloc] initWithFrame:self.bounds];
+        self.buttonLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.buttonLabel.userInteractionEnabled = NO;
+        self.buttonLabel.textColor = self.textColor;
+        self.buttonLabel.numberLabel.text = self.numberString;
+        self.buttonLabel.letteringLabel.text = self.letteringString;
+        self.buttonLabel.letteringVerticalSpacing = 6.0f;
+        self.buttonLabel.letteringCharacterSpacing = 3.0f;
+        [self addSubview:self.buttonLabel];
     }
 
     if (!self.vibrancyView) {
@@ -84,35 +87,8 @@
 
     self.vibrancyView.frame = self.bounds;
     self.circleView.frame = self.vibrancyView ? self.vibrancyView.bounds : self.bounds;
-
-    CGSize viewSize = self.frame.size;
-
-    CGFloat numberVerticalHeight = self.numberFont.capHeight;
-    CGFloat letteringVerticalHeight = self.letteringFont.capHeight;
-
-    CGFloat textTotalHeight = (numberVerticalHeight+2.0f) + self.letteringVerticalSpacing + (letteringVerticalHeight+2.0f);
-
-    [self bringSubviewToFront:self.labelContainerView];
-
-    [self.numberLabel sizeToFit];
-    CGRect frame = self.numberLabel.frame;
-    frame.size.height = ceil(numberVerticalHeight) + 2.0f;
-    frame.origin.x = ceilf((viewSize.width - frame.size.width) * 0.5f);
-    frame.origin.y = floorf((viewSize.height - textTotalHeight) * 0.5f);
-    self.numberLabel.frame = CGRectIntegral(frame);
-
-    if (self.letteringLabel) {
-        [self.letteringLabel sizeToFit];
-
-        CGFloat y = CGRectGetMaxY(frame);
-        y += self.letteringVerticalSpacing;
-
-        frame = self.letteringLabel.frame;
-        frame.size.height = ceil(letteringVerticalHeight) + 2.0f;
-        frame.origin.y = floorf(y);
-        frame.origin.x = (viewSize.width - frame.size.width) * 0.5f;
-        self.letteringLabel.frame = CGRectIntegral(frame);
-    }
+    self.buttonLabel.frame = self.bounds;
+    [self bringSubviewToFront:self.buttonLabel];
 }
 
 #pragma mark - User Interaction -
@@ -135,8 +111,7 @@
     if (!self.highlightedTextColor) { return; }
 
     void (^textFadeBlock)() = ^{
-        self.numberLabel.textColor = highlighted ? self.highlightedTextColor : self.textColor;
-        self.letteringLabel.textColor = highlighted ? self.highlightedTextColor : self.textColor;
+        self.buttonLabel.textColor = highlighted ? self.highlightedTextColor : self.textColor;
     };
 
     if (!animated) {
@@ -144,7 +119,7 @@
         return;
     }
 
-    [UIView transitionWithView:self.labelContainerView
+    [UIView transitionWithView:self.buttonLabel
                       duration:0.6f
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:textFadeBlock
@@ -177,34 +152,19 @@
 
 - (void)setNumberFont:(UIFont *)numberFont
 {
-    self.numberLabel.font = numberFont;
+    self.buttonLabel.numberLabel.font = numberFont;
     [self setNeedsLayout];
 }
 
-- (UIFont *)numberFont { return self.numberLabel.font; }
+- (UIFont *)numberFont { return self.buttonLabel.numberLabel.font; }
 
 - (void)setLetteringFont:(UIFont *)letteringFont
 {
-    self.letteringLabel.font = letteringFont;
+    self.buttonLabel.letteringLabel.font = letteringFont;
     [self setNeedsLayout];
 }
 
-- (UIFont *)letteringFont { return self.letteringLabel.font; }
-
-- (void)setLetteringString:(NSString *)letteringString
-{
-    if (letteringString == _letteringString) { return; }
-    _letteringString = letteringString;
-    [self updateLetteringLabelText];
-    [self setNeedsLayout];
-}
-
-- (void)setLetteringCharacterSpacing:(CGFloat)letteringCharacterSpacing
-{
-    _letteringCharacterSpacing = letteringCharacterSpacing;
-    [self updateLetteringLabelText];
-    [self setNeedsLayout];
-}
+- (UIFont *)letteringFont { return self.buttonLabel.letteringLabel.font; }
 
 - (void)setLetteringVerticalSpacing:(CGFloat)letteringVerticalSpacing
 {
@@ -217,8 +177,7 @@
     if (textColor == _textColor) { return; }
     _textColor = textColor;
 
-    self.numberLabel.textColor = _textColor;
-    self.letteringLabel.textColor = _textColor;
+    self.buttonLabel.textColor = _textColor;
 }
 
 @end
