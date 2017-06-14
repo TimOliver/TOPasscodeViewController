@@ -39,6 +39,8 @@
     self.userInteractionEnabled = YES;
     
     _textColor = [UIColor whiteColor];
+    _letteringVerticalSpacing = 6.0f;
+    _letteringCharacterSpacing = 3.0f;
 
     [self setUpSubviews];
     [self setUpViewInteraction];
@@ -55,11 +57,11 @@
         self.buttonLabel = [[TOPasscodeButtonLabel alloc] initWithFrame:self.bounds];
         self.buttonLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.buttonLabel.userInteractionEnabled = NO;
+        self.buttonLabel.letteringVerticalSpacing = self.letteringVerticalSpacing;
+        self.buttonLabel.letteringCharacterSpacing = self.letteringCharacterSpacing;
         self.buttonLabel.textColor = self.textColor;
-        self.buttonLabel.numberLabel.text = self.numberString;
-        self.buttonLabel.letteringLabel.text = self.letteringString;
-        self.buttonLabel.letteringVerticalSpacing = 6.0f;
-        self.buttonLabel.letteringCharacterSpacing = 3.0f;
+        self.buttonLabel.numberString = self.numberString;
+        self.buttonLabel.letteringString = self.letteringString;
         [self addSubview:self.buttonLabel];
     }
 

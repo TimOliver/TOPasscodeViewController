@@ -116,4 +116,10 @@
     [self setNeedsLayout];
 }
 
+- (void)setLetteringCharacterSpacing:(CGFloat)letteringCharacterSpacing
+{
+    _letteringCharacterSpacing = letteringCharacterSpacing;
+    [self updateLetteringLabelText];
+}
+
 @end
