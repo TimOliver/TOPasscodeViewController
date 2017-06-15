@@ -52,6 +52,7 @@
     SettingsViewController *controller = [[SettingsViewController alloc] init];
     controller.passcode = self.passcode;
     controller.style = self.style;
+    controller.wallpaperImage = self.imageView.image;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -64,6 +65,10 @@
         weakSelf.style = weakController.style;
 
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    };
+
+    controller.wallpaperChangedHandler = ^(UIImage *image) {
+        weakSelf.imageView.image = image;
     };
 }
 

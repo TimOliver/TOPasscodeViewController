@@ -9,7 +9,9 @@
 #import "SettingsViewController.h"
 #import "TOPasscodeSettingsViewController.h"
 
-@interface SettingsViewController ()
+@interface SettingsViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -29,6 +31,10 @@
     self.title = @"Settings";
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped)];
+
+    self.imageView = [[UIImageView alloc] initWithImage:self.wallpaperImage];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,15 +53,29 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return section == 1 ? @"Passcode View Style" : nil;
+    switch (section) {
+        case 0: return nil;
+        case 1: return @"Passcode Display Style";
+        case 2: return @"Choose Wallpaper";
+        default: break;
+    }
+
+    return nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : 4;
+    return section == 1 ? 4 : 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section < 2) { return 44.0f; }
+
+    return 280.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,7 +90,7 @@
         cell.detailTextLabel.text = self.passcode;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    else {
+    else if (indexPath.section == 1) {
         NSString *cellText = nil;
 
         switch (indexPath.row) {
@@ -91,6 +111,12 @@
 
         cell.textLabel.text = cellText;
     }
+    else {
+        cell.textLabel.text = nil;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        self.imageView.frame = CGRectInset(cell.bounds, 20, 20);
+        [cell addSubview:self.imageView];
+    }
     
     return cell;
 }
@@ -104,9 +130,55 @@
         self.style = indexPath.row;
         [tableView reloadRowsAtIndexPaths:@[lastIndex, indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
-    else {
+    else if (indexPath.section == 0) {
         TOPasscodeSettingsViewController *settingsController = [[TOPasscodeSettingsViewController alloc] init];
         [self.navigationController pushViewController:settingsController animated:YES];
+    }
+    else {
+        __weak typeof(self) weakSelf = self;
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        UIImage *pasteboardImage = pasteboard.image;
+
+        void (^photoAction)(UIAlertAction *) = ^(UIAlertAction *action) {
+            UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+            pickerController.delegate = self;
+            pickerController.modalPresentationStyle = UIModalPresentationFormSheet;
+            [weakSelf presentViewController:pickerController animated:YES completion:nil];
+        };
+
+        if (!pasteboardImage) {
+            photoAction(nil);
+            return;
+        }
+
+        void (^clipboardAction)(UIAlertAction *) = ^(UIAlertAction *action) {
+            [weakSelf setNewWallpaper:pasteboardImage];
+        };
+
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Choose Image Source"
+                                                                            message:nil
+                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
+        [controller addAction:[UIAlertAction actionWithTitle:@"Paste Image" style:UIAlertActionStyleDefault handler:clipboardAction]];
+        [controller addAction:[UIAlertAction actionWithTitle:@"Choose from Library" style:UIAlertActionStyleDefault handler:photoAction]];
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    [self setNewWallpaper:info[UIImagePickerControllerOriginalImage]];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)setNewWallpaper:(UIImage *)wallpaper
+{
+    if (wallpaper == nil) { return; }
+
+    self.wallpaperImage = wallpaper;
+    self.imageView.image = wallpaper;
+
+    if (self.wallpaperChangedHandler) {
+        self.wallpaperChangedHandler(wallpaper);
     }
 }
 
