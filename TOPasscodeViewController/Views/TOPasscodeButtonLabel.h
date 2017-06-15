@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface TOPasscodeButtonLabel : UIView
 
 // The strings of both labels
 @property (nonatomic, copy) NSString *numberString;
-@property (nonatomic, copy) NSString *letteringString;
+@property (nonatomic, copy, nullable) NSString *letteringString;
 
 // The color of both labels
 @property (nonatomic, strong) UIColor *textColor;
@@ -26,3 +28,5 @@
 @property (nonatomic, assign) CGFloat letteringVerticalSpacing;
 
 @end
+
+NS_ASSUME_NONNULL_END

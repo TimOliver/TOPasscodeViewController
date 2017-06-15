@@ -260,7 +260,7 @@
     if (keypadButtonBackgroundColor == nil) {
         keypadButtonBackgroundColor = defaultTintColor;
     }
-    self.keypadView.tintColor = keypadButtonBackgroundColor;
+    self.keypadView.buttonBackgroundColor = keypadButtonBackgroundColor;
 
     // Set the color of the keypad button labels
     UIColor *buttonTextColor = self.keypadButtonTextColor;

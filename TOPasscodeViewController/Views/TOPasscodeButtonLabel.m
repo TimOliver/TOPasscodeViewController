@@ -17,9 +17,13 @@
 
 @implementation TOPasscodeButtonLabel
 
+#pragma mark - View Setup -
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        _letteringVerticalSpacing = 6.0f;
+        _letteringCharacterSpacing = 3.0f;
         [self setUpViews];
     }
 
@@ -46,6 +50,8 @@
         [self updateLetteringLabelText];
     }
 }
+
+#pragma mark - View Layout -
 
 - (void)updateLetteringLabelText
 {
@@ -92,6 +98,8 @@
     }
 }
 
+#pragma mark - Accessors -
+
 - (void)setTextColor:(UIColor *)textColor
 {
     if (textColor == _textColor) { return; }
@@ -100,6 +108,7 @@
     self.numberLabel.textColor = _textColor;
     self.letteringLabel.textColor = _textColor;
 }
+/***********************************************************/
 
 - (void)setNumberString:(NSString *)numberString
 {
@@ -109,12 +118,16 @@
 
 - (NSString *)numberString { return self.numberLabel.text; }
 
+/***********************************************************/
+
 - (void)setLetteringString:(NSString *)letteringString
 {
     _letteringString = [letteringString copy];
     [self updateLetteringLabelText];
     [self setNeedsLayout];
 }
+
+/***********************************************************/
 
 - (void)setLetteringCharacterSpacing:(CGFloat)letteringCharacterSpacing
 {

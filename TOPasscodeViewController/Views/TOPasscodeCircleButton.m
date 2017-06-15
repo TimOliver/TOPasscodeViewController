@@ -39,8 +39,6 @@
     self.userInteractionEnabled = YES;
     
     _textColor = [UIColor whiteColor];
-    _letteringVerticalSpacing = 6.0f;
-    _letteringCharacterSpacing = 3.0f;
 
     [self setUpSubviews];
     [self setUpViewInteraction];
@@ -57,8 +55,6 @@
         self.buttonLabel = [[TOPasscodeButtonLabel alloc] initWithFrame:self.bounds];
         self.buttonLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.buttonLabel.userInteractionEnabled = NO;
-        self.buttonLabel.letteringVerticalSpacing = self.letteringVerticalSpacing;
-        self.buttonLabel.letteringCharacterSpacing = self.letteringCharacterSpacing;
         self.buttonLabel.textColor = self.textColor;
         self.buttonLabel.numberString = self.numberString;
         self.buttonLabel.letteringString = self.letteringString;
@@ -94,6 +90,7 @@
 }
 
 #pragma mark - User Interaction -
+
 - (void)buttonDidTouchDown:(id)sender
 {
     if (self.buttonTappedHandler) { self.buttonTappedHandler(); }
@@ -104,7 +101,7 @@
 - (void)buttonDidDragInside:(id)sender    { [self setHighlighted:YES animated:NO]; }
 - (void)buttonDidDragOutside:(id)sender   { [self setHighlighted:NO animated:YES]; }
 
-#pragma mark - Accessors -
+#pragma mark - Animated Accessors -
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
@@ -128,6 +125,8 @@
                     completion:nil];
 }
 
+#pragma mark - Accessors -
+
 - (void)setBackgroundImage:(UIImage *)backgroundImage
 {
     self.circleView.circleImage = backgroundImage;
@@ -136,6 +135,10 @@
     self.frame = frame;
 }
 
+- (UIImage *)backgroundImage { return self.circleView.circleImage; }
+
+/***********************************************************/
+
 - (void)setVibrancyEffect:(UIVibrancyEffect *)vibrancyEffect
 {
     if (_vibrancyEffect == vibrancyEffect) { return; }
@@ -143,7 +146,7 @@
     self.vibrancyView.effect = _vibrancyEffect;
 }
 
-- (UIImage *)backgroundImage { return self.circleView.circleImage; }
+/***********************************************************/
 
 - (void)setHightlightedBackgroundImage:(UIImage *)hightlightedBackgroundImage
 {
@@ -151,6 +154,8 @@
 }
 
 - (UIImage *)hightlightedBackgroundImage { return self.circleView.highlightedCircleImage; }
+
+/***********************************************************/
 
 - (void)setNumberFont:(UIFont *)numberFont
 {
@@ -160,6 +165,8 @@
 
 - (UIFont *)numberFont { return self.buttonLabel.numberLabel.font; }
 
+/***********************************************************/
+
 - (void)setLetteringFont:(UIFont *)letteringFont
 {
     self.buttonLabel.letteringLabel.font = letteringFont;
@@ -168,11 +175,26 @@
 
 - (UIFont *)letteringFont { return self.buttonLabel.letteringLabel.font; }
 
+/***********************************************************/
+
 - (void)setLetteringVerticalSpacing:(CGFloat)letteringVerticalSpacing
 {
-    _letteringVerticalSpacing = letteringVerticalSpacing;
-    [self setNeedsLayout];
+    self.buttonLabel.letteringVerticalSpacing = letteringVerticalSpacing;
+    [self.buttonLabel setNeedsLayout];
 }
+
+- (CGFloat)letteringVerticalSpacing { return self.buttonLabel.letteringVerticalSpacing; }
+
+/***********************************************************/
+
+- (void)setLetteringCharacterSpacing:(CGFloat)letteringCharacterSpacing
+{
+    self.buttonLabel.letteringCharacterSpacing = letteringCharacterSpacing;
+}
+
+- (CGFloat)letteringCharacterSpacing { return self.buttonLabel.letteringCharacterSpacing; }
+
+/***********************************************************/
 
 - (void)setTextColor:(UIColor *)textColor
 {
