@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TOPasscodeViewControllerConstants.h"
 
 @interface TOPasscodeSettingsKeypadView : UIView
 
+/* Whether the view is currently light mode or dark. */
+@property (nonatomic, assign) TOPasscodeSettingsViewStyle style;
 
 @end
