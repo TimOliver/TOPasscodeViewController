@@ -8,10 +8,19 @@
 
 #import "TOPasscodeSettingsViewController.h"
 #import "TOPasscodeNumberInputView.h"
+#import "TOPasscodeSettingsKeypadView.h"
+
+const CGFloat kTOPasscodeSettingsLabelInputSpacing = 15.0f;
+const CGFloat kTOPasscodeKeypadMaxSizeRatio = 0.40f;
+const CGFloat kTOPasscodeKeypadMinHeight = 170.0f;
 
 @interface TOPasscodeSettingsViewController ()
 
+@property (nonatomic, strong) UIView *containerView;
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) TOPasscodeNumberInputView *numberInputView;
+
+@property (nonatomic, strong) TOPasscodeSettingsKeypadView *keypadView;
 
 @end
 
@@ -31,17 +40,77 @@
 
     self.title = NSLocalizedString(@"Enter Passcode", @"");
 
-    self.numberInputView = [[TOPasscodeNumberInputView alloc] initWithRequiredLength:4];
-    self.numberInputView.frame = CGRectOffset(self.numberInputView.frame, 0.0f, 100.0);
-    [self.view addSubview:self.numberInputView];
+    // Create container view
+    self.containerView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin
+                                            | UIViewAutoresizingFlexibleBottomMargin;
+    [self.view addSubview:self.containerView];
 
+    // Create title label
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.text = @"Enter your passcode";
+    self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [self.titleLabel sizeToFit];
+    [self.containerView addSubview:self.titleLabel];
+
+    // Create number view
+    self.numberInputView = [[TOPasscodeNumberInputView alloc] initWithRequiredLength:4];
+    self.numberInputView.tintColor = [UIColor blackColor];
+    self.numberInputView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [self.numberInputView sizeToFit];
+    [self.containerView addSubview:self.numberInputView];
+
+    // Create keypad view
+    self.keypadView = [[TOPasscodeSettingsKeypadView alloc] initWithFrame:CGRectZero];
+    self.keypadView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:self.keypadView];
+
+    // Set height of the container view (This will never change)
+    CGRect frame = self.containerView.frame;
+    frame.size.width = self.view.bounds.size.width;
+    frame.size.height = CGRectGetHeight(self.titleLabel.frame) + CGRectGetHeight(self.numberInputView.frame)
+                            + kTOPasscodeSettingsLabelInputSpacing;
+    self.containerView.frame = CGRectIntegral(frame);
+
+    // Set frame of title label
+    frame = self.titleLabel.frame;
+    frame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(frame)) * 0.5f;
+    self.titleLabel.frame = CGRectIntegral(frame);
+
+    // Set frame of number pad
+    frame = self.numberInputView.frame;
+    frame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(frame)) * 0.5f;
+    frame.origin.y = (CGRectGetHeight(self.titleLabel.frame) + kTOPasscodeSettingsLabelInputSpacing);
+    self.numberInputView.frame = CGRectIntegral(frame);
+
+    // Apply light/dark mode
     [self applyThemeForStyle:self.style];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLayoutSubviews
 {
-    [super viewDidAppear:animated];
-    [self.numberInputView becomeFirstResponder];
+    [super viewDidLayoutSubviews];
+
+    CGSize viewSize = self.view.bounds.size;
+
+    // Layout the keypad view
+    CGRect frame = self.keypadView.frame;
+    frame.size.height = viewSize.height * kTOPasscodeKeypadMaxSizeRatio;
+    frame.size.height = MAX(frame.size.height, kTOPasscodeKeypadMinHeight);
+    frame.size.width = viewSize.width;
+    frame.origin.y = viewSize.height - frame.size.height;
+    self.keypadView.frame = CGRectIntegral(frame);
+
+    CGFloat topContentHeight = self.topLayoutGuide.length;
+
+    // Layout the container view
+    frame = self.containerView.frame;
+    frame.origin.y = ((viewSize.height - (topContentHeight + self.keypadView.frame.size.height)) - frame.size.height) * 0.5f;
+    frame.origin.y += topContentHeight;
+    self.containerView.frame = CGRectIntegral(frame);
 }
 
 - (void)applyThemeForStyle:(TOPasscodeSettingsViewStyle)style

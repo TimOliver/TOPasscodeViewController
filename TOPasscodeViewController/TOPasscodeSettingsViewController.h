@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "TOPasscodeViewControllerConstants.h"
 
+typedef NS_ENUM(NSInteger, TOPasscodeSettingsViewState) {
+    TOPasscodeSettingsViewStateEnterNewPassword,
+    TOPasscodeSettingsViewStateConfirmNewPassword,
+    TOPasscodeSettingsViewStateEnterCurrentPassword
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeSettingsViewController : UIViewController
