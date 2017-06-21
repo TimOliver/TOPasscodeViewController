@@ -32,6 +32,7 @@
 		22D3613F1EDCC1EA002E5D35 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D3613D1EDCC1EA002E5D35 /* Info.plist */; };
 		22D361401EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3613E1EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m */; };
 		22D5C81A1EE9F99600745F9A /* TOPasscodeSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */; };
+		22EAD9DA1EFA4CEF00D0C408 /* TOSettingsKeypadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EAD9D91EFA4CEF00D0C408 /* TOSettingsKeypadImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,8 @@
 		22D3613E1EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINViewControllerExampleTests.m; sourceTree = "<group>"; };
 		22D5C8181EE9F99600745F9A /* TOPasscodeSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOPasscodeSettingsViewController.h; sourceTree = "<group>"; };
 		22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeSettingsViewController.m; sourceTree = "<group>"; };
+		22EAD9D81EFA4CEF00D0C408 /* TOSettingsKeypadImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOSettingsKeypadImage.h; sourceTree = "<group>"; };
+		22EAD9D91EFA4CEF00D0C408 /* TOSettingsKeypadImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOSettingsKeypadImage.m; sourceTree = "<group>"; };
 		22F806A31ECABB3D0053C94E /* TOPasscodeViewControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOPasscodeViewControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F806BC1ECABB3D0053C94E /* TOPasscodeViewControllerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TOPasscodeViewControllerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,6 +143,8 @@
 			children = (
 				22D361091EDCC1CC002E5D35 /* TOPasscodeCircleImage.h */,
 				22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */,
+				22EAD9D81EFA4CEF00D0C408 /* TOSettingsKeypadImage.h */,
+				22EAD9D91EFA4CEF00D0C408 /* TOSettingsKeypadImage.m */,
 				22D3610B1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.h */,
 				22D3610C1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.m */,
 			);
@@ -350,6 +355,7 @@
 				2271931D1EE3E0D4000324B7 /* TOBlurView.m in Sources */,
 				22D361221EDCC1CC002E5D35 /* TOPasscodeKeypadView.m in Sources */,
 				226EFC031EE3FA490033B079 /* SettingsViewController.m in Sources */,
+				22EAD9DA1EFA4CEF00D0C408 /* TOSettingsKeypadImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@
 @interface TOPasscodeSettingsKeypadView ()
 
 @property (nonatomic, strong) UIView *separatorView;
+@property (nonatomic, strong) NSArray<UIButton *> *keypadButtons;
 
 @end
 
@@ -35,6 +36,20 @@
     [self addSubview:self.separatorView];
 
     [self applyThemeForStyle:self.style];
+}
+
+- (void)setUpKeypadButtons
+{
+    NSInteger numberOfButtons = 10;
+    NSArray *letteredTitles = @[@"ABC", @"DEF", @"GHI", @"JKL",
+                                @"MNO", @"PQRS", @"TUV", @"WXYZ"];
+
+
+}
+
+- (UIButton *)makeKeypadButtonForNumber:(NSInteger)number letteredTitle:(nullable NSString *)letteredTitle
+{
+    
 }
 
 - (void)applyThemeForStyle:(TOPasscodeSettingsViewStyle)style
