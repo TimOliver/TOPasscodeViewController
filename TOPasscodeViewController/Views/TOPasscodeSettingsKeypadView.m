@@ -302,4 +302,55 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
         }];
     }
 }
+
+#pragma mark - Null Resettable Accessors -
+- (void)setKeypadButtonForegroundColor:(nullable UIColor *)keypadButtonForegroundColor
+{
+    if (keypadButtonForegroundColor == _keypadButtonForegroundColor) { return; }
+    _keypadButtonForegroundColor = keypadButtonForegroundColor;
+
+    if (_keypadButtonForegroundColor == nil) {
+        BOOL isDark = self.style == TOPasscodeSettingsViewStyleDark;
+        _keypadButtonForegroundColor = isDark ? [UIColor colorWithWhite:0.3f alpha:1.0f] : [UIColor whiteColor];
+    }
+
+    self.buttonBackgroundImage = nil;
+    [self setNeedsLayout];
+}
+
+- (void)setKeypadButtonBorderColor:(nullable UIColor *)keypadButtonBorderColor
+{
+    if (keypadButtonBorderColor == _keypadButtonBorderColor) { return; }
+    _keypadButtonBorderColor = keypadButtonBorderColor;
+
+    if (_keypadButtonBorderColor == nil) {
+        BOOL isDark = self.style == TOPasscodeSettingsViewStyleDark;
+        UIColor *borderColor = nil;
+        if (isDark) {
+            borderColor = [UIColor colorWithWhite:0.2 alpha:1.0f];
+        }
+        else {
+            borderColor = [UIColor colorWithRed:166.0f/255.0f green:174.0f/255.0f blue:186.0f/255.0f alpha:1.0f];
+        }
+        _keypadButtonBorderColor = borderColor;
+    }
+
+    self.buttonBackgroundImage = nil;
+    [self setNeedsLayout];
+}
+
+- (void)setKeypadButtonTappedForegroundColor:(nullable UIColor *)keypadButtonTappedForegroundColor
+{
+    if (keypadButtonTappedForegroundColor == _keypadButtonTappedForegroundColor) { return; }
+    _keypadButtonTappedForegroundColor = keypadButtonTappedForegroundColor;
+
+    if (_keypadButtonTappedForegroundColor == nil) {
+        BOOL isDark = self.style == TOPasscodeSettingsViewStyleDark;
+        _keypadButtonTappedForegroundColor = isDark ? [UIColor colorWithWhite:0.4f alpha:1.0f] : [UIColor colorWithWhite:0.85f alpha:1.0f];
+    }
+
+    self.buttonTappedBackgroundImage = nil;
+    [self setNeedsLayout];
+}
+
 @end
