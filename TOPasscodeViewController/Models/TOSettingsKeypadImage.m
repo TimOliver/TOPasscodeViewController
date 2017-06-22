@@ -31,7 +31,7 @@
         shadow.shadowBlurRadius = 0;
 
         CGRect buttonFrame = frame;
-        frame.size.height -= thickness;
+        buttonFrame.size.height -= thickness;
 
         CGContextSaveGState(context);
         {

@@ -12,7 +12,7 @@
 
 const CGFloat kTOPasscodeSettingsLabelInputSpacing = 15.0f;
 const CGFloat kTOPasscodeKeypadMaxSizeRatio = 0.40f;
-const CGFloat kTOPasscodeKeypadMinHeight = 170.0f;
+const CGFloat kTOPasscodeKeypadMinHeight = 200.0f;
 
 @interface TOPasscodeSettingsViewController ()
 

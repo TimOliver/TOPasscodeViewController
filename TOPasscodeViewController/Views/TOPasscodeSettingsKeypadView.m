@@ -11,8 +11,9 @@
 #import "TOPasscodeButtonLabel.h"
 #import "TOSettingsKeypadImage.h"
 
-const CGFloat kTOPasscodeSettingsKeypadButtonSpacing = 3.0f;
-const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 15.0f;
+const CGFloat kTOPasscodeSettingsKeypadButtonInnerSpacing = 7.0f;
+const CGFloat kTOPasscodeSettingsKeypadButtonOuterSpacing = 7.0f;
+const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 17.0f;
 
 @interface TOPasscodeSettingsKeypadView ()
 
@@ -38,11 +39,11 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 15.0f;
 - (void)setUp
 {
     /* Button label styling */
-    _keypadButtonNumberFont = [UIFont systemFontOfSize:17.0f weight:UIFontWeightRegular];
-    _keypadButtonLetteringFont = [UIFont systemFontOfSize:12.0f weight:UIFontWeightThin];
+    _keypadButtonNumberFont = [UIFont systemFontOfSize:31.0f weight:UIFontWeightRegular];
+    _keypadButtonLetteringFont = [UIFont systemFontOfSize:11.0f weight:UIFontWeightRegular];
     _keypadButtonVerticalSpacing = 3.0f;
     _keypadButtonHorizontalSpacing = 3.0f;
-    _keypadButtonLetteringSpacing = 3.0f;
+    _keypadButtonLetteringSpacing = 2.0f;
 
     CGSize viewSize = self.frame.size;
     CGFloat height = 1.0f / [[UIScreen mainScreen] scale];
@@ -89,7 +90,7 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 15.0f;
     self.keypadButtonLabelTextColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
 
     self.keypadButtonForegroundColor = isDark ? [UIColor colorWithWhite:0.3f alpha:1.0f] : [UIColor whiteColor];
-    self.keypadButtonTappedForegroundColor = isDark ? [UIColor colorWithWhite:0.3f alpha:1.0f] : [UIColor whiteColor];
+    self.keypadButtonTappedForegroundColor = isDark ? [UIColor colorWithWhite:0.4f alpha:1.0f] : [UIColor colorWithWhite:0.85f alpha:1.0f];
 
     // Button border color
     UIColor *borderColor = nil;
@@ -165,28 +166,33 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 15.0f;
     [super layoutSubviews];
     [self setUpImagesIfNeeded];
 
+    CGFloat outerSpacing = kTOPasscodeSettingsKeypadButtonOuterSpacing;
+    CGFloat innerSpacing = kTOPasscodeSettingsKeypadButtonInnerSpacing;
+
     CGSize viewSize = self.bounds.size;
     CGSize buttonSize = CGSizeZero;
 
-    // Four rows of three buttons
-    buttonSize.width = floorf((viewSize.width / 3.0f) - (kTOPasscodeSettingsKeypadButtonSpacing * 2.0f));
-    buttonSize.height = floorf((viewSize.height / 4.0f) - (kTOPasscodeSettingsKeypadButtonSpacing * 2.0f));
+    viewSize.width -= (outerSpacing * 2.0f);
+    viewSize.height -= (outerSpacing * 2.0f);
 
-    CGPoint point = CGPointMake(kTOPasscodeSettingsKeypadButtonSpacing, kTOPasscodeSettingsKeypadButtonSpacing);
+    // Four rows of three buttons
+    buttonSize.width = floorf((viewSize.width - (innerSpacing * 2.0f)) / 3.0f);
+    buttonSize.height = floorf((viewSize.height - (innerSpacing * 3.0f)) / 4.0f);
+
+    CGPoint point = CGPointMake(outerSpacing, outerSpacing);
     CGRect buttonFrame = (CGRect){point, buttonSize};
 
     NSInteger i = 0;
     for (TOPasscodeSettingsKeypadButton *button in self.keypadButtons) {
         button.frame = buttonFrame;
-        buttonFrame.origin.x += buttonFrame.size.width + kTOPasscodeSettingsKeypadButtonSpacing * 2.0f;
+        buttonFrame.origin.x += buttonFrame.size.width + innerSpacing;
 
         if (++i % 3 == 0) {
-            buttonFrame.origin.x = kTOPasscodeSettingsKeypadButtonSpacing;
-            buttonFrame.origin.y += buttonFrame.size.height + kTOPasscodeSettingsKeypadButtonSpacing;
+            buttonFrame.origin.x = outerSpacing;
+            buttonFrame.origin.y += buttonFrame.size.height + innerSpacing;
         }
 
         if (button == self.keypadButtons.lastObject) {
-            buttonFrame.origin.x += buttonFrame.size.width;
             button.frame = buttonFrame;
         }
     }

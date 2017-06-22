@@ -19,7 +19,7 @@
 
 + (TOPasscodeSettingsKeypadButton *)button
 {
-    return [TOPasscodeSettingsKeypadButton buttonWithType:UIButtonTypeCustom];
+    return [TOPasscodeSettingsKeypadButton buttonWithType:UIButtonTypeSystem];
 }
 
 #pragma mark - Lazy Accessor -
