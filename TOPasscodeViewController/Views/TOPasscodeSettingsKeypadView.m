@@ -19,6 +19,7 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
 
 @property (nonatomic, strong) UIView *separatorView;
 @property (nonatomic, strong) NSArray<TOPasscodeSettingsKeypadButton *> *keypadButtons;
+@property (nonatomic, strong) UIButton *deleteButton;
 
 @property (nonatomic, strong) UIImage *buttonBackgroundImage;
 @property (nonatomic, strong) UIImage *buttonTappedBackgroundImage;
@@ -52,6 +53,7 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
     [self addSubview:self.separatorView];
 
     [self setUpKeypadButtons];
+    [self setUpDeleteButton];
 
     [self setUpDefaultValuesForStye:_style];
     [self applyTheme];
@@ -81,6 +83,16 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
     }
 
     self.keypadButtons = [NSArray arrayWithArray:buttons];
+}
+
+- (void)setUpDeleteButton
+{
+    UIImage *deleteIcon = [TOSettingsKeypadImage deleteIcon];
+    self.deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.deleteButton setImage:deleteIcon forState:UIControlStateNormal];
+    self.deleteButton.frame = (CGRect){CGPointZero, deleteIcon.size};
+    self.deleteButton.tintColor = [UIColor blackColor];
+    [self addSubview:self.deleteButton];
 }
 
 - (void)setUpDefaultValuesForStye:(TOPasscodeSettingsViewStyle)style
@@ -197,6 +209,15 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
             button.frame = buttonFrame;
         }
     }
+
+    //Layout delete button
+    CGSize boundsSize = self.bounds.size;
+    CGRect frame = self.deleteButton.frame;
+    frame.origin.x = boundsSize.width - (outerSpacing + buttonSize.width * 0.5f);
+    frame.origin.x -= (CGRectGetWidth(frame) * 0.5f);
+    frame.origin.y = boundsSize.height - (outerSpacing + buttonSize.height * 0.5f);
+    frame.origin.y -= (CGRectGetHeight(frame) * 0.5f);
+    self.deleteButton.frame = frame;
 }
 
 #pragma mark - Accessors -

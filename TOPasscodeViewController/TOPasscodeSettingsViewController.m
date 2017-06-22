@@ -20,7 +20,6 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) TOPasscodeNumberInputView *numberInputView;
-
 @property (nonatomic, strong) TOPasscodeSettingsKeypadView *keypadView;
 
 @end
