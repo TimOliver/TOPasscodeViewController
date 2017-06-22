@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, null_resettable) UIColor *keypadButtonForegroundColor;
 @property (nonatomic, strong, null_resettable) UIColor *keypadButtonBorderColor;
 
-/* Tapped backgroudn images */
+/* Tapped background images */
 @property (nonatomic, strong, null_resettable) UIColor *keypadButtonTappedForegroundColor;
 @property (nonatomic, strong, nullable) UIColor *keypadButtonTappedBorderColor;
 
