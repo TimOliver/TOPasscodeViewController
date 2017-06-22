@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* The color of the separator line */
 @property (nonatomic, strong) UIColor *separatorLineColor;
 
+/* Labels in the buttons are laid out horizontally */
+@property (nonatomic, assign) BOOL buttonLabelHorizontalLayout;
+
 /* If overridden, the foreground color of the buttons */
 @property (nonatomic, assign) CGFloat keypadButtonBorderThickness;
 
@@ -37,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat keypadButtonVerticalSpacing;
 @property (nonatomic, assign) CGFloat keypadButtonHorizontalSpacing;
 @property (nonatomic, assign) CGFloat keypadButtonLetteringSpacing;
+
+/* In really small sizes, set the keypad labels to horizontal */
+- (void)setButtonLabelHorizontalLayout:(BOOL)horizontal animated:(BOOL)animated;
 
 @end
 

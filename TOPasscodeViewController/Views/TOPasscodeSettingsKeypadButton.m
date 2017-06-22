@@ -19,7 +19,9 @@
 
 + (TOPasscodeSettingsKeypadButton *)button
 {
-    return [TOPasscodeSettingsKeypadButton buttonWithType:UIButtonTypeSystem];
+    TOPasscodeSettingsKeypadButton *button = [TOPasscodeSettingsKeypadButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0,0,100,60);
+    return button;
 }
 
 #pragma mark - Lazy Accessor -
@@ -31,6 +33,7 @@
     frame.size.height -= self.bottomInset;
 
     _buttonLabel = [[TOPasscodeButtonLabel alloc] initWithFrame:frame];
+    _buttonLabel.userInteractionEnabled = NO;
     _buttonLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:_buttonLabel];
 
@@ -45,9 +48,22 @@
     CGRect frame = self.bounds;
     frame.size.height -= _bottomInset;
     self.buttonLabel.frame = frame;
+    [self setNeedsLayout];
 }
 
 #pragma mark - Background Image Accessor -
+
+- (void)setHighlighted:(BOOL)highlighted {
+    [self.layer removeAllAnimations];
+    [UIView transitionWithView:self
+                      duration:0.25
+                       options:UIViewAnimationOptionTransitionCrossDissolve |
+                                 UIViewAnimationOptionAllowAnimatedContent |
+                                 UIViewAnimationOptionAllowUserInteraction
+                    animations:^{
+        [super setHighlighted:highlighted];
+    } completion:nil];
+}
 
 - (void)setButtonBackgroundImage:(UIImage *)buttonBackgroundImage
 {

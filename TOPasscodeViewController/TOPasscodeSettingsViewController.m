@@ -13,6 +13,7 @@
 const CGFloat kTOPasscodeSettingsLabelInputSpacing = 15.0f;
 const CGFloat kTOPasscodeKeypadMaxSizeRatio = 0.40f;
 const CGFloat kTOPasscodeKeypadMinHeight = 200.0f;
+const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
 @interface TOPasscodeSettingsViewController ()
 
@@ -48,7 +49,7 @@ const CGFloat kTOPasscodeKeypadMinHeight = 200.0f;
 
     // Create title label
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    self.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    self.titleLabel.font = [UIFont systemFontOfSize:17.0f];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.text = @"Enter your passcode";
@@ -100,9 +101,14 @@ const CGFloat kTOPasscodeKeypadMinHeight = 200.0f;
     CGRect frame = self.keypadView.frame;
     frame.size.height = viewSize.height * kTOPasscodeKeypadMaxSizeRatio;
     frame.size.height = MAX(frame.size.height, kTOPasscodeKeypadMinHeight);
+    frame.size.height = MIN(frame.size.height, kTOPasscodeKeypadMaxHeight);
     frame.size.width = viewSize.width;
     frame.origin.y = viewSize.height - frame.size.height;
     self.keypadView.frame = CGRectIntegral(frame);
+
+    BOOL horizontalLayout = frame.size.height < kTOPasscodeKeypadMinHeight + FLT_EPSILON;
+    BOOL animated = ([self.view.layer animationForKey:@"bounds.size"] != nil);
+    [self.keypadView setButtonLabelHorizontalLayout:horizontalLayout animated:animated];
 
     CGFloat topContentHeight = self.topLayoutGuide.length;
 

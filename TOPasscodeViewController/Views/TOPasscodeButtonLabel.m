@@ -24,6 +24,7 @@
     if (self = [super initWithFrame:frame]) {
         _letteringVerticalSpacing = 6.0f;
         _letteringCharacterSpacing = 3.0f;
+        _letteringHorizontalSpacing = 5.0f;
         [self setUpViews];
     }
 
@@ -73,27 +74,41 @@
     UIFont *numberFont = self.numberLabel.font;
     UIFont *letteringFont = self.letteringLabel.font;
 
+    [self.numberLabel sizeToFit];
+    [self.letteringLabel sizeToFit];
+
     CGFloat numberVerticalHeight = numberFont.capHeight;
     CGFloat letteringVerticalHeight = letteringFont.capHeight;
     CGFloat textTotalHeight = (numberVerticalHeight+2.0f) + self.letteringVerticalSpacing + (letteringVerticalHeight+2.0f);
 
-    [self.numberLabel sizeToFit];
     CGRect frame = self.numberLabel.frame;
     frame.size.height = ceil(numberVerticalHeight) + 2.0f;
     frame.origin.x = ceilf((viewSize.width - frame.size.width) * 0.5f);
-    frame.origin.y = floorf((viewSize.height - textTotalHeight) * 0.5f);
+
+    if (!self.horizontalLayout) {
+        frame.origin.y = floorf((viewSize.height - textTotalHeight) * 0.5f);
+    }
+    else {
+        frame.origin.y = floorf((viewSize.height - frame.size.height) * 0.5f);
+    }
     self.numberLabel.frame = CGRectIntegral(frame);
 
     if (self.letteringLabel) {
-        [self.letteringLabel sizeToFit];
-
         CGFloat y = CGRectGetMaxY(frame);
         y += self.letteringVerticalSpacing;
 
         frame = self.letteringLabel.frame;
         frame.size.height = ceil(letteringVerticalHeight) + 2.0f;
-        frame.origin.y = floorf(y);
-        frame.origin.x = (viewSize.width - frame.size.width) * 0.5f;
+
+        if (!self.horizontalLayout) {
+            frame.origin.y = floorf(y);
+            frame.origin.x = (viewSize.width - frame.size.width) * 0.5f;
+        }
+        else {
+            frame.origin.y = floorf((viewSize.height - frame.size.height) * 0.5f);
+            frame.origin.x = CGRectGetMaxX(self.numberLabel.frame) + self.letteringHorizontalSpacing;
+        }
+
         self.letteringLabel.frame = CGRectIntegral(frame);
     }
 }

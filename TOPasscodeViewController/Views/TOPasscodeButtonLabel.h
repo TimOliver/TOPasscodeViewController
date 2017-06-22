@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeButtonLabel : UIView
 
+@property (nonatomic, assign) BOOL horizontalLayout;
+
 // The strings of both labels
 @property (nonatomic, copy) NSString *numberString;
 @property (nonatomic, copy, nullable) NSString *letteringString;

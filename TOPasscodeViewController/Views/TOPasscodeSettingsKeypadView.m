@@ -13,7 +13,7 @@
 
 const CGFloat kTOPasscodeSettingsKeypadButtonInnerSpacing = 7.0f;
 const CGFloat kTOPasscodeSettingsKeypadButtonOuterSpacing = 7.0f;
-const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 17.0f;
+const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
 
 @interface TOPasscodeSettingsKeypadView ()
 
@@ -39,9 +39,9 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 17.0f;
 - (void)setUp
 {
     /* Button label styling */
-    _keypadButtonNumberFont = [UIFont systemFontOfSize:31.0f weight:UIFontWeightRegular];
+    _keypadButtonNumberFont = [UIFont systemFontOfSize:32.0f weight:UIFontWeightRegular];
     _keypadButtonLetteringFont = [UIFont systemFontOfSize:11.0f weight:UIFontWeightRegular];
-    _keypadButtonVerticalSpacing = 3.0f;
+    _keypadButtonVerticalSpacing = 2.0f;
     _keypadButtonHorizontalSpacing = 3.0f;
     _keypadButtonLetteringSpacing = 2.0f;
 
@@ -67,6 +67,7 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 17.0f;
     for (NSInteger i = 0; i < numberOfButtons; i++) {
         TOPasscodeSettingsKeypadButton *button = [TOPasscodeSettingsKeypadButton button];
         button.buttonLabel.numberString = [NSString stringWithFormat:@"%ld", (i+1) % 10];
+        button.bottomInset = 2.0f;
 
         if (i > 0) {
             NSInteger j = i - 1;
@@ -211,4 +212,45 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 17.0f;
     [self applyTheme];
 }
 
+#pragma mark - Label Layout -
+- (void)setButtonLabelHorizontalLayout:(BOOL)buttonLabelHorizontalLayout
+{
+    [self setButtonLabelHorizontalLayout:buttonLabelHorizontalLayout animated:NO];
+}
+
+- (void)setButtonLabelHorizontalLayout:(BOOL)horizontal animated:(BOOL)animated
+{
+    if (horizontal == _buttonLabelHorizontalLayout) { return; }
+
+    _buttonLabelHorizontalLayout = horizontal;
+
+    for (TOPasscodeSettingsKeypadButton *button in self.keypadButtons) {
+        if (!animated) {
+            button.buttonLabel.horizontalLayout = horizontal;
+            continue;
+        }
+
+        UIView *snapshotView = [button.buttonLabel snapshotViewAfterScreenUpdates:NO];
+        snapshotView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        [button addSubview:snapshotView];
+
+        button.buttonLabel.horizontalLayout = horizontal;
+        [button.buttonLabel setNeedsLayout];
+        [button.buttonLabel layoutIfNeeded];
+
+        [button.buttonLabel.layer removeAllAnimations];
+        for (CALayer *sublayer in button.buttonLabel.layer.sublayers) {
+            [sublayer removeAllAnimations];
+        }
+
+        button.buttonLabel.alpha = 0.0f;
+        [UIView animateWithDuration:0.4f animations:^{
+            button.buttonLabel.alpha = 1.0f;
+            snapshotView.alpha = 0.0f;
+            snapshotView.center = button.buttonLabel.center;
+        } completion:^(BOOL complete) {
+            [snapshotView removeFromSuperview];
+        }];
+    }
+}
 @end
