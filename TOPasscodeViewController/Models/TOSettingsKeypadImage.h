@@ -12,7 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOSettingsKeypadImage : UIImage
 
-+ (UIImage *)buttonImageWithCornerRadius:(CGFloat)radius foregroundColor:(UIColor *)foregroundColor edgeColor:(UIColor *)edgeColor;
++ (UIImage *)buttonImageWithCornerRadius:(CGFloat)radius
+                         foregroundColor:(UIColor *)foregroundColor
+                               edgeColor:(UIColor *)edgeColor
+                           edgeThickness:(CGFloat)thickness;
+
 + (UIImage *)deleteIcon;
 
 @end

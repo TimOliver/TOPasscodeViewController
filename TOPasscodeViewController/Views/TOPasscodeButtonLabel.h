@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Has initial default values   
 @property (nonatomic, assign) CGFloat letteringCharacterSpacing;
 @property (nonatomic, assign) CGFloat letteringVerticalSpacing;
+@property (nonatomic, assign) CGFloat letteringHorizontalSpacing;
 
 @end
 
