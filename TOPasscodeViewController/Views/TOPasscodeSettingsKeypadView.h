@@ -41,6 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat keypadButtonHorizontalSpacing;
 @property (nonatomic, assign) CGFloat keypadButtonLetteringSpacing;
 
+/* Callback handlers */
+@property (nonatomic, copy) void (^numberButtonTappedHandler)(NSInteger number);
+@property (nonatomic, copy) void (^deleteButtonTappedHandler)();
+
 /* In really small sizes, set the keypad labels to horizontal */
 - (void)setButtonLabelHorizontalLayout:(BOOL)horizontal animated:(BOOL)animated;
 

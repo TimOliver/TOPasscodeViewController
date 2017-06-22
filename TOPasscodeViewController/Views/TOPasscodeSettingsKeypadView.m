@@ -67,9 +67,11 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
 
     NSMutableArray *buttons = [NSMutableArray arrayWithCapacity:10];
     for (NSInteger i = 0; i < numberOfButtons; i++) {
+        NSInteger number = (i+1) % 10; // Wrap around 0 at the end
         TOPasscodeSettingsKeypadButton *button = [TOPasscodeSettingsKeypadButton button];
-        button.buttonLabel.numberString = [NSString stringWithFormat:@"%ld", (i+1) % 10];
+        button.buttonLabel.numberString = [NSString stringWithFormat:@"%ld", number];
         button.bottomInset = 2.0f;
+        button.tag = number;
 
         if (i > 0) {
             NSInteger j = i - 1;
@@ -77,6 +79,8 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
                 button.buttonLabel.letteringString = letteredTitles[j];
             }
         }
+
+        [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchDown];
 
         [self addSubview:button];
         [buttons addObject:button];
@@ -90,8 +94,10 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
     UIImage *deleteIcon = [TOSettingsKeypadImage deleteIcon];
     self.deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.deleteButton setImage:deleteIcon forState:UIControlStateNormal];
+    self.deleteButton.contentMode = UIViewContentModeCenter;
     self.deleteButton.frame = (CGRect){CGPointZero, deleteIcon.size};
     self.deleteButton.tintColor = [UIColor blackColor];
+    [self.deleteButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.deleteButton];
 }
 
@@ -213,11 +219,33 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
     //Layout delete button
     CGSize boundsSize = self.bounds.size;
     CGRect frame = self.deleteButton.frame;
+    frame.size = buttonSize;
     frame.origin.x = boundsSize.width - (outerSpacing + buttonSize.width * 0.5f);
     frame.origin.x -= (CGRectGetWidth(frame) * 0.5f);
     frame.origin.y = boundsSize.height - (outerSpacing + buttonSize.height * 0.5f);
     frame.origin.y -= (CGRectGetHeight(frame) * 0.5f);
     self.deleteButton.frame = frame;
+}
+
+#pragma mark - Interaction -
+- (void)buttonTapped:(id)sender
+{
+    // Handler for the delete button
+    if (sender == self.deleteButton) {
+        if (self.deleteButtonTappedHandler) {
+            self.deleteButtonTappedHandler();
+        }
+
+        return;
+    }
+
+    // Handler for the keypad buttons
+    UIButton *button = (UIButton *)sender;
+    NSInteger number = button.tag;
+
+    if (self.numberButtonTappedHandler) {
+        self.numberButtonTappedHandler(number);
+    }
 }
 
 #pragma mark - Accessors -

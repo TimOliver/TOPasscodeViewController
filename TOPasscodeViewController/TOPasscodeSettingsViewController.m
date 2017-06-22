@@ -38,6 +38,8 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    __weak typeof(self) weakSelf = self;
+
     self.title = NSLocalizedString(@"Enter Passcode", @"");
 
     // Create container view
@@ -67,6 +69,14 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.keypadView = [[TOPasscodeSettingsKeypadView alloc] initWithFrame:CGRectZero];
     self.keypadView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:self.keypadView];
+
+    // Add callbacks for the keypad view
+    self.keypadView.numberButtonTappedHandler= ^(NSInteger number) {
+        NSString *numberString = [NSString stringWithFormat:@"%ld", number];
+        [weakSelf.numberInputView appendPasscodeCharacters:numberString animated:NO];
+    };
+
+    self.keypadView.deleteButtonTappedHandler = ^{ [weakSelf.numberInputView deletePasscodeCharactersOfCount:1 animated:YES]; };
 
     // Set height of the container view (This will never change)
     CGRect frame = self.containerView.frame;
