@@ -27,6 +27,14 @@ typedef NS_ENUM(NSInteger, TOPasscodeViewContentSize) {
     TOPasscodeViewContentSizeSmall  = 320  // Greater or equal to 320 points: iPhone SE / iPad 1/4 split mode
 };
 
+/* The types of passcodes that may be used. */
+typedef NS_ENUM(NSInteger, TOPasscodeType) {
+    TOPasscodeTypeFourDigits,           // 4 Numbers
+    TOPasscodeTypeSixDigits,            // 6 Numbers
+    TOPasscodeTypeCustomNumeric,        // Any length of numbers
+    TOPasscodeTypeCustomAlphanumeric    // Any length of characters
+};
+
 static inline BOOL TOPasscodeViewStyleIsTranslucent(TOPasscodeViewStyle style) {
     return style <= TOPasscodeViewStyleTranslucentLight;
 }
