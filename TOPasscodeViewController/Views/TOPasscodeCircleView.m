@@ -57,7 +57,7 @@
         return;
     }
 
-    [UIView animateWithDuration:0.5f animations:animationBlock];
+    [UIView animateWithDuration:0.45f animations:animationBlock];
 }
 
 - (void)setCircleImage:(UIImage *)circleImage

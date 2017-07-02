@@ -13,7 +13,7 @@
 
 const CGFloat kTOPasscodeSettingsKeypadButtonInnerSpacing = 7.0f;
 const CGFloat kTOPasscodeSettingsKeypadButtonOuterSpacing = 7.0f;
-const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 16.0f;
+const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
 
 @interface TOPasscodeSettingsKeypadView ()
 

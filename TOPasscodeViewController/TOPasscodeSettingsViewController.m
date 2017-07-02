@@ -9,6 +9,7 @@
 #import "TOPasscodeSettingsViewController.h"
 #import "TOPasscodeNumberInputView.h"
 #import "TOPasscodeSettingsKeypadView.h"
+#import "TOPasscodeSettingsWarningLabel.h"
 
 const CGFloat kTOPasscodeSettingsLabelInputSpacing = 15.0f;
 const CGFloat kTOPasscodeKeypadMaxSizeRatio = 0.40f;
@@ -21,6 +22,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) TOPasscodeNumberInputView *numberInputView;
 @property (nonatomic, strong) TOPasscodeSettingsKeypadView *keypadView;
+@property (nonatomic, strong) TOPasscodeSettingsWarningLabel *warningLabel;
 
 @end
 
@@ -70,13 +72,17 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.keypadView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:self.keypadView];
 
+    // Create label view
+    self.warningLabel = [[TOPasscodeSettingsWarningLabel alloc] initWithFrame:CGRectZero];
+    [self.containerView addSubview:self.warningLabel];
+
     // Add callbacks for the keypad view
     self.keypadView.numberButtonTappedHandler= ^(NSInteger number) {
         NSString *numberString = [NSString stringWithFormat:@"%ld", number];
         [weakSelf.numberInputView appendPasscodeCharacters:numberString animated:NO];
     };
 
-    self.keypadView.deleteButtonTappedHandler = ^{ [weakSelf.numberInputView deletePasscodeCharactersOfCount:1 animated:YES]; };
+    self.keypadView.deleteButtonTappedHandler = ^{ [weakSelf.numberInputView deletePasscodeCharactersOfCount:1 animated:NO]; };
 
     // Set height of the container view (This will never change)
     CGRect frame = self.containerView.frame;

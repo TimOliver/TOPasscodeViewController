@@ -39,7 +39,6 @@
     if (self = [super initWithFrame:CGRectMake(0,0,320,393)]) {
         _style = style;
         [self setUp];
-
     }
 
     return self;
