@@ -51,6 +51,13 @@
     [self setNeedsLayout];
 }
 
+#pragma mark - Control Accessor -
+- (void)setEnabled:(BOOL)enabled
+{
+    [super setEnabled:enabled];
+    self.buttonLabel.alpha = enabled ? 1.0f : 0.5f;
+}
+
 #pragma mark - Background Image Accessor -
 
 - (void)setHighlighted:(BOOL)highlighted {

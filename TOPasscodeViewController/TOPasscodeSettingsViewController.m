@@ -11,7 +11,7 @@
 #import "TOPasscodeSettingsKeypadView.h"
 #import "TOPasscodeSettingsWarningLabel.h"
 
-const CGFloat kTOPasscodeSettingsLabelInputSpacing = 15.0f;
+const CGFloat kTOPasscodeSettingsLabelInputSpacing = 18.0f;
 const CGFloat kTOPasscodeKeypadMaxSizeRatio = 0.40f;
 const CGFloat kTOPasscodeKeypadMinHeight = 200.0f;
 const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
@@ -74,6 +74,8 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Create label view
     self.warningLabel = [[TOPasscodeSettingsWarningLabel alloc] initWithFrame:CGRectZero];
+    self.warningLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.warningLabel.hidden = YES;
     [self.containerView addSubview:self.warningLabel];
 
     // Add callbacks for the keypad view
@@ -88,7 +90,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     CGRect frame = self.containerView.frame;
     frame.size.width = self.view.bounds.size.width;
     frame.size.height = CGRectGetHeight(self.titleLabel.frame) + CGRectGetHeight(self.numberInputView.frame)
-                            + kTOPasscodeSettingsLabelInputSpacing;
+                                                         + (kTOPasscodeSettingsLabelInputSpacing * 2.0f);
     self.containerView.frame = CGRectIntegral(frame);
 
     // Set frame of title label
@@ -102,8 +104,14 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     frame.origin.y = (CGRectGetHeight(self.titleLabel.frame) + kTOPasscodeSettingsLabelInputSpacing);
     self.numberInputView.frame = CGRectIntegral(frame);
 
+    // Set the frame for the warning view
+    frame = self.warningLabel.frame;
+    frame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(frame)) * 0.5f;
+    frame.origin.y = CGRectGetMaxY(self.numberInputView.frame) + kTOPasscodeSettingsLabelInputSpacing;
+    self.warningLabel.frame = frame;
+
     // Apply light/dark mode
-    [self applyThemeForStyle:self.style];
+    [self applyThemeForStyle:TOPasscodeSettingsViewStyleDark];
 }
 
 - (void)viewDidLayoutSubviews
@@ -138,15 +146,36 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 {
     BOOL isDark = (style == TOPasscodeSettingsViewStyleDark);
 
+    // Set background color
     UIColor *backgroundColor;
     if (isDark) {
-        backgroundColor = [UIColor colorWithWhite:0.2f alpha:1.0f];
+        backgroundColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
     }
     else {
         backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:241.0f/255.0f alpha:1.0f];
     }
     self.view.backgroundColor = backgroundColor;
 
+    // Set the style of the keypad view
+    self.keypadView.style = style;
+
+    // Set the color for the input content
+    UIColor *inputColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+
+    // Set the label style
+    self.titleLabel.textColor = inputColor;
+
+    // Set the number input tint
+    self.numberInputView.tintColor = inputColor;
+
+    // Set the tint color of the incorrect warning label
+    UIColor *warningColor = nil;
+    if (isDark) {
+        warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+    }
+    else {
+        warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+    }
 }
 
 @end

@@ -108,13 +108,13 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
     // Keypad label
     self.keypadButtonLabelTextColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
 
-    self.keypadButtonForegroundColor = isDark ? [UIColor colorWithWhite:0.3f alpha:1.0f] : [UIColor whiteColor];
-    self.keypadButtonTappedForegroundColor = isDark ? [UIColor colorWithWhite:0.4f alpha:1.0f] : [UIColor colorWithWhite:0.85f alpha:1.0f];
+    self.keypadButtonForegroundColor = isDark ? [UIColor colorWithWhite:0.35f alpha:1.0f] : [UIColor whiteColor];
+    self.keypadButtonTappedForegroundColor = isDark ? [UIColor colorWithWhite:0.45f alpha:1.0f] : [UIColor colorWithWhite:0.85f alpha:1.0f];
 
     // Button border color
     UIColor *borderColor = nil;
     if (isDark) {
-        borderColor = [UIColor colorWithWhite:0.2 alpha:1.0f];
+        borderColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
     }
     else {
         borderColor = [UIColor colorWithRed:166.0f/255.0f green:174.0f/255.0f blue:186.0f/255.0f alpha:1.0f];
@@ -124,7 +124,7 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
     // Background Color
     UIColor *backgroundColor = nil;
     if (isDark) {
-        backgroundColor = [UIColor colorWithWhite:0.3f alpha:1.0f];
+        backgroundColor = [UIColor colorWithWhite:0.18f alpha:1.0f];
     }
     else {
         backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:225.0f/255.0f blue:232.0f/255.0f alpha:1.0f];
@@ -140,6 +140,8 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
         separatorColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
     }
     self.separatorView.backgroundColor = separatorColor;
+
+    self.deleteButton.tintColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 - (void)setUpImagesIfNeeded
@@ -351,6 +353,17 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
 
     self.buttonTappedBackgroundImage = nil;
     [self setNeedsLayout];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+    _enabled = enabled;
+
+    for (TOPasscodeSettingsKeypadButton *button in self.keypadButtons) {
+        button.enabled = enabled;
+    }
+
+    self.deleteButton.enabled = enabled;
 }
 
 @end

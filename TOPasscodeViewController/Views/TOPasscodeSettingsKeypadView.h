@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeSettingsKeypadView : UIView
 
+/* Whether the control is allowing input */
+@property (nonatomic, assign) BOOL enabled;
+
 /* Whether the view is currently light mode or dark. */
 @property (nonatomic, assign) TOPasscodeSettingsViewStyle style;
 

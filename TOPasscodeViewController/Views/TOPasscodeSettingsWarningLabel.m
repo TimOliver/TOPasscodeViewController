@@ -29,11 +29,13 @@
 
 - (void)setUp
 {
-    _textPadding = CGSizeMake(12.0f, 4.0f);
+    _numberOfWarnings = 0;
+    _textPadding = CGSizeMake(14.0f, 6.0f);
 
     self.tintColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
 
     self.label = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.label.backgroundColor = [UIColor clearColor];
     self.label.textAlignment = NSTextAlignmentCenter;
     self.label.textColor = [UIColor whiteColor];
     self.label.font = [UIFont systemFontOfSize:15.0f];
@@ -53,6 +55,8 @@
 - (void)sizeToFit
 {
     [super sizeToFit];
+    [self.label sizeToFit];
+
     CGRect frame = self.frame;
     CGRect labelFrame = self.label.frame;
 
@@ -69,7 +73,7 @@
     CGRect labelFrame = self.label.frame;
 
     labelFrame.origin.x = (CGRectGetWidth(frame) - CGRectGetWidth(labelFrame)) * 0.5f;
-    labelFrame.origin.y = (CGRectGetWidth(frame) - CGRectGetWidth(labelFrame)) * 0.5f;
+    labelFrame.origin.y = (CGRectGetHeight(frame) - CGRectGetHeight(labelFrame)) * 0.5f;
     self.label.frame = labelFrame;
 }
 
@@ -82,7 +86,7 @@
         text = NSLocalizedString(@"1 Failed Passcode Attempt", @"");
     }
     else {
-        text = [NSString stringWithFormat:NSLocalizedString(@"%@ Failed Passcode Attempts", @""), count];
+        text = [NSString stringWithFormat:NSLocalizedString(@"%d Failed Passcode Attempts", @""), count];
     }
     self.label.text = text;
 
@@ -122,8 +126,8 @@
 
     CGFloat halfHeight = height * 0.5f;
     UIEdgeInsets insets = UIEdgeInsetsMake(halfHeight, halfHeight, halfHeight, halfHeight);
-    image = [image resizableImageWithCapInsets:insets];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    image = [image resizableImageWithCapInsets:insets];
     return image;
 }
 
