@@ -57,13 +57,12 @@
     [super sizeToFit];
     [self.label sizeToFit];
 
-    CGRect frame = self.frame;
     CGRect labelFrame = self.label.frame;
+    CGRect frame = self.frame;
 
+    CGPoint midPoint = (CGPoint){CGRectGetMidX(frame), CGRectGetMidY(frame)};
     labelFrame = CGRectInset(labelFrame, -self.textPadding.width, -self.textPadding.height);
     frame.size = labelFrame.size;
-    frame.origin.x = CGRectGetMidX(frame) - (CGRectGetWidth(labelFrame) * 0.5f);
-    frame.origin.y = CGRectGetMidY(frame) - (CGRectGetHeight(labelFrame) * 0.5f);
     self.frame = frame;
 }
 
@@ -129,6 +128,14 @@
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     image = [image resizableImageWithCapInsets:insets];
     return image;
+}
+
+#pragma mark - Accessors -
+
+- (void)setNumberOfWarnings:(NSInteger)numberOfWarnings
+{
+    _numberOfWarnings = numberOfWarnings;
+    [self setTextForCount:_numberOfWarnings];
 }
 
 @end

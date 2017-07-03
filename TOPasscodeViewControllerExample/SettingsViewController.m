@@ -9,7 +9,9 @@
 #import "SettingsViewController.h"
 #import "TOPasscodeSettingsViewController.h"
 
-@interface SettingsViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface SettingsViewController () <UIImagePickerControllerDelegate,
+UINavigationControllerDelegate,
+TOPasscodeSettingsViewControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
 
@@ -47,6 +49,18 @@
     if (self.doneButtonTappedHandler) {
         self.doneButtonTappedHandler();
     }
+}
+
+#pragma mark - Settings Controller Delegate -
+
+- (BOOL)passcodeSettingsViewController:(TOPasscodeSettingsViewController *)passcodeSettingsViewController didAttemptCurrentPasscode:(NSString *)passcode
+{
+    return [passcode isEqualToString:self.passcode];
+}
+
+- (void)passcodeSettingsViewController:(TOPasscodeSettingsViewController *)passcodeSettingsViewController didChangeToNewPasscode:(NSString *)passcode ofType:(TOPasscodeType)type
+{
+
 }
 
 #pragma mark - Table view data source
@@ -132,6 +146,8 @@
     }
     else if (indexPath.section == 0) {
         TOPasscodeSettingsViewController *settingsController = [[TOPasscodeSettingsViewController alloc] init];
+        settingsController.delegate = self;
+        settingsController.requireCurrentPasscode = YES;
         [self.navigationController pushViewController:settingsController animated:YES];
     }
     else {

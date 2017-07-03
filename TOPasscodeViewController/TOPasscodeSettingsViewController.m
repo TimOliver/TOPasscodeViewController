@@ -18,6 +18,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
 @interface TOPasscodeSettingsViewController ()
 
+// Views
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) TOPasscodeNumberInputView *numberInputView;
@@ -32,9 +33,24 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 {
     if (self = [self initWithNibName:nil bundle:nil]) {
         _style = style;
+        [self setUp];
     }
 
     return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self setUp];
+    }
+
+    return self;
+}
+
+- (void)setUp
+{
+    _failedPasscodeAttemptCount = 0;
 }
 
 - (void)viewDidLoad {
@@ -64,6 +80,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.numberInputView = [[TOPasscodeNumberInputView alloc] initWithRequiredLength:4];
     self.numberInputView.tintColor = [UIColor blackColor];
     self.numberInputView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.numberInputView.passcodeCompletedHandler = ^(NSString *passcode) { [weakSelf numberViewDidEnterPasscode:passcode]; };
     [self.numberInputView sizeToFit];
     [self.containerView addSubview:self.numberInputView];
 
@@ -76,10 +93,11 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.warningLabel = [[TOPasscodeSettingsWarningLabel alloc] initWithFrame:CGRectZero];
     self.warningLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.warningLabel.hidden = YES;
+    [self.warningLabel sizeToFit];
     [self.containerView addSubview:self.warningLabel];
 
     // Add callbacks for the keypad view
-    self.keypadView.numberButtonTappedHandler= ^(NSInteger number) {
+    self.keypadView.numberButtonTappedHandler = ^(NSInteger number) {
         NSString *numberString = [NSString stringWithFormat:@"%ld", number];
         [weakSelf.numberInputView appendPasscodeCharacters:numberString animated:NO];
     };
@@ -112,6 +130,38 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Apply light/dark mode
     [self applyThemeForStyle:self.style];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    self.state = self.requireCurrentPasscode ? TOPasscodeSettingsViewStateEnterCurrentPassword : TOPasscodeSettingsViewStateEnterNewPassword;
+    [self updateViewsForState:self.state];
+}
+
+- (void)updateViewsForState:(TOPasscodeSettingsViewState)state
+{
+    BOOL confirmingPasscode = state == TOPasscodeSettingsViewStateEnterCurrentPassword;
+
+    self.warningLabel.hidden = (confirmingPasscode && self.failedPasscodeAttemptCount == 0);
+    self.warningLabel.numberOfWarnings = self.failedPasscodeAttemptCount;
+
+    CGRect frame = self.warningLabel.frame;
+    frame.origin.x = (CGRectGetWidth(self.view.frame) - frame.size.width) * 0.5f;
+    self.warningLabel.frame = frame;
+
+    switch (state) {
+        case TOPasscodeSettingsViewStateEnterCurrentPassword:
+            self.titleLabel.text = NSLocalizedString(@"Enter your passcode", @"");
+            break;
+        case TOPasscodeSettingsViewStateEnterNewPassword:
+            self.titleLabel.text = NSLocalizedString(@"Enter a new passcode", @"");
+            break;
+        case TOPasscodeSettingsViewStateConfirmNewPassword:
+            self.titleLabel.text = NSLocalizedString(@"Confirm new passcode", @"");
+            break;
+    }
 }
 
 - (void)viewDidLayoutSubviews
@@ -176,6 +226,22 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     else {
         warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
     }
+}
+
+#pragma mark - Data Management -
+- (void)numberViewDidEnterPasscode:(NSString *)passcode
+{
+    if (![self.delegate respondsToSelector:@selector(passcodeSettingsViewController:didAttemptCurrentPasscode:)]) {
+        return;
+    }
+
+    BOOL correct = [self.delegate passcodeSettingsViewController:self didAttemptCurrentPasscode:passcode];
+    if (!correct) {
+        self.failedPasscodeAttemptCount++;
+        [self.numberInputView resetPasscodeAnimated:YES playImpact:YES];
+    }
+
+    [self updateViewsForState:self.state];
 }
 
 @end
