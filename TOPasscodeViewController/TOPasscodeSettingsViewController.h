@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeSettingsViewController : UIViewController
 
+/** Delegate event for controlling and responding to the behavior of this controller */
+@property (nonatomic, weak, nullable) id<TOPasscodeSettingsViewControllerDelegate> delegate;
+
 /** Set the visual style of the view controller (light or dark) */
 @property (nonatomic, assign) TOPasscodeSettingsViewStyle style;
 
@@ -45,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL requireCurrentPasscode;
 
 /** If set, the view controller will disable input until this date time has been reached */
+@property (nonatomic, strong, nullable) NSDate *disabledInputDate;
 
 /* Create a new instance with the desird light or dark style */
 - (instancetype)initWithStyle:(TOPasscodeSettingsViewStyle)style;
