@@ -60,7 +60,6 @@
     CGRect labelFrame = self.label.frame;
     CGRect frame = self.frame;
 
-    CGPoint midPoint = (CGPoint){CGRectGetMidX(frame), CGRectGetMidY(frame)};
     labelFrame = CGRectInset(labelFrame, -self.textPadding.width, -self.textPadding.height);
     frame.size = labelFrame.size;
     self.frame = frame;

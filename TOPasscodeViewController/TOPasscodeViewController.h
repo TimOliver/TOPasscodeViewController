@@ -55,6 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** Will show a 'Touch ID' button for that the user can tap to initiate Touch ID verification. (Default is NO) */
 @property (nonatomic, assign) BOOL allowBiometricValidation;
 
+/** If Touch ID is available, automatically ask for it upon presentation (Default is YES) */
+@property (nonatomic, assign) BOOL automaticallyPromptForBiometricValidation;
+
 /** Optionally change the color of the title text label. */
 @property (nonatomic, strong, nullable) UIColor *titleLabelColor;
 

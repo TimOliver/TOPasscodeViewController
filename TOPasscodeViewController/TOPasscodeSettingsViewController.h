@@ -12,9 +12,9 @@
 @class TOPasscodeSettingsViewController;
 
 typedef NS_ENUM(NSInteger, TOPasscodeSettingsViewState) {
+    TOPasscodeSettingsViewStateEnterCurrentPassword,
     TOPasscodeSettingsViewStateEnterNewPassword,
-    TOPasscodeSettingsViewStateConfirmNewPassword,
-    TOPasscodeSettingsViewStateEnterCurrentPassword
+    TOPasscodeSettingsViewStateConfirmNewPassword
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -50,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** Set the visual style of the view controller (light or dark) */
 @property (nonatomic, assign) TOPasscodeSettingsViewStyle style;
+
+/** The input type of the passcode */
+@property (nonatomic, assign) TOPasscodeType passcodeType;
 
 /** The number of incorrect passcode attempts the user has made. Use this property to decide when to disable input. */
 @property (nonatomic, assign) NSInteger failedPasscodeAttemptCount;

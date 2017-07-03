@@ -50,8 +50,8 @@
 - (void)setUp
 {
     self.transitioningDelegate = self;
-
     self.view.backgroundColor = [UIColor clearColor];
+    self.automaticallyPromptForBiometricValidation = YES;
 
     if (TOPasscodeViewStyleIsTranslucent(self.style)) {
         self.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -171,6 +171,16 @@
     [self setUpBackgroundViewForStyle:self.style];
     [self setUpAccessoryButtons];
     [self applyThemeForStyle:self.style];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // Automatically trigger biometric validation if available
+    if (self.allowBiometricValidation) {
+        [self accessoryButtonTapped:self.biometricButton];
+    }
 }
 
 - (void)viewDidLayoutSubviews
