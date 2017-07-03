@@ -134,7 +134,7 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
     // Separator lines
     UIColor *separatorColor = nil;
     if (isDark) {
-        separatorColor = [UIColor colorWithWhite:0.3f alpha:1.0f];
+        separatorColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
     }
     else {
         separatorColor = [UIColor colorWithWhite:0.7f alpha:1.0f];

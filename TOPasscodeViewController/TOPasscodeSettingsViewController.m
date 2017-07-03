@@ -111,7 +111,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.warningLabel.frame = frame;
 
     // Apply light/dark mode
-    [self applyThemeForStyle:TOPasscodeSettingsViewStyleDark];
+    [self applyThemeForStyle:self.style];
 }
 
 - (void)viewDidLayoutSubviews
