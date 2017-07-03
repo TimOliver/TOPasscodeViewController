@@ -404,6 +404,12 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
         self.errorLabel.hidden = NO;
         return;
     }
+
+    if (![self.delegate respondsToSelector:@selector(passcodeSettingsViewController:didChangeToNewPasscode:ofType:)]) {
+        return;
+    }
+
+    [self.delegate passcodeSettingsViewController:self didChangeToNewPasscode:self.potentialPasscode ofType:self.passcodeType];
 }
 
 #pragma mark - Button Callbacks -
