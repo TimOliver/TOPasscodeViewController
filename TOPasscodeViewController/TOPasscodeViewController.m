@@ -366,6 +366,14 @@
     return _passcodeView;
 }
 
+- (void)setPasscodeType:(TOPasscodeType)passcodeType
+{
+    if (_passcodeType == passcodeType) { return; }
+    _passcodeType = passcodeType;
+    self.passcodeView.numberInputView.requiredLength = _passcodeType == TOPasscodeTypeSixDigits ? 6 : 4;
+    [self.passcodeView setNeedsLayout];
+}
+
 - (void)setStyle:(TOPasscodeViewStyle)style
 {
     if (style == _style) { return; }

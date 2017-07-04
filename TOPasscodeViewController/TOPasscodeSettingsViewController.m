@@ -167,6 +167,9 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     // Update the visibility of the options button
     self.optionsButton.hidden = !(state == TOPasscodeSettingsViewStateEnterNewPassword);
 
+    // Clear the input view
+    self.numberInputView.passcode = nil;
+
     // Update the warning label
     self.warningLabel.hidden = !(confirmingPasscode && self.failedPasscodeAttemptCount > 0);
     self.warningLabel.numberOfWarnings = self.failedPasscodeAttemptCount;
@@ -174,9 +177,6 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     CGRect frame = self.warningLabel.frame;
     frame.origin.x = (CGRectGetWidth(self.view.frame) - frame.size.width) * 0.5f;
     self.warningLabel.frame = frame;
-
-    // Reset the passcode view
-    [self.numberInputView resetPasscodeAnimated:NO playImpact:NO];
 
     // Change the input view if needed
     if (self.passcodeType < TOPasscodeTypeCustomNumeric) {
@@ -371,8 +371,6 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
             [self confirmNewPasscode:passcode];
             break;
     }
-
-    [self updateContentForState:self.state type:self.passcodeType];
 }
 
 - (void)validateCurrentPasscodeAttemptWithPasscode:(NSString *)passcode
@@ -469,6 +467,13 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     _state = state;
 
     [self updateContentForState:_state type:self.passcodeType];
+}
+
+- (void)setFailedPasscodeAttemptCount:(NSInteger)failedPasscodeAttemptCount
+{
+    if (_failedPasscodeAttemptCount == failedPasscodeAttemptCount) { return; }
+    _failedPasscodeAttemptCount = failedPasscodeAttemptCount;
+    [self updateContentForState:self.state type:self.passcodeType];
 }
 
 @end

@@ -52,6 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** The base style of the PIN view controller. Can be configured further. */
 @property (nonatomic, assign) TOPasscodeViewStyle style;
 
+/** The type of passcode that is expected to be entered. */
+@property (nonatomic, assign) TOPasscodeType passcodeType;
+
 /** Will show a 'Touch ID' button for that the user can tap to initiate Touch ID verification. (Default is NO) */
 @property (nonatomic, assign) BOOL allowBiometricValidation;
 

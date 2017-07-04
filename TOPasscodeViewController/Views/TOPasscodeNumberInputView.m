@@ -50,6 +50,11 @@
 
 #pragma mark - View Layout -
 
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+}
+
 - (void)sizeToFit
 {
     // Resize the view to encompass the circles

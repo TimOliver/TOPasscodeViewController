@@ -44,6 +44,7 @@
     TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:self.style];
     passcodeViewController.delegate = self;
     passcodeViewController.allowBiometricValidation = self.biometricsAvailable;
+    passcodeViewController.passcodeType = (self.passcode.length == 6) ? TOPasscodeTypeSixDigits : TOPasscodeTypeFourDigits;
     [self presentViewController:passcodeViewController animated:YES completion:nil];
 }
 
