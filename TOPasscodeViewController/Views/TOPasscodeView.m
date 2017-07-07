@@ -9,7 +9,7 @@
 #import "TOPasscodeView.h"
 #import "TOPasscodeViewContentLayout.h"
 #import "TOPasscodeCircleButton.h"
-#import "TOPasscodeNumberInputView.h"
+#import "TOPasscodeInputField.h"
 #import "TOPasscodeKeypadView.h"
 
 @interface TOPasscodeView ()
@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
 @property (nonatomic, strong, readwrite) TOPasscodeKeypadView *keypadView;
-@property (nonatomic, strong, readwrite) TOPasscodeNumberInputView *numberInputView;
+@property (nonatomic, strong, readwrite) TOPasscodeInputField *numberInputView;
 
 @end
 
@@ -182,7 +182,7 @@
     [self addSubview:self.titleLabel];
 
     // Set up circle rows
-    self.numberInputView = [[TOPasscodeNumberInputView alloc] init];
+    self.numberInputView = [[TOPasscodeInputField alloc] init];
     self.numberInputView.passcodeCompletedHandler = ^(NSString *passcode) {
         if (weakSelf.passcodeCompletedHandler) {
             weakSelf.passcodeCompletedHandler(passcode);
@@ -209,8 +209,8 @@
     self.titleLabel.font = contentLayout.titleLabelFont;
 
     // Circle Row View
-    self.numberInputView.circleDiameter = contentLayout.circleRowDiameter;
-    self.numberInputView.circleSpacing = contentLayout.circleRowSpacing;
+    self.numberInputView.fixedCircleDiameter = contentLayout.circleRowDiameter;
+    self.numberInputView.fixedCircleSpacing = contentLayout.circleRowSpacing;
 
     // Keypad
     self.keypadView.buttonNumberFont = contentLayout.circleButtonTitleLabelFont;
@@ -359,7 +359,7 @@
 
     self.titleView.alpha = contentAlpha;
     self.titleLabel.alpha = contentAlpha;
-    self.numberInputView.circleAlpha = contentAlpha;
+    self.numberInputView.contentAlpha = contentAlpha;
     self.keypadView.contentAlpha = contentAlpha;
     self.leftButton.alpha = contentAlpha;
     self.rightButton.alpha = contentAlpha;

@@ -91,7 +91,7 @@
     contentLayout.titleLabelFont = [UIFont systemFontOfSize: 17.0f];
 
     /* Circle Row Configuration */
-    contentLayout.circleRowDiameter = 11.5f;
+    contentLayout.circleRowDiameter = 12.5f;
     contentLayout.circleRowSpacing = 22.0f;
     contentLayout.circleRowBottomSpacing = 44.0f;
 

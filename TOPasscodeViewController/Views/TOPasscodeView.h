@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class TOPasscodeCircleButton;
-@class TOPasscodeNumberInputView;
+@class TOPasscodeInputField;
 @class TOPasscodeKeypadView;
 @class TOPasscodeViewContentLayout;
 
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* The default views always shown in this view */
 @property (nonatomic, readonly) UILabel *titleLabel;
-@property (nonatomic, readonly) TOPasscodeNumberInputView *numberInputView;
+@property (nonatomic, readonly) TOPasscodeInputField *numberInputView;
 @property (nonatomic, readonly) TOPasscodeKeypadView *keypadView;
 
 /* Overrides for theming the various elements. */

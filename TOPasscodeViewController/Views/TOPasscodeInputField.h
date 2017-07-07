@@ -10,16 +10,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TOPasscodeNumberInputView : UIVisualEffectView <UIKeyInput>
+typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
+    TOPasscodeInputFieldStyleFixed,    // The passcode explicitly requires a specific number of characters
+    TOPasscodeInputFieldStyleVariable  // The passcode can be any arbitrary numher of characters
+};
+
+@interface TOPasscodeInputField : UIVisualEffectView <UIKeyInput>
+
+/* The input style of this control */
+@property (nonatomic, assign) TOPasscodeInputFieldStyle style;
 
 /* The size of each circle in this view (Default is 16) */
-@property (nonatomic, assign) CGFloat circleDiameter;
+@property (nonatomic, assign) CGFloat fixedCircleDiameter;
 
 /* The spacing between each circle (Default is 25.0f) */
-@property (nonatomic, assign) CGFloat circleSpacing;
+@property (nonatomic, assign) CGFloat fixedCircleSpacing;
 
 /* The number of circles in this view (Default is 4) */
-@property (nonatomic, assign) NSInteger requiredLength;
+@property (nonatomic, assign) NSInteger fixedLength;
 
 /* The current passcode entered into this view */
 @property (nonatomic, copy, nullable) NSString *passcode;
@@ -27,14 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
 /* If this view is directly receiving input, this can change the `UIKeyboard` appearance. */
 @property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
-/* The alpha value of the circle views in this view */
-@property (nonatomic, assign) CGFloat circleAlpha;
+/* The alpha value of the views in this view (For tranclucent styling) */
+@property (nonatomic, assign) CGFloat contentAlpha;
 
 /** Called when the number of digits has been entered */
 @property (nonatomic, copy) void (^passcodeCompletedHandler)(NSString *code);
 
 /* Init with the target length needed for this passcode */
-- (instancetype)initWithRequiredLength:(NSInteger)length;
+- (instancetype)initWithStyle:(TOPasscodeInputFieldStyle)style;
 
 /* Replace the passcode with this one, and animate the transition */
 - (void)setPasscode:(nullable NSString *)passcode animated:(BOOL)animated;
