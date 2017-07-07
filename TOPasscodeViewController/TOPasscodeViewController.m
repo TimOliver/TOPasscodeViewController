@@ -10,7 +10,7 @@
 #import "TOPasscodeView.h"
 #import "TOPasscodeViewControllerAnimatedTransitioning.h"
 #import "TOPasscodeKeypadView.h"
-#import "TOPasscodeNumberInputView.h"
+#import "TOPasscodeInputField.h"
 
 @interface TOPasscodeViewController () <UIViewControllerTransitioningDelegate>
 
@@ -370,7 +370,7 @@
 {
     if (_passcodeType == passcodeType) { return; }
     _passcodeType = passcodeType;
-    self.passcodeView.numberInputView.requiredLength = _passcodeType == TOPasscodeTypeSixDigits ? 6 : 4;
+    self.passcodeView.numberInputView.fixedLength = _passcodeType == TOPasscodeTypeSixDigits ? 6 : 4;
     [self.passcodeView setNeedsLayout];
 }
 

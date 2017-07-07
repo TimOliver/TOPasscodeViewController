@@ -7,7 +7,7 @@
 //
 
 #import "TOPasscodeSettingsViewController.h"
-#import "TOPasscodeNumberInputView.h"
+#import "TOPasscodeInputField.h"
 #import "TOPasscodeSettingsKeypadView.h"
 #import "TOPasscodeSettingsWarningLabel.h"
 
@@ -29,7 +29,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *errorLabel;
 @property (nonatomic, strong) UIButton *optionsButton;
-@property (nonatomic, strong) TOPasscodeNumberInputView *numberInputView;
+@property (nonatomic, strong) TOPasscodeInputField *numberInputView;
 @property (nonatomic, strong) TOPasscodeSettingsKeypadView *keypadView;
 @property (nonatomic, strong) TOPasscodeSettingsWarningLabel *warningLabel;
 
@@ -89,7 +89,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     [self.containerView addSubview:self.titleLabel];
 
     // Create number view
-    self.numberInputView = [[TOPasscodeNumberInputView alloc] initWithRequiredLength:4];
+    self.numberInputView = [[TOPasscodeInputField alloc] init];
     self.numberInputView.tintColor = [UIColor blackColor];
     self.numberInputView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.numberInputView.passcodeCompletedHandler = ^(NSString *passcode) { [weakSelf numberViewDidEnterPasscode:passcode]; };
@@ -180,7 +180,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Change the input view if needed
     if (self.passcodeType < TOPasscodeTypeCustomNumeric) {
-        self.numberInputView.requiredLength = (self.passcodeType == TOPasscodeTypeSixDigits) ? 6 : 4;
+        self.numberInputView.fixedLength = (self.passcodeType == TOPasscodeTypeSixDigits) ? 6 : 4;
     }
 
     // Update text depending on state
@@ -421,9 +421,9 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     NSArray *types = @[@(TOPasscodeTypeFourDigits),
                        @(TOPasscodeTypeSixDigits),
-//                       @(TOPasscodeTypeCustomNumeric),
-//                       @(TOPasscodeTypeCustomAlphanumeric)
-                       ];
+                       @(TOPasscodeTypeCustomNumeric),
+                       @(TOPasscodeTypeCustomAlphanumeric)
+                      ];
 
 
     NSArray *titles = @[NSLocalizedString(@"4-Digit Numeric Code", @""),
