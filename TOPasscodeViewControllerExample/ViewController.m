@@ -88,12 +88,29 @@
     __weak typeof(self) weakSelf = self;
     NSString *reason = @"Touch ID to continue using this app";
     id reply = ^(BOOL success, NSError *error) {
-        if (!success) {
-            NSLog(@"%@", error.localizedDescription);
+
+        // Touch ID validation was successful
+        // (Use this to dismiss the passcode controller and display the protected content)
+        if (success) {
+            // Create a new Touch ID context for next time
+            [weakSelf.authContext invalidate];
+            weakSelf.authContext = [[LAContext alloc] init];
+
+            // Dismiss the passcode controller
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
             return;
         }
 
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        // The user hit the 'Cancel' button in the Touch ID dialog
+        // (Use this to dismiss the controller if desired, but do not show the protected content)
+        if (error.code == LAErrorUserCancel) {
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            return;
+        }
+
+        // The other main error would be if the user hit 'Enter Passcode', in which case they can enter
+        // their passcode manually into the passcode controller
+        NSLog(@"%@", error.localizedDescription);
     };
 
     [self.authContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:reason reply:reply];
