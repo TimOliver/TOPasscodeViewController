@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeCircleImage : UIImage
 
-+ (UIImage *)circleImageOfSize:(CGFloat)size inset:(CGFloat)inset padding:(CGFloat)padding;
++ (UIImage *)circleImageOfSize:(CGFloat)size inset:(CGFloat)inset padding:(CGFloat)padding antialias:(BOOL)antialias;
 + (UIImage *)hollowCircleImageOfSize:(CGFloat)size strokeWidth:(CGFloat)strokeWidth padding:(CGFloat)padding;
 
 @end

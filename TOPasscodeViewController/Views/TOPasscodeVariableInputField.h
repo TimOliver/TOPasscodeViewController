@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TOPasscodeVariableInputField : UIView
+@interface TOPasscodeVariableInputField : UIImageView
 
 /* The thickness of the stroke around the view (Default is 1.5) */
 @property (nonatomic, assign) CGFloat outlineThickness;
@@ -28,7 +28,7 @@
 /* The maximum number of circles to show (This will indicate the view's width) (Default is 10) */
 @property (nonatomic, assign) NSInteger maximumVisibleLength;
 
-/* Set the number of characters entered into this view (May be larger than `maximumVisibleLenght`) */
+/* Set the number of characters entered into this view (May be larger than `maximumVisibleLength`) */
 @property (nonatomic, assign) NSInteger length;
 
 /* Set the number of characters represented by this field, animated if desired */

@@ -10,7 +10,7 @@
 
 @implementation TOPasscodeCircleImage
 
-+ (UIImage *)circleImageOfSize:(CGFloat)size inset:(CGFloat)inset padding:(CGFloat)padding
++ (UIImage *)circleImageOfSize:(CGFloat)size inset:(CGFloat)inset padding:(CGFloat)padding antialias:(BOOL)antialias
 {
     UIImage *image = nil;
     CGSize imageSize = (CGSize){size + (padding * 2), size + (padding * 2)};
@@ -18,7 +18,10 @@
     UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0f);
     {
         CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSetShouldAntialias(context, NO);
+
+        if (!antialias) {
+            CGContextSetShouldAntialias(context, NO);
+        }
 
         CGRect rect = (CGRect){padding + inset, padding + inset, size - (inset * 2), size - (inset * 2)};
         UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect:rect];

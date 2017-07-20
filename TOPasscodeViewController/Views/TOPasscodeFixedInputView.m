@@ -106,7 +106,7 @@
 - (void)setCircleImagesForDiameter:(CGFloat)diameter
 {
     self.circleImage = [TOPasscodeCircleImage hollowCircleImageOfSize:diameter strokeWidth:1.0f padding:1.0f];
-    self.highlightedCircleImage = [TOPasscodeCircleImage circleImageOfSize:diameter inset:0.5f padding:1.0f];
+    self.highlightedCircleImage = [TOPasscodeCircleImage circleImageOfSize:diameter inset:0.5f padding:1.0f antialias:NO];
 
     for (TOPasscodeCircleView *circleView in self.circleViews) {
         [self setImagesOfCircleView:circleView];
@@ -124,6 +124,7 @@
 - (NSArray<TOPasscodeCircleView *> *)circleViews
 {
     if (_circleViews) { return _circleViews; }
+    _circleViews = [NSArray array];
     [self setCircleViewsForLength:self.length];
     [self setCircleImagesForDiameter:self.circleDiameter];
     return _circleViews;

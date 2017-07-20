@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
-    TOPasscodeInputFieldStyleFixed,    // The passcode explicitly requires a specific number of characters
-    TOPasscodeInputFieldStyleVariable  // The passcode can be any arbitrary numher of characters
+    TOPasscodeInputFieldStyleFixed,    // The passcode explicitly requires a specific number of characters (Shows hollow circles)
+    TOPasscodeInputFieldStyleVariable  // The passcode can be any arbitrary number of characters (Shows an empty rectangle)
 };
 
 @interface TOPasscodeInputField : UIVisualEffectView <UIKeyInput>
