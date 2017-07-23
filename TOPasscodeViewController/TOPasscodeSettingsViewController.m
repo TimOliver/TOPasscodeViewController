@@ -211,7 +211,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     switch (state) {
         case TOPasscodeSettingsViewStateEnterCurrentPassword:
             self.titleLabel.text = NSLocalizedString(@"Enter your passcode", @"");
-            self.navigationItem.rightBarButtonItem = nil;
+            self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.nextBarButtonItem : nil;
             break;
         case TOPasscodeSettingsViewStateEnterNewPassword:
             self.titleLabel.text = NSLocalizedString(@"Enter a new passcode", @"");
@@ -532,12 +532,12 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
 - (void)nextButtonTapped:(id)sender
 {
-    [self transitionToState:TOPasscodeSettingsViewStateConfirmNewPassword animated:YES];
+    [self inputViewDidCompletePasscode:self.inputField.passcode];
 }
 
 - (void)doneButtonTapped:(id)sender
 {
-    [self confirmNewPasscode:self.inputField.passcode];
+    [self inputViewDidCompletePasscode:self.inputField.passcode];
 }
 
 #pragma mark - Accessors -

@@ -12,6 +12,7 @@
 @interface SettingsViewController : UITableViewController
 
 @property (nonatomic, copy) NSString *passcode;
+@property (nonatomic, assign) TOPasscodeType passcodeType;
 @property (nonatomic, assign) TOPasscodeViewStyle style;
 @property (nonatomic, strong) UIImage *wallpaperImage;
 

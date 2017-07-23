@@ -61,6 +61,7 @@ TOPasscodeSettingsViewControllerDelegate>
 - (void)passcodeSettingsViewController:(TOPasscodeSettingsViewController *)passcodeSettingsViewController didChangeToNewPasscode:(NSString *)passcode ofType:(TOPasscodeType)type
 {
     self.passcode = passcode;
+    self.passcodeType = type;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -148,6 +149,7 @@ TOPasscodeSettingsViewControllerDelegate>
     }
     else if (indexPath.section == 0) {
         TOPasscodeSettingsViewController *settingsController = [[TOPasscodeSettingsViewController alloc] init];
+        settingsController.passcodeType = self.passcodeType;
         settingsController.delegate = self;
         settingsController.requireCurrentPasscode = YES;
         [self.navigationController pushViewController:settingsController animated:YES];
