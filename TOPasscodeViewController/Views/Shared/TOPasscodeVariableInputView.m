@@ -6,10 +6,10 @@
 //  Copyright © 2017 Timothy Oliver. All rights reserved.
 //
 
-#import "TOPasscodeVariableInputField.h"
+#import "TOPasscodeVariableInputView.h"
 #import "TOPasscodeCircleImage.h"
 
-@interface TOPasscodeVariableInputField ()
+@interface TOPasscodeVariableInputView ()
 
 @property (nonatomic, strong) UIImage *backgroundImage; // The outline image for this view
 @property (nonatomic, strong) UIImage *circleImage;     // The circle image representing a single character
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation TOPasscodeVariableInputField
+@implementation TOPasscodeVariableInputView
 
 #pragma mark - Class Creation -
 

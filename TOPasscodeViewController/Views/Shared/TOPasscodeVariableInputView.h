@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TOPasscodeVariableInputField : UIImageView
+@interface TOPasscodeVariableInputView : UIImageView
 
 /* The thickness of the stroke around the view (Default is 1.5) */
 @property (nonatomic, assign) CGFloat outlineThickness;
