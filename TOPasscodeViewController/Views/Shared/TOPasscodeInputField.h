@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TOPasscodeFixedInputView.h"
+#import "TOPasscodeVariableInputView.h"
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
@@ -15,22 +19,16 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
     TOPasscodeInputFieldStyleVariable  // The passcode can be any arbitrary number of characters (Shows an empty rectangle)
 };
 
-@class TOPasscodeFixedInputView;
-@class TOPasscodeVariableInputView;
-
 @interface TOPasscodeInputField : UIVisualEffectView <UIKeyInput>
 
 /* The input style of this control */
 @property (nonatomic, assign) TOPasscodeInputFieldStyle style;
 
-/* The size of each circle in this view (Default is 16) */
-@property (nonatomic, assign) CGFloat fixedCircleDiameter;
+/* A row of hollow circles at a preset length. Valid only when `style` is set to `fixed` */
+@property (nonatomic, readonly, nullable) TOPasscodeFixedInputView *fixedInputView;
 
-/* The spacing between each circle (Default is 25.0f) */
-@property (nonatomic, assign) CGFloat fixedCircleSpacing;
-
-/* The number of circles in this view (Default is 4) */
-@property (nonatomic, assign) NSInteger fixedLength;
+/* A rounded rectangle representing a password of arbitrary length. Valid only when `style` is set to `variable`. */
+@property (nonatomic, readonly, nullable) TOPasscodeVariableInputView *variableInputView;
 
 /* The current passcode entered into this view */
 @property (nonatomic, copy, nullable) NSString *passcode;
@@ -41,7 +39,7 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 /* The alpha value of the views in this view (For tranclucent styling) */
 @property (nonatomic, assign) CGFloat contentAlpha;
 
-/** Called when the number of digits has been entered */
+/** Called when the number of digits has been entered, or the user tapped 'Done' on the keyboard */
 @property (nonatomic, copy) void (^passcodeCompletedHandler)(NSString *code);
 
 /* Init with the target length needed for this passcode */

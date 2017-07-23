@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
 @property (nonatomic, strong, readwrite) TOPasscodeKeypadView *keypadView;
-@property (nonatomic, strong, readwrite) TOPasscodeInputField *numberInputView;
+@property (nonatomic, strong, readwrite) TOPasscodeInputField *inputField;
 
 @end
 
@@ -100,10 +100,10 @@
     y = CGRectGetMaxY(frame) + self.currentLayout.titleLabelBottomSpacing;
 
     // Circle Row View
-    frame = self.numberInputView.frame;
+    frame = self.inputField.frame;
     frame.origin.y = y;
     frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
-    self.numberInputView.frame = frame;
+    self.inputField.frame = frame;
 
     y = CGRectGetMaxY(frame) + self.currentLayout.circleRowBottomSpacing;
 
@@ -139,7 +139,7 @@
 - (void)sizeToFit
 {
     [self.titleLabel sizeToFit];
-    [self.numberInputView sizeToFit];
+    [self.inputField sizeToFit];
     [self.keypadView sizeToFit];
 
     CGRect frame = self.frame;
@@ -157,7 +157,7 @@
     frame.size.height += self.currentLayout.titleLabelBottomSpacing;
 
     // Add height for the circle rows
-    frame.size.height += self.numberInputView.frame.size.height;
+    frame.size.height += self.inputField.frame.size.height;
     frame.size.height += self.currentLayout.circleRowBottomSpacing;
 
     // Add height for the keypad
@@ -182,19 +182,19 @@
     [self addSubview:self.titleLabel];
 
     // Set up circle rows
-    self.numberInputView = [[TOPasscodeInputField alloc] init];
-    self.numberInputView.passcodeCompletedHandler = ^(NSString *passcode) {
+    self.inputField = [[TOPasscodeInputField alloc] init];
+    self.inputField.passcodeCompletedHandler = ^(NSString *passcode) {
         if (weakSelf.passcodeCompletedHandler) {
             weakSelf.passcodeCompletedHandler(passcode);
         }
     };
-    [self addSubview:self.numberInputView];
+    [self addSubview:self.inputField];
 
     // Set up pad row
     self.keypadView = [[TOPasscodeKeypadView alloc] init];
     self.keypadView.buttonTappedHandler = ^(NSInteger button) {
         NSString *numberString = [NSString stringWithFormat:@"%ld", button];
-        [weakSelf.numberInputView appendPasscodeCharacters:numberString animated:NO];
+        [weakSelf.inputField appendPasscodeCharacters:numberString animated:NO];
 
         if (weakSelf.passcodeDigitEnteredHandler) {
             weakSelf.passcodeDigitEnteredHandler();
@@ -209,8 +209,8 @@
     self.titleLabel.font = contentLayout.titleLabelFont;
 
     // Circle Row View
-    self.numberInputView.fixedCircleDiameter = contentLayout.circleRowDiameter;
-    self.numberInputView.fixedCircleSpacing = contentLayout.circleRowSpacing;
+    self.inputField.fixedInputView.circleDiameter = contentLayout.circleRowDiameter;
+    self.inputField.fixedInputView.circleSpacing = contentLayout.circleRowSpacing;
 
     // Keypad
     self.keypadView.buttonNumberFont = contentLayout.circleButtonTitleLabelFont;
@@ -237,11 +237,11 @@
     if (isTranslucent) {
         UIBlurEffect *blurEffect = [self blurEffectForStyle:style];
         UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:blurEffect];
-        self.numberInputView.effect = vibrancyEffect;
+        self.inputField.effect = vibrancyEffect;
         self.keypadView.vibrancyEffect = vibrancyEffect;
     }
     else {
-        self.numberInputView.effect = nil;
+        self.inputField.effect = nil;
         self.keypadView.vibrancyEffect = nil;
     }
 
@@ -252,7 +252,7 @@
     if (circleRowColor == nil) {
         circleRowColor = defaultTintColor;
     }
-    self.numberInputView.tintColor = defaultTintColor;
+    self.inputField.tintColor = defaultTintColor;
 
     // Set the tint color of the keypad buttons
     UIColor *keypadButtonBackgroundColor = self.keypadButtonBackgroundColor;
@@ -284,12 +284,12 @@
 #pragma mark - Passcode Management -
 - (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact
 {
-    [self.numberInputView resetPasscodeAnimated:animated playImpact:impact];
+    [self.inputField resetPasscodeAnimated:animated playImpact:impact];
 }
 
 - (void)deleteLastPasscodeCharacterAnimated:(BOOL)animated
 {
-    [self.numberInputView deletePasscodeCharactersOfCount:1 animated:animated];
+    [self.inputField deletePasscodeCharactersOfCount:1 animated:animated];
 }
 
 #pragma mark - Internal Style Management -
@@ -359,7 +359,7 @@
 
     self.titleView.alpha = contentAlpha;
     self.titleLabel.alpha = contentAlpha;
-    self.numberInputView.contentAlpha = contentAlpha;
+    self.inputField.contentAlpha = contentAlpha;
     self.keypadView.contentAlpha = contentAlpha;
     self.leftButton.alpha = contentAlpha;
     self.rightButton.alpha = contentAlpha;
@@ -367,12 +367,12 @@
 
 - (void)setPasscode:(NSString *)passcode
 {
-    [self.numberInputView setPasscode:passcode];
+    [self.inputField setPasscode:passcode];
 }
 
 - (NSString *)passcode
 {
-    return self.numberInputView.passcode;
+    return self.inputField.passcode;
 }
 
 @end

@@ -29,7 +29,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *errorLabel;
 @property (nonatomic, strong) UIButton *optionsButton;
-@property (nonatomic, strong) TOPasscodeInputField *numberInputView;
+@property (nonatomic, strong) TOPasscodeInputField *inputField;
 @property (nonatomic, strong) TOPasscodeSettingsKeypadView *keypadView;
 @property (nonatomic, strong) TOPasscodeSettingsWarningLabel *warningLabel;
 
@@ -89,12 +89,12 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     [self.containerView addSubview:self.titleLabel];
 
     // Create number view
-    self.numberInputView = [[TOPasscodeInputField alloc] init];
-    self.numberInputView.tintColor = [UIColor blackColor];
-    self.numberInputView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    self.numberInputView.passcodeCompletedHandler = ^(NSString *passcode) { [weakSelf numberViewDidEnterPasscode:passcode]; };
-    [self.numberInputView sizeToFit];
-    [self.containerView addSubview:self.numberInputView];
+    self.inputField = [[TOPasscodeInputField alloc] init];
+    self.inputField.tintColor = [UIColor blackColor];
+    self.inputField.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.inputField.passcodeCompletedHandler = ^(NSString *passcode) { [weakSelf numberViewDidEnterPasscode:passcode]; };
+    [self.inputField sizeToFit];
+    [self.containerView addSubview:self.inputField];
 
     // Create keypad view
     self.keypadView = [[TOPasscodeSettingsKeypadView alloc] initWithFrame:CGRectZero];
@@ -129,20 +129,20 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     // Add callbacks for the keypad view
     self.keypadView.numberButtonTappedHandler = ^(NSInteger number) {
         NSString *numberString = [NSString stringWithFormat:@"%ld", number];
-        [weakSelf.numberInputView appendPasscodeCharacters:numberString animated:NO];
+        [weakSelf.inputField appendPasscodeCharacters:numberString animated:NO];
     };
 
-    self.keypadView.deleteButtonTappedHandler = ^{ [weakSelf.numberInputView deletePasscodeCharactersOfCount:1 animated:NO]; };
+    self.keypadView.deleteButtonTappedHandler = ^{ [weakSelf.inputField deletePasscodeCharactersOfCount:1 animated:NO]; };
 
     // Set height of the container view (This will never change)
     CGRect frame = self.containerView.frame;
     frame.size.width = self.view.bounds.size.width;
-    frame.size.height = CGRectGetHeight(self.titleLabel.frame) + CGRectGetHeight(self.numberInputView.frame)
+    frame.size.height = CGRectGetHeight(self.titleLabel.frame) + CGRectGetHeight(self.inputField.frame)
                             + CGRectGetHeight(self.warningLabel.frame) + (kTOPasscodeSettingsLabelInputSpacing * 2.0f);
     self.containerView.frame = CGRectIntegral(frame);
 
     //Work out the vertical offset of the container view assuming the warning label doesn't count
-    self.verticalMidPoint = CGRectGetHeight(self.titleLabel.frame) + CGRectGetHeight(self.numberInputView.frame)
+    self.verticalMidPoint = CGRectGetHeight(self.titleLabel.frame) + CGRectGetHeight(self.inputField.frame)
                             + kTOPasscodeSettingsLabelInputSpacing;
     self.verticalMidPoint *= 0.5f;
 
@@ -168,7 +168,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.optionsButton.hidden = !(state == TOPasscodeSettingsViewStateEnterNewPassword);
 
     // Clear the input view
-    self.numberInputView.passcode = nil;
+    self.inputField.passcode = nil;
 
     // Update the warning label
     self.warningLabel.hidden = !(confirmingPasscode && self.failedPasscodeAttemptCount > 0);
@@ -179,8 +179,12 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.warningLabel.frame = frame;
 
     // Change the input view if needed
-    if (self.passcodeType < TOPasscodeTypeCustomNumeric) {
-        self.numberInputView.fixedLength = (self.passcodeType == TOPasscodeTypeSixDigits) ? 6 : 4;
+    if (type < TOPasscodeTypeCustomNumeric) {
+        self.inputField.style = TOPasscodeInputFieldStyleFixed;
+        self.inputField.fixedInputView.length = (self.passcodeType == TOPasscodeTypeSixDigits) ? 6 : 4;
+    }
+    else {
+        self.inputField.style = TOPasscodeInputFieldStyleVariable;
     }
 
     // Update text depending on state
@@ -200,13 +204,13 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     [self.titleLabel sizeToFit];
     frame = self.titleLabel.frame;
     frame.origin.x = (CGRectGetWidth(self.containerView.frame) - CGRectGetWidth(frame)) * 0.5f;
-    self.titleLabel.frame = frame;
+    self.titleLabel.frame = CGRectIntegral(frame);
 
     // Resize passcode view
-    [self.numberInputView sizeToFit];
-    frame = self.numberInputView.frame;
+    [self.inputField sizeToFit];
+    frame = self.inputField.frame;
     frame.origin.x = (CGRectGetWidth(self.containerView.frame) - CGRectGetWidth(frame)) * 0.5f;
-    self.numberInputView.frame = frame;
+    self.inputField.frame = CGRectIntegral(frame);
 }
 
 - (void)transitionToState:(TOPasscodeSettingsViewState)state animated:(BOOL)animated
@@ -302,21 +306,21 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.titleLabel.frame = CGRectIntegral(frame);
 
     // Set frame of number pad
-    frame = self.numberInputView.frame;
+    frame = self.inputField.frame;
     frame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(frame)) * 0.5f;
     frame.origin.y = (CGRectGetHeight(self.titleLabel.frame) + kTOPasscodeSettingsLabelInputSpacing);
-    self.numberInputView.frame = CGRectIntegral(frame);
+    self.inputField.frame = CGRectIntegral(frame);
 
     // Set the frame for the warning view
     frame = self.warningLabel.frame;
     frame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(frame)) * 0.5f;
-    frame.origin.y = CGRectGetMaxY(self.numberInputView.frame) + kTOPasscodeSettingsLabelInputSpacing;
+    frame.origin.y = CGRectGetMaxY(self.inputField.frame) + kTOPasscodeSettingsLabelInputSpacing;
     self.warningLabel.frame = CGRectIntegral(frame);
 
     // Set the frame of the error view
     frame = self.errorLabel.frame;
     frame.size = [self.errorLabel sizeThatFits:CGSizeMake(300.0f, CGFLOAT_MAX)];
-    frame.origin.y = CGRectGetMaxY(self.numberInputView.frame) + kTOPasscodeSettingsLabelInputSpacing;
+    frame.origin.y = CGRectGetMaxY(self.inputField.frame) + kTOPasscodeSettingsLabelInputSpacing;
     frame.origin.x = (CGRectGetWidth(self.containerView.frame) - CGRectGetWidth(frame)) * 0.5f;
     self.errorLabel.frame = CGRectIntegral(frame);
 }
@@ -345,7 +349,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.titleLabel.textColor = inputColor;
 
     // Set the number input tint
-    self.numberInputView.tintColor = inputColor;
+    self.inputField.tintColor = inputColor;
 
     // Set the tint color of the incorrect warning label
     UIColor *warningColor = nil;
@@ -382,7 +386,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     BOOL correct = [self.delegate passcodeSettingsViewController:self didAttemptCurrentPasscode:passcode];
     if (!correct) {
         self.failedPasscodeAttemptCount++;
-        [self.numberInputView resetPasscodeAnimated:YES playImpact:YES];
+        [self.inputField resetPasscodeAnimated:YES playImpact:YES];
     }
     else {
         [self transitionToState:TOPasscodeSettingsViewStateEnterNewPassword animated:YES];

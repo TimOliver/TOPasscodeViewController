@@ -51,7 +51,7 @@
 {
     self.transitioningDelegate = self;
     self.view.backgroundColor = [UIColor clearColor];
-    self.automaticallyPromptForBiometricValidation = YES;
+    self.automaticallyPromptForBiometricValidation = NO;
 
     if (TOPasscodeViewStyleIsTranslucent(self.style)) {
         self.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -178,7 +178,7 @@
     [super viewDidAppear:animated];
 
     // Automatically trigger biometric validation if available
-    if (self.allowBiometricValidation) {
+    if (self.allowBiometricValidation && self.automaticallyPromptForBiometricValidation) {
         [self accessoryButtonTapped:self.biometricButton];
     }
 }
@@ -370,7 +370,15 @@
 {
     if (_passcodeType == passcodeType) { return; }
     _passcodeType = passcodeType;
-    self.passcodeView.numberInputView.fixedLength = _passcodeType == TOPasscodeTypeSixDigits ? 6 : 4;
+
+    if (_passcodeType <= TOPasscodeTypeSixDigits) {
+        self.passcodeView.inputField.style = TOPasscodeInputFieldStyleFixed;
+        self.passcodeView.inputField.fixedInputView.length = (_passcodeType == TOPasscodeTypeSixDigits) ? 6 : 4;
+    }
+    else {
+        self.passcodeView.inputField.style = TOPasscodeInputFieldStyleVariable;
+    }
+
     [self.passcodeView setNeedsLayout];
 }
 

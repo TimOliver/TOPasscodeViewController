@@ -7,20 +7,21 @@
 //
 
 #import "TOPasscodeInputField.h"
-#import "TOPasscodeCircleView.h"
-#import "TOPasscodeCircleImage.h"
+
+#import "TOPasscodeVariableInputView.h"
+#import "TOPasscodeFixedInputView.h"
 
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface TOPasscodeInputField ()
 
-// Fixed style views
-@property (nonatomic, strong) NSMutableArray<TOPasscodeCircleView *> *fixedCircleViews;
-@property (nonatomic, strong) UIImage *circleImage;
-@property (nonatomic, strong) UIImage *highlightedCircleImage;
+// Convenience getters
+@property (nonatomic, readonly) UIView *inputView; // Returns whichever input field is currently visible
+@property (nonatomic, readonly) NSInteger maximumPasscodeLength; // The mamximum number of characters allowed (0 if uncapped)
 
-// Variable style views
-//@property (nonatomic, strong) UIImageView *
+
+@property (nonatomic, readwrite, nullable) TOPasscodeFixedInputView *fixedInputView;
+@property (nonatomic, readwrite, nullable) TOPasscodeVariableInputView *variableInputView;
 
 @end
 
@@ -31,80 +32,54 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        _fixedLength = 4;
-        _fixedCircleDiameter = 16.0f;
-        _fixedCircleSpacing = 25.0f;
-        [self sizeToFit];
-        [self updateCircleImagesForDiameter:_fixedCircleDiameter];
-        [self setUpCircleViewsOfCount:_fixedLength];
+        [self setUpForStyle:TOPasscodeInputFieldStyleFixed];
     }
 
     return self;
 }
 
-#pragma mark - View Layout -
-
-- (void)setFrame:(CGRect)frame
+- (instancetype)initWithStyle:(TOPasscodeInputFieldStyle)style
 {
-    [super setFrame:frame];
+    if (self = [self initWithFrame:CGRectZero]) {
+        _style = style;
+        [self setUpForStyle:style];
+    }
+
+    return self;
 }
 
+- (void)setUpForStyle:(TOPasscodeInputFieldStyle)style
+{
+    if (self.inputView) {
+        [self.inputView removeFromSuperview];
+        self.variableInputView = nil;
+        self.fixedInputView = nil;
+    }
+
+    if (style == TOPasscodeInputFieldStyleVariable) {
+        self.variableInputView = [[TOPasscodeVariableInputView alloc] init];
+        [self.contentView addSubview:self.variableInputView];
+    }
+    else {
+        self.fixedInputView = [[TOPasscodeFixedInputView alloc] init];
+        [self.contentView addSubview:self.fixedInputView];
+    }
+
+    // Set the frame for the currently visible input view
+    [self.inputView sizeToFit];
+
+    // Size this view to match
+    [self sizeToFit];
+}
+
+#pragma mark - View Layout -
 - (void)sizeToFit
 {
-    // Resize the view to encompass the circles
+    // Resize the view to encompass the current input view
     CGRect frame = self.frame;
-    frame.size.width = (_fixedCircleDiameter * _fixedLength) + (_fixedCircleSpacing * (_fixedLength - 1)) + 2.0f;
-    frame.size.height = _fixedCircleDiameter + 2.0f;
+    [self.inputView sizeToFit];
+    frame.size = self.inputView.frame.size;
     self.frame = frame;
-}
-
-- (void)layoutSubviews
-{
-    CGRect frame = CGRectZero;
-    frame.size = (CGSize){self.fixedCircleDiameter + 2.0f, self.fixedCircleDiameter + 2.0f};
-
-    for (TOPasscodeCircleView *circleView in self.fixedCircleViews) {
-        circleView.frame = frame;
-        frame.origin.x += self.fixedCircleDiameter + self.fixedCircleSpacing;
-    }
-}
-
-#pragma mark - Circle View Management -
-- (void)updateCircleImagesForDiameter:(CGFloat)diameter
-{
-    self.circleImage = [TOPasscodeCircleImage hollowCircleImageOfSize:diameter strokeWidth:1.0f padding:1.0f];
-    self.highlightedCircleImage = [TOPasscodeCircleImage circleImageOfSize:diameter inset:0.5f padding:1.0f antialias:NO];
-
-    for (TOPasscodeCircleView *circleView in self.fixedCircleViews) {
-        circleView.circleImage = self.circleImage;
-        circleView.highlightedCircleImage = self.highlightedCircleImage;
-    }
-}
-
-- (void)setUpCircleViewsOfCount:(NSInteger)numberOfCircles
-{
-    if (self.fixedCircleViews == nil) {
-        self.fixedCircleViews = [NSMutableArray array];
-    }
-
-    // Remove any extraneous circle views
-    while (self.fixedCircleViews.count > numberOfCircles) {
-        TOPasscodeCircleView *lastView = self.fixedCircleViews.lastObject;
-        [lastView removeFromSuperview];
-        [self.fixedCircleViews removeLastObject];
-    }
-
-    // Add any circles needed
-    CGRect frame = (CGRect){CGPointZero, {self.fixedCircleDiameter, self.fixedCircleDiameter}};
-    while (self.fixedCircleViews.count < numberOfCircles) {
-        TOPasscodeCircleView *newCircleView = [[TOPasscodeCircleView alloc] initWithFrame:frame];
-        newCircleView.circleImage = self.circleImage;
-        newCircleView.highlightedCircleImage = self.highlightedCircleImage;
-        [self.contentView addSubview:newCircleView];
-        [self.fixedCircleViews addObject:newCircleView];
-    }
-
-    [self setNeedsLayout];
 }
 
 #pragma mark - Text Input Protocol -
@@ -121,24 +96,24 @@
     [self deletePasscodeCharactersOfCount:1 animated:YES];
 }
 
-- (UIKeyboardType)keyboardType { return UIKeyboardTypeNumberPad; }
+- (UIKeyboardType)keyboardType { return UIKeyboardTypeDefault; }
 
 #pragma mark - Text Input -
 - (void)setPasscode:(NSString *)passcode animated:(BOOL)animated
 {
     if (passcode == self.passcode) { return; }
-    _passcode = @"";
+    _passcode = passcode;
 
-    NSInteger length = MIN(passcode.length, self.fixedLength);
-
-    for (NSInteger i = 0; i < length; i++) {
-        NSInteger intValue = [[passcode substringWithRange:NSMakeRange(i, 1)] integerValue];
-        _passcode = [_passcode stringByAppendingFormat:@"%ld", intValue];
+    BOOL passcodeIsComplete = NO;
+    if (self.fixedInputView) {
+        [self.fixedInputView setHighlightedLength:_passcode.length animated:animated];
+        passcodeIsComplete = _passcode.length >= self.maximumPasscodeLength;
+    }
+    else {
+        [self.variableInputView setLength:_passcode.length animated:animated];
     }
 
-    [self updateHighlightedCirclesWithCount:_passcode.length animated:animated];
-
-    if (_passcode.length >= self.fixedLength && self.passcodeCompletedHandler) {
+    if (passcodeIsComplete && self.passcodeCompletedHandler) {
         self.passcodeCompletedHandler(_passcode);
     }
 }
@@ -146,7 +121,7 @@
 - (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated
 {
     if (characters == nil) { return; }
-    if (_passcode.length >= self.fixedLength) { return; }
+    if (self.maximumPasscodeLength > 0 && self.passcode.length >= self.maximumPasscodeLength) { return; }
 
     if (_passcode == nil) { _passcode = @""; }
     [self setPasscode:[_passcode stringByAppendingString:characters] animated:animated];
@@ -156,15 +131,6 @@
 {
     if (deleteCount <= 0 || self.passcode.length <= 0) { return; }
     [self setPasscode:[self.passcode substringToIndex:(self.passcode.length - 1)] animated:animated];
-}
-
-- (void)updateHighlightedCirclesWithCount:(NSInteger)count animated:(BOOL)animated
-{
-    NSInteger i = 0;
-    for (TOPasscodeCircleView *circleView in self.fixedCircleViews) {
-        [circleView setHighlighted:(i < count) animated:animated];
-        i++;
-    }
 }
 
 - (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact
@@ -198,44 +164,43 @@
     }completion:completionBlock];
 }
 
+#pragma mark - Private Accessors -
+- (UIView *)inputView
+{
+    if (self.fixedInputView) {
+        return (UIView *)self.fixedInputView;
+    }
+
+    return (UIView *)self.variableInputView;
+}
+
+- (NSInteger)maximumPasscodeLength
+{
+    if (self.style == TOPasscodeInputFieldStyleFixed) {
+        return self.fixedInputView.length;
+    }
+
+    return 0;
+}
+
 #pragma mark - Public Accessors -
+
+- (void)setStyle:(TOPasscodeInputFieldStyle)style
+{
+    if (style == _style) { return; }
+    _style = style;
+    [self setUpForStyle:_style];
+}
 
 - (void)setPasscode:(NSString *)passcode
 {
     [self setPasscode:passcode animated:NO];
 }
 
-- (void)setFixedCircleSpacing:(CGFloat)circleSpacing
+- (void)setContentAlpha:(CGFloat)contentAlpha
 {
-    if (circleSpacing == _fixedCircleSpacing) { return; }
-    _fixedCircleSpacing = circleSpacing;
-    [self sizeToFit];
-}
-
-- (void)setFixedCircleDiameter:(CGFloat)circleDiameter
-{
-    if (_fixedCircleDiameter == circleDiameter) { return; }
-    _fixedCircleDiameter = circleDiameter;
-
-    [self updateCircleImagesForDiameter:circleDiameter];
-    [self sizeToFit];
-}
-
-- (void)setFixedLength:(NSInteger)requiredLength
-{
-    if (_fixedLength == requiredLength) { return; }
-    _fixedLength = requiredLength;
-    [self setUpCircleViewsOfCount:requiredLength];
-    [self sizeToFit];
-}
-
-- (void)setContentAlpha:(CGFloat)circleAlpha
-{
-    _contentAlpha = circleAlpha;
-
-    for (TOPasscodeCircleView *circleView in self.fixedCircleViews) {
-        circleView.alpha = circleAlpha;
-    }
+    _contentAlpha = contentAlpha;
+    self.inputView.alpha = contentAlpha;
 }
 
 @end

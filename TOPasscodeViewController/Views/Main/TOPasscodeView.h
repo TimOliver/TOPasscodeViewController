@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* The default views always shown in this view */
 @property (nonatomic, readonly) UILabel *titleLabel;
-@property (nonatomic, readonly) TOPasscodeInputField *numberInputView;
+@property (nonatomic, readonly) TOPasscodeInputField *inputField;
 @property (nonatomic, readonly) TOPasscodeKeypadView *keypadView;
 
 /* Overrides for theming the various elements. */
