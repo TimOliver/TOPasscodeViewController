@@ -16,9 +16,8 @@
 @interface TOPasscodeInputField ()
 
 // Convenience getters
-@property (nonatomic, readonly) UIView *inputView; // Returns whichever input field is currently visible
+@property (nonatomic, readonly) UIView *inputField; // Returns whichever input field is currently visible
 @property (nonatomic, readonly) NSInteger maximumPasscodeLength; // The mamximum number of characters allowed (0 if uncapped)
-
 
 @property (nonatomic, readwrite, nullable) TOPasscodeFixedInputView *fixedInputView;
 @property (nonatomic, readwrite, nullable) TOPasscodeVariableInputView *variableInputView;
@@ -50,8 +49,8 @@
 
 - (void)setUpForStyle:(TOPasscodeInputFieldStyle)style
 {
-    if (self.inputView) {
-        [self.inputView removeFromSuperview];
+    if (self.inputField) {
+        [self.inputField removeFromSuperview];
         self.variableInputView = nil;
         self.fixedInputView = nil;
     }
@@ -66,7 +65,7 @@
     }
 
     // Set the frame for the currently visible input view
-    [self.inputView sizeToFit];
+    [self.inputField sizeToFit];
 
     // Size this view to match
     [self sizeToFit];
@@ -77,18 +76,41 @@
 {
     // Resize the view to encompass the current input view
     CGRect frame = self.frame;
-    [self.inputView sizeToFit];
-    frame.size = self.inputView.frame.size;
+    [self.inputField sizeToFit];
+    frame.size = self.inputField.frame.size;
     self.frame = frame;
 }
 
+#pragma mark - Interaction -
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    if (!self.enabled) { return; }
+    self.contentAlpha = 0.5f;
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesCancelled:touches withEvent:event];
+    if (!self.enabled) { return; }
+    [UIView animateWithDuration:0.3f animations:^{
+        self.contentAlpha = 1.0f;
+    }];
+    [self becomeFirstResponder];
+}
+
 #pragma mark - Text Input Protocol -
-- (BOOL)canBecomeFirstResponder { return YES; }
+- (BOOL)canBecomeFirstResponder { return self.enabled; }
 
 - (BOOL)hasText { return self.passcode.length > 0; }
 
 - (void)insertText:(NSString *)text
 {
+    if ([text isEqualToString:@"\n"]) {
+        if (self.passcodeCompletedHandler) { self.passcodeCompletedHandler(self.passcode); }
+        return;
+    }
+
     [self appendPasscodeCharacters:text animated:NO];
 }
 - (void)deleteBackward
@@ -96,7 +118,9 @@
     [self deletePasscodeCharactersOfCount:1 animated:YES];
 }
 
-- (UIKeyboardType)keyboardType { return UIKeyboardTypeDefault; }
+- (UIKeyboardType)keyboardType { return UIKeyboardTypeASCIICapable; }
+
+- (UITextAutocorrectionType)autocorrectionType { return UITextAutocorrectionTypeNo; }
 
 #pragma mark - Text Input -
 - (void)setPasscode:(NSString *)passcode animated:(BOOL)animated
@@ -165,7 +189,7 @@
 }
 
 #pragma mark - Private Accessors -
-- (UIView *)inputView
+- (UIView *)inputField
 {
     if (self.fixedInputView) {
         return (UIView *)self.fixedInputView;
@@ -200,7 +224,7 @@
 - (void)setContentAlpha:(CGFloat)contentAlpha
 {
     _contentAlpha = contentAlpha;
-    self.inputView.alpha = contentAlpha;
+    self.inputField.alpha = contentAlpha;
 }
 
 @end

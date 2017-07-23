@@ -66,6 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* Create a new instance with the desird light or dark style */
 - (instancetype)initWithStyle:(TOPasscodeSettingsViewStyle)style;
 
+/* Changes the passcode type and animates if required */
+- (void)setPasscodeType:(TOPasscodeType)passcodeType animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

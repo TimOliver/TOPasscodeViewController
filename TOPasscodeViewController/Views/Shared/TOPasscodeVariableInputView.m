@@ -65,12 +65,14 @@
     }
 
     // Increase the number of views
-    while (self.circleViews.count < length) {
-        UIImageView *circleView = [[UIImageView alloc] initWithImage:self.circleImage];
-        circleView.alpha = 0.0f;
-        [self addSubview:circleView];
-        [self.circleViews addObject:circleView];
-    }
+    [UIView performWithoutAnimation:^{
+        while (self.circleViews.count < length) {
+            UIImageView *circleView = [[UIImageView alloc] initWithImage:self.circleImage];
+            circleView.alpha = 0.0f;
+            [self addSubview:circleView];
+            [self.circleViews addObject:circleView];
+        }
+    }];
 }
 
 - (void)setUpBackgroundImage

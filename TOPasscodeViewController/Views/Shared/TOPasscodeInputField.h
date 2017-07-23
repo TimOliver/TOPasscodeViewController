@@ -39,6 +39,9 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 /* The alpha value of the views in this view (For tranclucent styling) */
 @property (nonatomic, assign) CGFloat contentAlpha;
 
+/* Whether the view may be tapped to enable character input (Default is NO) */
+@property (nonatomic, assign) BOOL enabled;
+
 /** Called when the number of digits has been entered, or the user tapped 'Done' on the keyboard */
 @property (nonatomic, copy) void (^passcodeCompletedHandler)(NSString *code);
 

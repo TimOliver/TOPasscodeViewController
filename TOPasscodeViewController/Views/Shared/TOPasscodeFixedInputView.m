@@ -84,23 +84,27 @@
         [circleViews addObjectsFromArray:self.circleViews];
     }
 
-    while (circleViews.count != length) {
-        // Remove any extra circle views
-        if (circleViews.count > length) {
-            TOPasscodeCircleView *lastCircle = circleViews.lastObject;
-            [lastCircle removeFromSuperview];
-            [circleViews removeLastObject];
-            continue;
+    [UIView performWithoutAnimation:^{
+        while (circleViews.count != length) {
+            // Remove any extra circle views
+            if (circleViews.count > length) {
+                TOPasscodeCircleView *lastCircle = circleViews.lastObject;
+                [lastCircle removeFromSuperview];
+                [circleViews removeLastObject];
+                continue;
+            }
+
+            // Add any new circle views
+            TOPasscodeCircleView *newCircleView = [[TOPasscodeCircleView alloc] init];
+            [self setImagesOfCircleView:newCircleView];
+            [self addSubview:newCircleView];
+            [circleViews addObject:newCircleView];
         }
 
-        // Add any new circle views
-        TOPasscodeCircleView *newCircleView = [[TOPasscodeCircleView alloc] init];
-        [self setImagesOfCircleView:newCircleView];
-        [self addSubview:newCircleView];
-        [circleViews addObject:newCircleView];
-    }
-
-    self.circleViews = [NSArray arrayWithArray:circleViews];
+        self.circleViews = [NSArray arrayWithArray:circleViews];
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+    }];
 }
 
 - (void)setCircleImagesForDiameter:(CGFloat)diameter
@@ -136,6 +140,13 @@
     _circleDiameter = circleDiameter;
     [self setCircleImagesForDiameter:_circleDiameter];
     [self sizeToFit];
+}
+
+- (void)setLength:(NSInteger)length
+{
+    if (_length == length) { return; }
+    _length = length;
+    [self setCircleViewsForLength:length];
 }
 
 - (void)setHighlightedLength:(NSInteger)highlightedLength
