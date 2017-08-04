@@ -103,15 +103,22 @@
             return;
         }
 
-        // The user hit the 'Cancel' button in the Touch ID dialog
-        // (Use this to dismiss the controller if desired, but do not show the protected content)
-        if (error.code == LAErrorUserCancel) {
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        // The user hit 'Enter Password'. This should probably do nothing
+        // but make sure the passcode controller is visible.
+        if (error.code == kLAErrorUserFallback) {
+            NSLog(@"User tapped 'Enter Password'");
             return;
         }
 
-        // The other main error would be if the user hit 'Enter Passcode', in which case they can enter
-        // their passcode manually into the passcode controller
+        // The user hit the 'Cancel' button in the Touch ID dialog.
+        // At this point, you could either simply return the user to the passcode controller,
+        // or dismiss the protected content and go back to a safer point in your app (Like the login page).
+        if (error.code == LAErrorUserCancel) {
+            NSLog(@"User tapped cancel.");
+            return;
+        }
+
+        // There shouldn't be any other potential errors, but just in case
         NSLog(@"%@", error.localizedDescription);
     };
 
