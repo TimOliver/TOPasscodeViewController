@@ -301,7 +301,7 @@
     }
 
     CGFloat inset = self.passcodeView.keypadButtonInset;
-    CGPoint point = (CGPoint){0.0f, self.view.bounds.size.height - verticalInset};
+    CGPoint point = (CGPoint){0.0f, (self.view.bounds.size.height - self.keyboardHeight) - verticalInset};
 
     UIButton *leftButton = self.leftAccessoryButton ? self.leftAccessoryButton : self.biometricButton;
     if (leftButton) {
