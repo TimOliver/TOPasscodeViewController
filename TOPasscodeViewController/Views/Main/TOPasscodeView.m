@@ -251,6 +251,7 @@
     }
     else {
         self.inputField.showSubmitButton = (self.passcodeType == TOPasscodeTypeCustomNumeric);
+        self.inputField.enabled = (self.passcodeType == TOPasscodeTypeCustomAlphanumeric);
     }
 
     [self addSubview:self.inputField];
@@ -333,6 +334,9 @@
         self.inputField.effect = nil;
         self.keypadView.vibrancyEffect = nil;
     }
+
+    // Set keyboard style of the input field
+    self.inputField.keyboardAppearance = isDark ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
 
     UIColor *defaultTintColor = isDark ? [UIColor colorWithWhite:0.85 alpha:1.0f] : [UIColor colorWithWhite:0.3 alpha:1.0f];
     
