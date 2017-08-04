@@ -79,6 +79,7 @@
 #pragma mark - View Layout -
 - (void)layoutSubviews
 {
+    CGSize viewSize = self.frame.size;
     CGSize midViewSize = (CGSize){self.frame.size.width * 0.5f, self.frame.size.height * 0.5f};
 
     CGRect frame = CGRectZero;
@@ -112,10 +113,28 @@
     y = CGRectGetMaxY(frame) + self.currentLayout.circleRowBottomSpacing;
 
     // PIN Pad View
-    frame = self.keypadView.frame;
-    frame.origin.y = y;
-    frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
-    self.keypadView.frame = CGRectIntegral(frame);
+    if (self.keypadView) {
+        frame = self.keypadView.frame;
+        frame.origin.y = y;
+        frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
+        self.keypadView.frame = CGRectIntegral(frame);
+    }
+
+    // If the keypad view is hidden, lay out the left button manually
+    if (!self.keypadView && self.leftButton) {
+        frame = self.leftButton.frame;
+        frame.origin.x = 0.0f;
+        frame.origin.y = y;
+        self.leftButton.frame = frame;
+    }
+
+    // If the keypad view is hidden, lay out the right button manually
+    if (!self.keypadView && self.rightButton) {
+        frame = self.rightButton.frame;
+        frame.origin.x = viewSize.width - frame.size.width;
+        frame.origin.y = y;
+        self.rightButton.frame = frame;
+    }
 }
 
 - (void)sizeToFitWidth:(CGFloat)width
@@ -142,13 +161,19 @@
 
 - (void)sizeToFit
 {
-    [self.titleLabel sizeToFit];
-    [self.inputField sizeToFit];
-    [self.keypadView sizeToFit];
-
     CGRect frame = self.frame;
-    frame.size.width = CGRectGetWidth(self.keypadView.frame);
+    frame.size.width = 0.0f;
     frame.size.height = 0.0f;
+
+    [self.keypadView sizeToFit];
+    [self.inputField sizeToFit];
+
+    if (self.keypadView) {
+        frame.size.width = self.keypadView.frame.size.width;
+    }
+    else {
+        frame.size.width = self.inputField.frame.size.width;
+    }
 
     // Add height for the title view
     if (self.titleView) {
@@ -157,7 +182,11 @@
     }
 
     // Add height for the title label
-    frame.size.height += self.titleLabel.frame.size.height;
+    CGRect titleFrame = self.titleLabel.frame;
+    titleFrame.size = [self.titleLabel sizeThatFits:(CGSize){frame.size.width, CGFLOAT_MAX}];
+    self.titleLabel.frame = titleFrame;
+
+    frame.size.height += titleFrame.size.height;
     frame.size.height += self.currentLayout.titleLabelBottomSpacing;
 
     // Add height for the circle rows
@@ -165,7 +194,19 @@
     frame.size.height += self.currentLayout.circleRowBottomSpacing;
 
     // Add height for the keypad
-    frame.size.height += self.keypadView.frame.size.height;
+    if (self.keypadView) {
+        frame.size.height += self.keypadView.frame.size.height;
+    }
+    else { // If no keypad, just factor in the accessory buttons
+        [self.leftButton sizeToFit];
+        [self.rightButton sizeToFit];
+
+        CGFloat maxHeight = 0.0f;
+        maxHeight = MAX(self.leftButton.frame.size.height, 0.0f);
+        maxHeight = MAX(self.rightButton.frame.size.height, maxHeight);
+
+        frame.size.height += maxHeight;
+    }
 
     // Set the frame back
     self.frame = CGRectIntegral(frame);
@@ -184,6 +225,7 @@
     }
     self.titleLabel.text = self.titleText;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.numberOfLines = 0;
     [self.titleLabel sizeToFit];
     [self addSubview:self.titleLabel];
 
@@ -384,14 +426,26 @@
 {
     if (leftButton == _leftButton) { return; }
     _leftButton = leftButton;
-    self.keypadView.leftAccessoryView = leftButton;
+
+    if (self.keypadView) {
+        self.keypadView.leftAccessoryView = leftButton;
+    }
+    else {
+        [self addSubview:_leftButton];
+    }
 }
 
 - (void)setRightButton:(UIButton *)rightButton
 {
     if (rightButton == _rightButton) { return; }
     _rightButton = rightButton;
-    self.keypadView.rightAccessoryView = rightButton;
+
+    if (self.keypadView) {
+        self.keypadView.rightAccessoryView = rightButton;
+    }
+    else {
+        [self addSubview:_rightButton];
+    }
 }
 
 - (CGFloat)keypadButtonInset
