@@ -178,7 +178,6 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
 - (void)updateContentForState:(TOPasscodeSettingsViewState)state type:(TOPasscodeType)type animated:(BOOL)animated
 {
-    BOOL confirmingPasscode = state == TOPasscodeSettingsViewStateEnterCurrentPassword;
     BOOL variableSizePasscode = (type >= TOPasscodeTypeCustomNumeric);
 
     // Update the visibility of the options button
@@ -190,13 +189,8 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     // Disable the input view
     self.inputField.enabled = NO;
 
-    // Update the warning label
-    self.warningLabel.hidden = !(confirmingPasscode && self.failedPasscodeAttemptCount > 0);
-    self.warningLabel.numberOfWarnings = self.failedPasscodeAttemptCount;
-
-    CGRect frame = self.warningLabel.frame;
-    frame.origin.x = (CGRectGetWidth(self.view.frame) - frame.size.width) * 0.5f;
-    self.warningLabel.frame = frame;
+    //Update the warning label
+    [self updateWarningLabelForState:state];
 
     // Change the input view if needed
     if (!variableSizePasscode) {
@@ -225,6 +219,8 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
             self.inputField.returnKeyType = UIReturnKeyDone;
             break;
     }
+
+    CGRect frame = CGRectZero;
 
     // Reload the 'Done' button
     [self.inputField reloadInputViews];
@@ -262,6 +258,19 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     [UIView animateWithDuration:0.3f animations:^{
         [self viewDidLayoutSubviews];
     }];
+}
+
+- (void)updateWarningLabelForState:(TOPasscodeSettingsViewState)state
+{
+    BOOL confirmingPasscode = state == TOPasscodeSettingsViewStateEnterCurrentPassword;
+
+    // Update the warning label
+    self.warningLabel.hidden = !(confirmingPasscode && self.failedPasscodeAttemptCount > 0);
+    self.warningLabel.numberOfWarnings = self.failedPasscodeAttemptCount;
+
+    CGRect frame = self.warningLabel.frame;
+    frame.origin.x = (CGRectGetWidth(self.view.frame) - frame.size.width) * 0.5f;
+    self.warningLabel.frame = frame;
 }
 
 - (void)transitionToState:(TOPasscodeSettingsViewState)state animated:(BOOL)animated
@@ -440,8 +449,8 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     BOOL correct = [self.delegate passcodeSettingsViewController:self didAttemptCurrentPasscode:passcode];
     if (!correct) {
-        self.failedPasscodeAttemptCount++;
         [self.inputField resetPasscodeAnimated:YES playImpact:YES];
+        self.failedPasscodeAttemptCount++;
     }
     else {
         [self transitionToState:TOPasscodeSettingsViewStateEnterNewPassword animated:YES];
@@ -572,7 +581,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 {
     if (_failedPasscodeAttemptCount == failedPasscodeAttemptCount) { return; }
     _failedPasscodeAttemptCount = failedPasscodeAttemptCount;
-    [self updateContentForState:self.state type:self.passcodeType animated:NO];
+    [self updateWarningLabelForState:self.state];
 }
 
 @end
