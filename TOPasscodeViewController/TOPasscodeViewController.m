@@ -322,7 +322,8 @@
 - (void)accessoryButtonTapped:(id)sender
 {
     if (sender == self.cancelButton) {
-        if (self.passcodeView.passcode.length > 0) {
+        // When entering keyboard input, just leave the button as 'cancel'
+        if (self.passcodeType != TOPasscodeTypeCustomAlphanumeric && self.passcodeView.passcode.length > 0) {
             [self.passcodeView deleteLastPasscodeCharacterAnimated:YES];
             [self keypadButtonTapped];
             return;

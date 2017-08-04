@@ -193,6 +193,8 @@
     if (passcodeIsComplete && self.passcodeCompletedHandler) {
         self.passcodeCompletedHandler(_passcode);
     }
+
+    [self reloadInputViews];
 }
 
 - (void)appendPasscodeCharacters:(NSString *)characters animated:(BOOL)animated
