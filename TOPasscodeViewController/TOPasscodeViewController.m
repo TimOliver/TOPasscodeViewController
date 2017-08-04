@@ -14,12 +14,18 @@
 
 @interface TOPasscodeViewController () <UIViewControllerTransitioningDelegate>
 
+/* State */
+@property (nonatomic, assign, readwrite) TOPasscodeType passcodeType;
+@property (nonatomic, assign) CGFloat keyboardHeight;
+
+/* Views */
 @property (nonatomic, strong, readwrite) UIVisualEffectView *backgroundEffectView;
 @property (nonatomic, strong, readwrite) UIView *backgroundView;
 @property (nonatomic, strong, readwrite) TOPasscodeView *passcodeView;
 @property (nonatomic, strong, readwrite) UIButton *biometricButton;
 @property (nonatomic, strong, readwrite) UIButton *cancelButton;
-@property (nonatomic, assign, readwrite) TOPasscodeType passcodeType;
+
+
 
 @end
 
@@ -47,6 +53,11 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
 #pragma mark - View Setup -
 
 - (void)setUp
@@ -61,6 +72,9 @@
     else {
         self.modalPresentationStyle = UIModalPresentationFullScreen;
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:)
+                                                     name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)setUpBackgroundEffectViewForStyle:(TOPasscodeViewStyle)style
@@ -199,13 +213,37 @@
     [self.passcodeView sizeToFitWidth:bounds.width];
 
     // Re-center the pin view
-    self.passcodeView.center = self.view.center;
+    CGRect frame = self.passcodeView.frame;
+    frame.origin.x = (bounds.width - frame.size.width) * 0.5f;
+    frame.origin.y = ((bounds.height - self.keyboardHeight) - frame.size.height) * 0.5f;
+    self.passcodeView.frame = CGRectIntegral(frame);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self setNeedsStatusBarAppearanceUpdate];
+
+    // Force an initial layout if the view hasn't been presented yet
+    [UIView performWithoutAnimation:^{
+        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
+    }];
+
+    // Show the keyboard if we're
+    if (self.passcodeType == TOPasscodeTypeCustomAlphanumeric) {
+        [self.passcodeView.inputField becomeFirstResponder];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    // Dismiss the keyboard if it is visible
+    if (self.passcodeView.inputField.isFirstResponder) {
+        [self.passcodeView.inputField resignFirstResponder];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -329,6 +367,35 @@
     else {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark - Keyboard Handling -
+- (void)keyboardWillChangeFrame:(NSNotification *)notification
+{
+    // Extract the keyboard information we need from the notification
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat animationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    UIViewAnimationOptions animationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+
+    // Work out the on-screen height of the keyboard
+    self.keyboardHeight = self.view.bounds.size.height - keyboardFrame.origin.y;
+    self.keyboardHeight = MAX(self.keyboardHeight, 0.0f);
+
+    // Set that the view needs to be laid out
+    [self.view setNeedsLayout];
+
+    if (animationDuration < FLT_EPSILON) {
+        return;
+    }
+
+    // Animate the content sliding up and down with the keyboard
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0f
+//         usingSpringWithDamping:1.0f
+//          initialSpringVelocity:1.0f
+                        options:animationCurve
+                     animations:^{ [self.view layoutIfNeeded]; }
+                     completion:nil];
 }
 
 #pragma mark - Transitioning Delegate -
