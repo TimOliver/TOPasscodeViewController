@@ -167,6 +167,10 @@
 
 - (UITextAutocorrectionType)autocorrectionType { return UITextAutocorrectionTypeNo; }
 
+- (UIReturnKeyType)returnKeyType { return UIReturnKeyGo; }
+
+- (BOOL)enablesReturnKeyAutomatically { return YES; }
+
 #pragma mark - Text Input -
 - (void)setPasscode:(NSString *)passcode animated:(BOOL)animated
 {
