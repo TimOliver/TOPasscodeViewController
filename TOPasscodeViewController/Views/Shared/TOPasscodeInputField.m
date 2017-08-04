@@ -19,8 +19,9 @@
 @property (nonatomic, readonly) UIView *inputField; // Returns whichever input field is currently visible
 @property (nonatomic, readonly) NSInteger maximumPasscodeLength; // The mamximum number of characters allowed (0 if uncapped)
 
-@property (nonatomic, readwrite, nullable) TOPasscodeFixedInputView *fixedInputView;
-@property (nonatomic, readwrite, nullable) TOPasscodeVariableInputView *variableInputView;
+@property (nonatomic, strong, readwrite) TOPasscodeFixedInputView *fixedInputView;
+@property (nonatomic, strong, readwrite) TOPasscodeVariableInputView *variableInputView;
+@property (nonatomic, strong, readwrite) UIButton *submitButton;
 
 @end
 
@@ -31,6 +32,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        [self setUp];
         [self setUpForStyle:TOPasscodeInputFieldStyleFixed];
     }
 
@@ -41,10 +43,16 @@
 {
     if (self = [self initWithFrame:CGRectZero]) {
         _style = style;
+        [self setUp];
         [self setUpForStyle:style];
     }
 
     return self;
+}
+
+- (void)setUp
+{
+    _submitButtonSpacing = 4.0f;
 }
 
 - (void)setUpForStyle:(TOPasscodeInputFieldStyle)style
@@ -78,7 +86,20 @@
     CGRect frame = self.frame;
     [self.inputField sizeToFit];
     frame.size = self.inputField.frame.size;
-    self.frame = frame;
+    self.frame = CGRectIntegral(frame);
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    if (!self.submitButton) { return; }
+
+    [self.submitButton sizeToFit];
+    CGRect frame = self.submitButton.frame;
+    frame.origin.x = CGRectGetMaxX(self.bounds) + self.submitButtonSpacing;
+    frame.origin.y = (CGRectGetHeight(self.bounds) - CGRectGetHeight(frame)) * 0.5f;
+    self.submitButton.frame = CGRectIntegral(frame);
 }
 
 #pragma mark - Interaction -
@@ -97,6 +118,30 @@
         self.contentAlpha = 1.0f;
     }];
     [self becomeFirstResponder];
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    CGRect frame = self.bounds;
+    frame.size.width += self.submitButton.frame.size.width + (self.submitButtonSpacing * 2.0f);
+
+    if (CGRectContainsPoint(frame, point)) {
+        return YES;
+    }
+    return NO;
+}
+
+- (id)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+
+    if ([[super hitTest:point withEvent:event] isEqual:self.submitButton]) {
+        if (CGRectContainsPoint(self.submitButton.frame, point)) {
+            return self.submitButton;
+        } else {
+            return self;
+        }
+    }
+
+    return [super hitTest:point withEvent:event];
 }
 
 #pragma mark - Text Input Protocol -
@@ -135,6 +180,10 @@
     }
     else {
         [self.variableInputView setLength:_passcode.length animated:animated];
+    }
+
+    if (self.submitButton) {
+        self.submitButton.hidden = (_passcode.length == 0);
     }
 
     if (passcodeIsComplete && self.passcodeCompletedHandler) {
@@ -186,6 +235,23 @@
     [UIView animateWithDuration:0.05f animations:^{
         self.center = offset;
     }completion:completionBlock];
+
+    if (!self.submitButton) { return; }
+
+    [UIView animateWithDuration:0.7f animations:^{
+        self.submitButton.alpha = 0.0f;
+    } completion:^(BOOL complete) {
+        self.submitButton.alpha = 1.0f;
+        self.submitButton.hidden = YES;
+    }];
+}
+
+#pragma mark - Button Callbacks -
+- (void)submitButtonTapped:(id)sender
+{
+    if (self.passcodeCompletedHandler) {
+        self.passcodeCompletedHandler(self.passcode);
+    }
 }
 
 #pragma mark - Private Accessors -
@@ -209,6 +275,46 @@
 
 #pragma mark - Public Accessors -
 
+- (void)setShowSubmitButton:(BOOL)showSubmitButton
+{
+    if (_showSubmitButton == showSubmitButton) {
+        return;
+    }
+
+    _showSubmitButton = showSubmitButton;
+
+    if (!_showSubmitButton) {
+        [self.submitButton removeFromSuperview];
+        self.submitButton = nil;
+        return;
+    }
+
+    self.submitButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.submitButton setTitle:@"OK" forState:UIControlStateNormal];
+    [self.submitButton addTarget:self action:@selector(submitButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.submitButton.titleLabel setFont:[UIFont systemFontOfSize:18.0f]];
+    self.submitButton.hidden = YES;
+    [self addSubview:self.submitButton];
+
+    [self setNeedsLayout];
+}
+
+- (void)setSubmitButtonSpacing:(CGFloat)submitButtonSpacing
+{
+    if (submitButtonSpacing == _submitButtonSpacing) { return; }
+    _submitButtonSpacing = submitButtonSpacing;
+    [self setNeedsLayout];
+}
+
+- (void)setSubmitButtonFontSize:(CGFloat)submitButtonFontSize
+{
+    if (submitButtonFontSize == _submitButtonFontSize) { return; }
+    _submitButtonFontSize = submitButtonFontSize;
+    self.submitButton.titleLabel.font = [UIFont systemFontOfSize:_submitButtonFontSize];
+    [self.submitButton sizeToFit];
+    [self setNeedsLayout];
+}
+
 - (void)setStyle:(TOPasscodeInputFieldStyle)style
 {
     if (style == _style) { return; }
@@ -225,6 +331,7 @@
 {
     _contentAlpha = contentAlpha;
     self.inputField.alpha = contentAlpha;
+    self.submitButton.alpha = contentAlpha;
 }
 
 @end

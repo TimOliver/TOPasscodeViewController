@@ -15,6 +15,7 @@
 
 @property (nonatomic, copy) NSString *passcode;
 @property (nonatomic, assign) TOPasscodeViewStyle style;
+@property (nonatomic, assign) TOPasscodeType type;
 
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIView *dimmingView;
@@ -41,10 +42,9 @@
 
 - (IBAction)showButtonTapped:(id)sender
 {
-    TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:self.style];
+    TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:self.style passcodeType:self.type];
     passcodeViewController.delegate = self;
     passcodeViewController.allowBiometricValidation = self.biometricsAvailable;
-    passcodeViewController.passcodeType = (self.passcode.length == 6) ? TOPasscodeTypeSixDigits : TOPasscodeTypeFourDigits;
     [self presentViewController:passcodeViewController animated:YES completion:nil];
 }
 
@@ -52,6 +52,7 @@
 {
     SettingsViewController *controller = [[SettingsViewController alloc] init];
     controller.passcode = self.passcode;
+    controller.passcodeType = self.type;
     controller.style = self.style;
     controller.wallpaperImage = self.imageView.image;
 
@@ -64,6 +65,7 @@
     controller.doneButtonTappedHandler = ^{
         weakSelf.passcode = weakController.passcode;
         weakSelf.style = weakController.style;
+        weakSelf.type = weakController.passcodeType;
 
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     };

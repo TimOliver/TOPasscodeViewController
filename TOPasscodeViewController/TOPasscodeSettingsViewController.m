@@ -212,16 +212,22 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
         case TOPasscodeSettingsViewStateEnterCurrentPassword:
             self.titleLabel.text = NSLocalizedString(@"Enter your passcode", @"");
             self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.nextBarButtonItem : nil;
+            self.inputField.returnKeyType = UIReturnKeyContinue;
             break;
         case TOPasscodeSettingsViewStateEnterNewPassword:
             self.titleLabel.text = NSLocalizedString(@"Enter a new passcode", @"");
             self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.nextBarButtonItem : nil;
+            self.inputField.returnKeyType = UIReturnKeyContinue;
             break;
         case TOPasscodeSettingsViewStateConfirmNewPassword:
             self.titleLabel.text = NSLocalizedString(@"Confirm new passcode", @"");
             self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.doneBarButtonItem : nil;
+            self.inputField.returnKeyType = UIReturnKeyDone;
             break;
     }
+
+    // Reload the 'Done' button
+    [self.inputField reloadInputViews];
 
     // Resize text label to fit new text
     [self.titleLabel sizeToFit];

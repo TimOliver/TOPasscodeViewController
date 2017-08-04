@@ -29,6 +29,17 @@
     contentLayout.circleRowSpacing = 30.0f;
     contentLayout.circleRowBottomSpacing = 61.0f;
 
+    /* Text Field Input Configuration */
+    contentLayout.textFieldBorderThickness  = 1.5f;
+    contentLayout.textFieldBorderRadius     = 5.0f;
+    contentLayout.textFieldCircleDiameter   = 10.0f;
+    contentLayout.textFieldCircleSpacing    = 6.0f;
+    contentLayout.textFieldBorderPadding    = (CGSize){10, 10};
+    contentLayout.textFieldNumericCharacterLength  = 10;
+    contentLayout.textFieldAlphanumericCharacterLength = 15;
+    contentLayout.submitButtonFontSize = 17.0f;
+    contentLayout.submitButtonSpacing  = 4.0f;
+
     /* Circle Button Shape and Layout */
     contentLayout.circleButtonDiameter = 81.0f;
     contentLayout.circleButtonSpacing = (CGSize){25.0f, 20.0f};
@@ -67,6 +78,15 @@
     contentLayout.circleButtonSpacing = (CGSize){28.0f, 15.0f};
     contentLayout.circleButtonStrokeWidth = 1.5f;
 
+    /* Text Field Input Configuration */
+    contentLayout.textFieldBorderThickness  = 1.5f;
+    contentLayout.textFieldBorderRadius     = 5.0f;
+    contentLayout.textFieldCircleDiameter   = 9.0f;
+    contentLayout.textFieldCircleSpacing    = 5.0f;
+    contentLayout.textFieldBorderPadding    = (CGSize){10, 10};
+    contentLayout.textFieldNumericCharacterLength  = 10;
+    contentLayout.textFieldAlphanumericCharacterLength = 15;
+
     /* Circle Button Label */
     contentLayout.circleButtonTitleLabelFont = [UIFont systemFontOfSize:36.5f weight:UIFontWeightThin];
     contentLayout.circleButtonLetteringLabelFont = [UIFont monospacedDigitSystemFontOfSize:8.5f weight:UIFontWeightThin];
@@ -94,6 +114,19 @@
     contentLayout.circleRowDiameter = 12.5f;
     contentLayout.circleRowSpacing = 22.0f;
     contentLayout.circleRowBottomSpacing = 44.0f;
+
+    /* Text Field Input Configuration */
+    contentLayout.textFieldBorderThickness  = 1.5f;
+    contentLayout.textFieldBorderRadius     = 5.0f;
+    contentLayout.textFieldCircleDiameter   = 8.0f;
+    contentLayout.textFieldCircleSpacing    = 4.0f;
+    contentLayout.textFieldBorderPadding    = (CGSize){8, 8};
+    contentLayout.textFieldNumericCharacterLength  = 10;
+    contentLayout.textFieldAlphanumericCharacterLength = 15;
+
+    /* Submit Button */
+    contentLayout.submitButtonFontSize = 15.0f;
+    contentLayout.submitButtonSpacing  = 3.0f;
 
     /* Circle Button Shape and Layout */
     contentLayout.circleButtonDiameter = 64.0f;

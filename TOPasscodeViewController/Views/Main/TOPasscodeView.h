@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* The visual style of the view */
 @property (nonatomic, assign) TOPasscodeViewStyle style;
 
+/* The type of passcode being managed by it */
+@property (nonatomic, readonly) TOPasscodeType passcodeType;
+
 /* The text in the title view (Default is 'Enter Passcode') */
 @property (nonatomic, copy) NSString *titleText;
 
@@ -64,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) void (^passcodeCompletedHandler)(NSString *passcode);
 
 /* Create a new instance with one of the style types */
-- (instancetype)initWithStyle:(TOPasscodeViewStyle)style;
+- (instancetype)initWithStyle:(TOPasscodeViewStyle)style passcodeType:(TOPasscodeType)type;
 
 /* Resize the view and all subviews for the optimum size to fit a super view of the suplied width. */
 - (void)sizeToFitWidth:(CGFloat)width;

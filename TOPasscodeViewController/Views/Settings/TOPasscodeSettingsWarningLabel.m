@@ -62,7 +62,7 @@
 
     labelFrame = CGRectInset(labelFrame, -self.textPadding.width, -self.textPadding.height);
     frame.size = labelFrame.size;
-    self.frame = frame;
+    self.frame = CGRectIntegral(frame);
 }
 
 - (void)layoutSubviews

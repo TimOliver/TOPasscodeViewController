@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) TOPasscodeViewStyle style;
 
 /** The type of passcode that is expected to be entered. */
-@property (nonatomic, assign) TOPasscodeType passcodeType;
+@property (nonatomic, readonly) TOPasscodeType passcodeType;
 
 /** Will show a 'Touch ID' button for that the user can tap to initiate Touch ID verification. (Default is NO) */
 @property (nonatomic, assign) BOOL allowBiometricValidation;
@@ -100,8 +100,15 @@ NS_ASSUME_NONNULL_BEGIN
 /** The right accessory button. Setting this will override the 'Cancel' button. */
 @property (nonatomic, strong, nullable) UIButton *rightAccessoryButton;
 
+/** Whether all of the content views are hidden or not, but the background translucent view remains.
+     Useful for obscuring the content while the app is suspended. */
+@property (nonatomic, assign) BOOL contentHidden;
+
 /** Create a new instance of this view controller with the preset style. */
-- (instancetype)initWithStyle:(TOPasscodeViewStyle)style;
+- (instancetype)initWithStyle:(TOPasscodeViewStyle)style passcodeType:(TOPasscodeType)type;
+
+/** Hide all of the content views with a crossfade animation */
+- (void)setContentHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end
 

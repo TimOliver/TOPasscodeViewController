@@ -21,6 +21,8 @@
 @property (nonatomic, strong, readwrite) TOPasscodeKeypadView *keypadView;
 @property (nonatomic, strong, readwrite) TOPasscodeInputField *inputField;
 
+@property (nonatomic, assign, readwrite) TOPasscodeType passcodeType;
+
 @end
 
 @implementation TOPasscodeView
@@ -34,10 +36,11 @@
     return self;
 }
 
-- (instancetype)initWithStyle:(TOPasscodeViewStyle)style
+- (instancetype)initWithStyle:(TOPasscodeViewStyle)style passcodeType:(TOPasscodeType)type
 {
     if (self = [super initWithFrame:CGRectMake(0,0,320,393)]) {
         _style = style;
+        _passcodeType = type;
         [self setUp];
     }
 
@@ -64,7 +67,7 @@
     _titleText = @"Enter Passcode";
 
     // Start configuring views
-    [self setUpView];
+    [self setUpViewForType:self.passcodeType];
 
     // Set the default layout for the views
     [self updateSubviewsForContentLayout:_defaultContentLayout];
@@ -86,7 +89,7 @@
         frame = self.titleView.frame;
         frame.origin.y = y;
         frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
-        self.titleView.frame = frame;
+        self.titleView.frame = CGRectIntegral(frame);
 
         y = CGRectGetMaxY(frame) + self.currentLayout.titleViewBottomSpacing;
     }
@@ -95,15 +98,16 @@
     frame = self.titleLabel.frame;
     frame.origin.y = y;
     frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
-    self.titleLabel.frame = frame;
+    self.titleLabel.frame = CGRectIntegral(frame);
 
     y = CGRectGetMaxY(frame) + self.currentLayout.titleLabelBottomSpacing;
 
     // Circle Row View
+    [self.inputField sizeToFit];
     frame = self.inputField.frame;
     frame.origin.y = y;
     frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
-    self.inputField.frame = frame;
+    self.inputField.frame = CGRectIntegral(frame);
 
     y = CGRectGetMaxY(frame) + self.currentLayout.circleRowBottomSpacing;
 
@@ -111,7 +115,7 @@
     frame = self.keypadView.frame;
     frame.origin.y = y;
     frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
-    self.keypadView.frame = frame;
+    self.keypadView.frame = CGRectIntegral(frame);
 }
 
 - (void)sizeToFitWidth:(CGFloat)width
@@ -164,43 +168,70 @@
     frame.size.height += self.keypadView.frame.size.height;
 
     // Set the frame back
-    self.frame = frame;
+    self.frame = CGRectIntegral(frame);
 }
 
 #pragma mark - View Setup -
-- (void)setUpView
+- (void)setUpViewForType:(TOPasscodeType)type
 {
     __weak typeof(self) weakSelf = self;
 
     self.backgroundColor = [UIColor clearColor];
 
     // Set up title label
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    if (self.titleLabel == nil) {
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    }
     self.titleLabel.text = self.titleText;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.titleLabel sizeToFit];
     [self addSubview:self.titleLabel];
 
-    // Set up circle rows
-    self.inputField = [[TOPasscodeInputField alloc] init];
+    // Set up the passcode style
+    TOPasscodeInputFieldStyle style = TOPasscodeInputFieldStyleFixed;
+    if (type >= TOPasscodeTypeCustomNumeric) {
+        style = TOPasscodeInputFieldStyleVariable;
+    }
+
+    // Set up input field
+    if (self.inputField == nil) {
+        self.inputField = [[TOPasscodeInputField alloc] initWithStyle:style];
+    }
     self.inputField.passcodeCompletedHandler = ^(NSString *passcode) {
         if (weakSelf.passcodeCompletedHandler) {
             weakSelf.passcodeCompletedHandler(passcode);
         }
     };
+
+    // Configure the input field based on the exact passcode type
+    if (style == TOPasscodeInputFieldStyleFixed) {
+        self.inputField.fixedInputView.length = (self.passcodeType == TOPasscodeTypeSixDigits) ? 6 : 4;
+    }
+    else {
+        self.inputField.showSubmitButton = (self.passcodeType == TOPasscodeTypeCustomNumeric);
+    }
+
     [self addSubview:self.inputField];
 
     // Set up pad row
-    self.keypadView = [[TOPasscodeKeypadView alloc] init];
-    self.keypadView.buttonTappedHandler = ^(NSInteger button) {
-        NSString *numberString = [NSString stringWithFormat:@"%ld", button];
-        [weakSelf.inputField appendPasscodeCharacters:numberString animated:NO];
-
-        if (weakSelf.passcodeDigitEnteredHandler) {
-            weakSelf.passcodeDigitEnteredHandler();
+    if (type != TOPasscodeTypeCustomAlphanumeric) {
+        if (self.keypadView == nil) {
+            self.keypadView = [[TOPasscodeKeypadView alloc] init];
         }
-    };
-    [self addSubview:self.keypadView];
+        self.keypadView.buttonTappedHandler = ^(NSInteger button) {
+            NSString *numberString = [NSString stringWithFormat:@"%ld", button];
+            [weakSelf.inputField appendPasscodeCharacters:numberString animated:NO];
+
+            if (weakSelf.passcodeDigitEnteredHandler) {
+                weakSelf.passcodeDigitEnteredHandler();
+            }
+        };
+        [self addSubview:self.keypadView];
+    }
+    else {
+        [self.keypadView removeFromSuperview];
+        self.keypadView = nil;
+    }
 }
 
 - (void)updateSubviewsForContentLayout:(TOPasscodeViewContentLayout *)contentLayout
@@ -211,6 +242,22 @@
     // Circle Row View
     self.inputField.fixedInputView.circleDiameter = contentLayout.circleRowDiameter;
     self.inputField.fixedInputView.circleSpacing = contentLayout.circleRowSpacing;
+
+    // Text Field Input Row
+    NSInteger maximumInputLength = (self.passcodeType == TOPasscodeTypeCustomAlphanumeric) ?
+                                            contentLayout.textFieldAlphanumericCharacterLength :
+                                            contentLayout.textFieldNumericCharacterLength;
+
+    self.inputField.variableInputView.outlineThickness = contentLayout.textFieldBorderThickness;
+    self.inputField.variableInputView.outlineCornerRadius = contentLayout.textFieldBorderRadius;
+    self.inputField.variableInputView.circleDiameter = contentLayout.textFieldCircleDiameter;
+    self.inputField.variableInputView.circleSpacing = contentLayout.textFieldCircleSpacing;
+    self.inputField.variableInputView.outlinePadding = contentLayout.textFieldBorderPadding;
+    self.inputField.variableInputView.maximumVisibleLength = maximumInputLength;
+
+    // Submit button
+    self.inputField.submitButtonSpacing = contentLayout.submitButtonSpacing;
+    self.inputField.submitButtonFontSize = contentLayout.submitButtonFontSize;
 
     // Keypad
     self.keypadView.buttonNumberFont = contentLayout.circleButtonTitleLabelFont;
@@ -335,17 +382,17 @@
 
 - (void)setLeftButton:(UIButton *)leftButton
 {
+    if (leftButton == _leftButton) { return; }
+    _leftButton = leftButton;
     self.keypadView.leftAccessoryView = leftButton;
 }
 
-- (UIButton *)leftButton { return (UIButton *)self.keypadView.leftAccessoryView; }
-
 - (void)setRightButton:(UIButton *)rightButton
 {
+    if (rightButton == _rightButton) { return; }
+    _rightButton = rightButton;
     self.keypadView.rightAccessoryView = rightButton;
 }
-
-- (UIButton *)rightButton { return (UIButton *)self.keypadView.rightAccessoryView; }
 
 - (CGFloat)keypadButtonInset
 {

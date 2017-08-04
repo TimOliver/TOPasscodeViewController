@@ -132,7 +132,7 @@
     self.circleView.circleImage = backgroundImage;
     CGRect frame = self.frame;
     frame.size = backgroundImage.size;
-    self.frame = frame;
+    self.frame = CGRectIntegral(frame);
 }
 
 - (UIImage *)backgroundImage { return self.circleView.circleImage; }

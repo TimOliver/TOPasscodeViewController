@@ -13,7 +13,7 @@
 /* The thickness of the stroke around the view (Default is 1.5) */
 @property (nonatomic, assign) CGFloat outlineThickness;
 
-/* The corner radius of the stroke (Default is 15) */
+/* The corner radius of the stroke (Default is 5) */
 @property (nonatomic, assign) CGFloat outlineCornerRadius;
 
 /* The size of each circle bullet point representing a passcoded character (Default is 10) */
@@ -25,7 +25,7 @@
 /* The padding between the circles and the outer outline (Default is {10,10}) */
 @property (nonatomic, assign) CGSize outlinePadding;
 
-/* The maximum number of circles to show (This will indicate the view's width) (Default is 10) */
+/* The maximum number of circles to show (This will indicate the view's width) (Default is 12) */
 @property (nonatomic, assign) NSInteger maximumVisibleLength;
 
 /* Set the number of characters entered into this view (May be larger than `maximumVisibleLength`) */

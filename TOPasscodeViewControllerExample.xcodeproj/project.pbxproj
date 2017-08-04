@@ -169,12 +169,12 @@
 		2292C9AE1F2491E500E3C2C8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				2292C9B31F2491E500E3C2C8 /* TOPasscodeView.h */,
+				2292C9B41F2491E500E3C2C8 /* TOPasscodeView.m */,
 				2292C9AF1F2491E500E3C2C8 /* TOPasscodeCircleButton.h */,
 				2292C9B01F2491E500E3C2C8 /* TOPasscodeCircleButton.m */,
 				2292C9B11F2491E500E3C2C8 /* TOPasscodeKeypadView.h */,
 				2292C9B21F2491E500E3C2C8 /* TOPasscodeKeypadView.m */,
-				2292C9B31F2491E500E3C2C8 /* TOPasscodeView.h */,
-				2292C9B41F2491E500E3C2C8 /* TOPasscodeView.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";

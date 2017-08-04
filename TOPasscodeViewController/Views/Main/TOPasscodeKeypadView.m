@@ -91,7 +91,7 @@
     CGRect frame = self.frame;
     frame.size.width  = ((self.buttonDiameter + padding) * 3) + (self.buttonSpacing.width * 2);
     frame.size.height = ((self.buttonDiameter + padding) * 4) + (self.buttonSpacing.height * 3);
-    self.frame = frame;
+    self.frame = CGRectIntegral(frame);
 }
 
 - (void)layoutSubviews

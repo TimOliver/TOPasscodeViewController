@@ -19,6 +19,7 @@
 @property (nonatomic, strong, readwrite) TOPasscodeView *passcodeView;
 @property (nonatomic, strong, readwrite) UIButton *biometricButton;
 @property (nonatomic, strong, readwrite) UIButton *cancelButton;
+@property (nonatomic, assign, readwrite) TOPasscodeType passcodeType;
 
 @end
 
@@ -26,10 +27,11 @@
 
 #pragma mark - Instance Creation -
 
-- (instancetype)initWithStyle:(TOPasscodeViewStyle)style
+- (instancetype)initWithStyle:(TOPasscodeViewStyle)style passcodeType:(TOPasscodeType)type
 {
     if (self = [super initWithNibName:nil bundle:nil]) {
         _style = style;
+        _passcodeType = type;
         [self setUp];
     }
 
@@ -347,7 +349,7 @@
 {
     if (_passcodeView) { return _passcodeView; }
 
-    _passcodeView = [[TOPasscodeView alloc] initWithStyle:self.style];
+    _passcodeView = [[TOPasscodeView alloc] initWithStyle:self.style passcodeType:self.passcodeType];
     _passcodeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin |
                                     UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [_passcodeView sizeToFit];
@@ -364,22 +366,6 @@
     };
 
     return _passcodeView;
-}
-
-- (void)setPasscodeType:(TOPasscodeType)passcodeType
-{
-    if (_passcodeType == passcodeType) { return; }
-    _passcodeType = passcodeType;
-
-    if (_passcodeType <= TOPasscodeTypeSixDigits) {
-        self.passcodeView.inputField.style = TOPasscodeInputFieldStyleFixed;
-        self.passcodeView.inputField.fixedInputView.length = (_passcodeType == TOPasscodeTypeSixDigits) ? 6 : 4;
-    }
-    else {
-        self.passcodeView.inputField.style = TOPasscodeInputFieldStyleVariable;
-    }
-
-    [self.passcodeView setNeedsLayout];
 }
 
 - (void)setStyle:(TOPasscodeViewStyle)style

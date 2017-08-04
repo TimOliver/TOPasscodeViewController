@@ -50,7 +50,7 @@
     CGRect frame = self.frame;
     frame.size.width = (_circleDiameter * _length) + (_circleSpacing * (_length - 1)) + 2.0f;
     frame.size.height = _circleDiameter + 2.0f;
-    self.frame = frame;
+    self.frame = CGRectIntegral(frame);
 }
 
 - (void)layoutSubviews

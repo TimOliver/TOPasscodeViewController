@@ -30,7 +30,7 @@
         _circleDiameter = 11.0f;
         _circleSpacing = 7.0f;
         _outlinePadding = (CGSize){10,10};
-        _maximumVisibleLength = 10;
+        _maximumVisibleLength = 12;
     }
 
     return self;
@@ -93,14 +93,14 @@
     frame.size.width = self.outlineThickness * 2.0f;
     frame.size.width += (self.outlinePadding.width * 2.0f);
     frame.size.width += (self.maximumVisibleLength * (self.circleDiameter+2.0f)); // +2 for padding
-    frame.size.width += (self.maximumVisibleLength - 1) * self.circleSpacing;
+    frame.size.width += ((self.maximumVisibleLength - 1) * self.circleSpacing);
 
     // Height
     frame.size.height = self.outlineThickness * 2.0f;
     frame.size.height += self.outlinePadding.height * 2.0f;
     frame.size.height += self.circleDiameter;
 
-    self.frame = frame;
+    self.frame = CGRectIntegral(frame);
 }
 
 - (void)layoutSubviews
@@ -150,7 +150,33 @@
 {
     if (_circleDiameter == circleDiameter) { return; }
     _circleDiameter = circleDiameter;
+    self.circleImage = nil;
     [self setUpImageForCircleViews];
+}
+
+- (void)setCircleSpacing:(CGFloat)circleSpacing
+{
+    if (_circleSpacing == circleSpacing) { return; }
+    _circleSpacing = circleSpacing;
+    [self sizeToFit];
+    [self setNeedsLayout];
+}
+
+- (void)setOutlinePadding:(CGSize)outlinePadding
+{
+    if (CGSizeEqualToSize(outlinePadding, _outlinePadding)) { return; }
+    _outlinePadding = outlinePadding;
+    [self sizeToFit];
+    [self setNeedsLayout];
+}
+
+- (void)setMaximumVisibleLength:(NSInteger)maximumVisibleLength
+{
+    if (_maximumVisibleLength == maximumVisibleLength) { return; }
+    _maximumVisibleLength = maximumVisibleLength;
+    [self setUpCircleViewsForLength:maximumVisibleLength];
+    [self sizeToFit];
+    [self setNeedsLayout];
 }
 
 - (void)setLength:(NSInteger)length

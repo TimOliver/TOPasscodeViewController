@@ -30,11 +30,26 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 /* A rounded rectangle representing a password of arbitrary length. Valid only when `style` is set to `variable`. */
 @property (nonatomic, readonly, nullable) TOPasscodeVariableInputView *variableInputView;
 
+/* The 'submit' button shown when `showSubmitButton` is true. */
+@property (nonatomic, readonly, nullable) UIButton *submitButton;
+
+/* Shows an 'OK' button next to the view when characters have been added. */
+@property (nonatomic, assign) BOOL showSubmitButton;
+
+/* The amount of spacing between the 'OK' button and the passcode field */
+@property (nonatomic, assign) CGFloat submitButtonSpacing;
+
+/* The font size of the submit button */
+@property (nonatomic, assign) CGFloat submitButtonFontSize;
+
 /* The current passcode entered into this view */
 @property (nonatomic, copy, nullable) NSString *passcode;
 
 /* If this view is directly receiving input, this can change the `UIKeyboard` appearance. */
 @property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
+
+/* The type of button used for the 'Done' button in the keyboard */
+@property(nonatomic, assign) UIReturnKeyType returnKeyType;
 
 /* The alpha value of the views in this view (For tranclucent styling) */
 @property (nonatomic, assign) CGFloat contentAlpha;
