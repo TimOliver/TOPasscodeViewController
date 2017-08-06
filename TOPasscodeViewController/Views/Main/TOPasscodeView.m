@@ -270,8 +270,6 @@
             }
         };
         [self addSubview:self.keypadView];
-
-        self.keypadView.layout = TOPasscodeKeypadLayoutHorizontal;
     }
     else {
         [self.keypadView removeFromSuperview];
@@ -402,6 +400,18 @@
 }
 
 #pragma mark - Accessors -
+- (void)setHorizontalLayout:(BOOL)horizontalLayout
+{
+    [self setHorizontalLayout:horizontalLayout animated:NO duration:0.0f];
+}
+
+- (void)setHorizontalLayout:(BOOL)horizontalLayout animated:(BOOL)animated duration:(CGFloat)duration
+{
+    if (horizontalLayout == _horizontalLayout) { return; }
+    _horizontalLayout = horizontalLayout;
+    [self.keypadView setHorizontalLayout:horizontalLayout animated:animated duration:duration];
+}
+
 - (void)setDefaultContentLayout:(TOPasscodeViewContentLayout *)defaultContentLayout
 {
     if (defaultContentLayout == _defaultContentLayout) { return; }

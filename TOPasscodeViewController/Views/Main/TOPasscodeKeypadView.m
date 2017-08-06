@@ -98,7 +98,7 @@
             self.verticalZeroButton = circleButton;
 
             // Hide the button if it's not vertically laid out
-            if (self.layout != TOPasscodeKeypadLayoutVertical) {
+            if (self.horizontalLayout) {
                 self.verticalZeroButton.contentAlpha = 0.0f;
                 self.verticalZeroButton.hidden = YES;
             }
@@ -107,7 +107,7 @@
             self.horizontalZeroButton = circleButton;
 
             // Hide the button if it's not horizontally laid out
-            if (self.layout != TOPasscodeKeypadLayoutHorizontal) {
+            if (!self.horizontalLayout) {
                 self.horizontalZeroButton.contentAlpha = 0.0f;
                 self.horizontalZeroButton.hidden = YES;
             }
@@ -122,7 +122,7 @@
     CGFloat padding = 2.0f;
 
     CGRect frame = self.frame;
-    if (self.layout == TOPasscodeKeypadLayoutHorizontal) {
+    if (self.horizontalLayout) {
         frame.size.width  = ((self.buttonDiameter + padding) * 4) + (self.buttonSpacing.width * 3);
         frame.size.height = ((self.buttonDiameter + padding) * 3) + (self.buttonSpacing.height * 2);
     }
@@ -228,20 +228,18 @@
 
 #pragma mark - Public Layout Setters -
 
-- (void)setLayout:(TOPasscodeKeypadLayout)layout
+- (void)setHorizontalLayout:(BOOL)horizontalLayout
 {
-    [self setLayout:layout animated:NO duration:0.0f];
+    [self setHorizontalLayout:horizontalLayout animated:NO duration:0.0f];
 }
 
-- (void)setLayout:(TOPasscodeKeypadLayout)layout animated:(BOOL)animated duration:(CGFloat)duration
+- (void)setHorizontalLayout:(BOOL)horizontalLayout animated:(BOOL)animated duration:(CGFloat)duration
 {
-    if (layout == _layout) {
+    if (horizontalLayout== _horizontalLayout) {
         return;
     }
 
-    _layout = layout;
-
-    BOOL toHorizontal = (layout == TOPasscodeKeypadLayoutHorizontal);
+    _horizontalLayout = horizontalLayout;
 
     // Resize itself now so the frame value is up to date externally
     [self sizeToFit];
@@ -250,17 +248,17 @@
     self.verticalZeroButton.hidden = NO;
     self.horizontalZeroButton.hidden = NO;
 
-    self.verticalZeroButton.contentAlpha = toHorizontal ? 1.0f : 0.0f;
-    self.horizontalZeroButton.contentAlpha = toHorizontal ? 0.0f : 1.0f;
+    self.verticalZeroButton.contentAlpha = _horizontalLayout ? 1.0f : 0.0f;
+    self.horizontalZeroButton.contentAlpha = _horizontalLayout ? 0.0f : 1.0f;
 
     void (^animationBlock)() = ^{
-        self.verticalZeroButton.contentAlpha = toHorizontal ? 0.0f : 1.0f;
-        self.horizontalZeroButton.contentAlpha = toHorizontal ? 1.0f : 0.0f;
+        self.verticalZeroButton.contentAlpha = _horizontalLayout ? 0.0f : 1.0f;
+        self.horizontalZeroButton.contentAlpha = _horizontalLayout ? 1.0f : 0.0f;
     };
 
     void (^completionBlock)(BOOL) = ^(BOOL complete) {
-        self.verticalZeroButton.hidden = toHorizontal;
-        self.horizontalZeroButton.hidden = !toHorizontal;
+        self.verticalZeroButton.hidden = _horizontalLayout;
+        self.horizontalZeroButton.hidden = !_horizontalLayout;
     };
 
     // Don't animate if not needed
@@ -394,8 +392,8 @@
 
     for (TOPasscodeCircleButton *button in self.keypadButtons) {
         // Skip whichever '0' button is not presently being used
-        if ((self.layout == TOPasscodeKeypadLayoutHorizontal && button == self.verticalZeroButton) ||
-            (self.layout == TOPasscodeKeypadLayoutVertical && button == self.horizontalZeroButton))
+        if ((self.horizontalLayout && button == self.verticalZeroButton) ||
+            (!self.horizontalLayout && button == self.horizontalZeroButton))
         {
             continue;
         }

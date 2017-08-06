@@ -202,15 +202,21 @@
 - (void)viewDidLayoutSubviews
 {
     CGSize bounds = self.view.bounds.size;
+    CGFloat width = bounds.width;
+
+    // If on an iPhone (and we're potentially rotated), work out the minimum width we can be
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        width = MIN(bounds.width, bounds.height);
+    }
 
     // Update the accessory button sizes
-    [self updateAccessoryButtonFontsForWidth:bounds.width];
+    [self updateAccessoryButtonFontsForWidth:width];
 
     // Re-layout the accessory buttons
-    [self layoutAccessoryButtonsForWidth:bounds.width];
+    [self layoutAccessoryButtonsForWidth:width];
 
     // Resize the pin view to scale to the new size
-    [self.passcodeView sizeToFitWidth:bounds.width];
+    [self.passcodeView sizeToFitWidth:width];
 
     // Re-center the pin view
     CGRect frame = self.passcodeView.frame;
@@ -230,7 +236,7 @@
         [self.view layoutIfNeeded];
     }];
 
-    // Show the keyboard if we're
+    // Show the keyboard if we're entering alphanumeric characters
     if (self.passcodeType == TOPasscodeTypeCustomAlphanumeric) {
         [self.passcodeView.inputField becomeFirstResponder];
     }
@@ -249,6 +255,22 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return TOPasscodeViewStyleIsDark(self.style) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+}
+
+#pragma mark - View Rotations -
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    // We don't need to do anything special on iPad
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) { return; }
+
+    // Work out if we need to transition to horizontal
+    BOOL horizontalLayout = size.height < size.width;
+
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self.passcodeView setHorizontalLayout:horizontalLayout animated:YES duration:context.transitionDuration];
+    } completion:nil];
 }
 
 #pragma mark - View Styling -

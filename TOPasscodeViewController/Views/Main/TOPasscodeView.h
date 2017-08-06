@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* The type of passcode being managed by it */
 @property (nonatomic, readonly) TOPasscodeType passcodeType;
 
+/* Whether the content is laid out vertically or horizontally (iPhone only) */
+@property (nonatomic, assign) BOOL horizontalLayout;
+
 /* The text in the title view (Default is 'Enter Passcode') */
 @property (nonatomic, copy) NSString *titleText;
 
@@ -77,6 +80,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* Delete the last character from the passcode */
 - (void)deleteLastPasscodeCharacterAnimated:(BOOL)animated;
+
+/* Animate the transition between horizontal and vertical layouts */
+- (void)setHorizontalLayout:(BOOL)horizontalLayout animated:(BOOL)animated duration:(CGFloat)duration;
 
 @end
 

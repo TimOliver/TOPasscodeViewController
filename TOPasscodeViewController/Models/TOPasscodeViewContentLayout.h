@@ -14,12 +14,16 @@
 /* The width of the PIN view in which this layout object is sizing the content to fit. */
 @property (nonatomic, assign) CGFloat viewWidth;
 
-/* The title View at the very top */
+/* The title view at the very top */
 @property (nonatomic, assign) CGFloat titleViewBottomSpacing;   // Space from the bottom of the title view to the title label
 
-/* The Title Label Explaining the PIN View */
-@property (nonatomic, assign) CGFloat titleLabelBottomSpacing;  // Space from the title label to the circles row
-@property (nonatomic, strong) UIFont *titleLabelFont;           // The font of the title label
+/* The Title Label Explaining the Passcode View */
+@property (nonatomic, assign) CGFloat titleLabelBottomSpacing;    // Space from the title label to the input view
+@property (nonatomic, strong) UIFont *titleLabelFont;             // The font of the title label
+
+/* Title Label properties when the view is laid out horizontally */
+@property (nonatomic, assign) CGFloat titleHorizontalLayoutWidth;   // When laid out horizontally, the width of the title view
+@property (nonatomic, assign) CGFloat titleHorizontalLayoutSpacing; // The amount of spacing between the title label and the passcode keypad
 
 /* Circle Row Configuration */
 @property (nonatomic, assign) CGFloat circleRowDiameter; // The diameter of each circle representing a PIN number
@@ -51,6 +55,6 @@
 /* Default layout configurations for the various sizes */
 + (TOPasscodeViewContentLayout *)defaultScreenContentLayout;       /* Default layout values. Designed for iPhone 6 Plus and above. */
 + (TOPasscodeViewContentLayout *)mediumScreenContentLayout;        /* For medium screen sizes, like iPhone 6, or 1/4 view on iPad Pro. */
-+ (TOPasscodeViewContentLayout *)smallScreenContentLayout;  /* For the smallest screens, like iPhone SE, and 1/4 on standard size iPads/ */
++ (TOPasscodeViewContentLayout *)smallScreenContentLayout;         /* For the smallest screens, like iPhone SE, and 1/4 on standard size iPads/ */
 
 @end
