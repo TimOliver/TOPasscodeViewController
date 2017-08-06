@@ -137,8 +137,13 @@
     }
 }
 
-- (void)sizeToFitWidth:(CGFloat)width
+- (void)sizeToFitSize:(CGSize)size
 {
+    CGFloat width = size.width;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        width = MIN(size.width, size.height);
+    }
+
     NSMutableArray *layouts = [NSMutableArray array];
     [layouts addObject:self.defaultContentLayout];
     [layouts addObjectsFromArray:self.contentLayouts];

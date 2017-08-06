@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithStyle:(TOPasscodeViewStyle)style passcodeType:(TOPasscodeType)type;
 
 /* Resize the view and all subviews for the optimum size to fit a super view of the suplied width. */
-- (void)sizeToFitWidth:(CGFloat)width;
+- (void)sizeToFitSize:(CGSize)size;
 
 /* Reset the passcode to nil and optionally play animation / vibration to match */
 - (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact;

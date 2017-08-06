@@ -175,7 +175,7 @@
         }
     }
 
-    [self updateAccessoryButtonFontsForWidth:self.view.bounds.size.width];
+    [self updateAccessoryButtonFontsForSize:self.view.bounds.size];
 }
 
 #pragma mark - View Management -
@@ -202,21 +202,15 @@
 - (void)viewDidLayoutSubviews
 {
     CGSize bounds = self.view.bounds.size;
-    CGFloat width = bounds.width;
-
-    // If on an iPhone (and we're potentially rotated), work out the minimum width we can be
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        width = MIN(bounds.width, bounds.height);
-    }
 
     // Update the accessory button sizes
-    [self updateAccessoryButtonFontsForWidth:width];
+    [self updateAccessoryButtonFontsForSize:bounds];
 
     // Re-layout the accessory buttons
-    [self layoutAccessoryButtonsForWidth:width];
+    [self layoutAccessoryButtonsForSize:bounds];
 
     // Resize the pin view to scale to the new size
-    [self.passcodeView sizeToFitWidth:width];
+    [self.passcodeView sizeToFitSize:bounds];
 
     // Re-center the pin view
     CGRect frame = self.passcodeView.frame;
@@ -292,8 +286,13 @@
     self.backgroundView.backgroundColor = isDark ? [UIColor colorWithWhite:0.1f alpha:1.0f] : [UIColor whiteColor];
 }
 
-- (void)updateAccessoryButtonFontsForWidth:(CGFloat)width
+- (void)updateAccessoryButtonFontsForSize:(CGSize)size
 {
+    CGFloat width = size.width;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        width = MIN(size.width, size.height);
+    }
+
     CGFloat pointSize = 17.0f;
     if (width < TOPasscodeViewContentSizeMedium) {
         pointSize = 14.0f;
@@ -310,9 +309,11 @@
     self.rightAccessoryButton.titleLabel.font = accessoryFont;
 }
 
-- (void)layoutAccessoryButtonsForWidth:(CGFloat)width
+- (void)layoutAccessoryButtonsForSize:(CGSize)size
 {
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) { return; }
+
+    CGFloat width = MIN(size.width, size.height);
 
     CGFloat verticalInset = 54.0f;
     if (width < TOPasscodeViewContentSizeMedium) {
