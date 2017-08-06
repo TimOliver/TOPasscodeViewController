@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeButtonLabel : UIView
 
+// Draws the lettering label to the side
 @property (nonatomic, assign) BOOL horizontalLayout;
 
 // The strings of both labels
@@ -25,10 +26,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) UILabel *numberLabel;
 @property (nonatomic, readonly) UILabel *letteringLabel;
 
+// The fonts for each label (In case they are nil)
+@property (nonatomic, strong) UIFont *numberLabelFont;
+@property (nonatomic, strong) UIFont *letteringLabelFont;
+
 // Has initial default values   
 @property (nonatomic, assign) CGFloat letteringCharacterSpacing;
 @property (nonatomic, assign) CGFloat letteringVerticalSpacing;
 @property (nonatomic, assign) CGFloat letteringHorizontalSpacing;
+
+// Whether the number label is centered vertically or not (NO by default)
+@property (nonatomic, assign) BOOL verticallyCenterNumberLabel;
 
 @end
 

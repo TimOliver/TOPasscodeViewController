@@ -25,6 +25,8 @@
         _letteringVerticalSpacing = 6.0f;
         _letteringCharacterSpacing = 3.0f;
         _letteringHorizontalSpacing = 5.0f;
+        _numberLabelFont = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];
+        _letteringLabelFont = [UIFont systemFontOfSize:9.0f weight:UIFontWeightThin];
         [self setUpViews];
     }
 
@@ -36,16 +38,17 @@
     if (!self.numberLabel) {
         self.numberLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.numberLabel.text = self.numberString;
-        self.numberLabel.font = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];;
         self.numberLabel.textColor = self.textColor;
+        self.numberLabel.font = self.numberLabelFont;
         [self.numberLabel sizeToFit];
         [self addSubview:self.numberLabel];
     }
 
-    if (!self.letteringLabel) {
+    // Create the lettering string only if we have a lettering value for it
+    if (!self.letteringLabel && self.letteringString.length > 0) {
         self.letteringLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.letteringLabel.font = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
         self.letteringLabel.textColor = self.textColor;
+        self.letteringLabel.font = self.letteringLabelFont;
         [self.letteringLabel sizeToFit];
         [self addSubview:self.letteringLabel];
         [self updateLetteringLabelText];
@@ -71,21 +74,18 @@
 
     CGSize viewSize = self.bounds.size;
 
-    UIFont *numberFont = self.numberLabel.font;
-    UIFont *letteringFont = self.letteringLabel.font;
-
     [self.numberLabel sizeToFit];
     [self.letteringLabel sizeToFit];
 
-    CGFloat numberVerticalHeight = numberFont.capHeight;
-    CGFloat letteringVerticalHeight = letteringFont.capHeight;
+    CGFloat numberVerticalHeight = self.numberLabelFont.capHeight;
+    CGFloat letteringVerticalHeight = self.letteringLabelFont.capHeight;
     CGFloat textTotalHeight = (numberVerticalHeight+2.0f) + self.letteringVerticalSpacing + (letteringVerticalHeight+2.0f);
 
     CGRect frame = self.numberLabel.frame;
     frame.size.height = ceil(numberVerticalHeight) + 2.0f;
     frame.origin.x = ceilf((viewSize.width - frame.size.width) * 0.5f);
 
-    if (!self.horizontalLayout) {
+    if (!self.horizontalLayout && !self.verticallyCenterNumberLabel) {
         frame.origin.y = floorf((viewSize.height - textTotalHeight) * 0.5f);
     }
     else {
@@ -138,6 +138,7 @@
 - (void)setLetteringString:(NSString *)letteringString
 {
     _letteringString = [letteringString copy];
+    [self setUpViews];
     [self updateLetteringLabelText];
     [self setNeedsLayout];
 }
@@ -148,6 +149,24 @@
 {
     _letteringCharacterSpacing = letteringCharacterSpacing;
     [self updateLetteringLabelText];
+}
+
+/***********************************************************/
+
+- (void)setNumberLabelFont:(UIFont *)numberLabelFont
+{
+    if (_numberLabelFont == numberLabelFont) { return; }
+    _numberLabelFont = numberLabelFont;
+    self.numberLabel.font = _numberLabelFont;
+}
+
+/***********************************************************/
+
+- (void)setLetteringLabelFont:(UIFont *)letteringLabelFont
+{
+    if (_letteringLabelFont == letteringLabelFont) { return; }
+    _letteringLabelFont = letteringLabelFont;
+    self.letteringLabel.font = letteringLabelFont;
 }
 
 @end

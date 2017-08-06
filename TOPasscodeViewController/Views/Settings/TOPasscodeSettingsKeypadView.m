@@ -69,7 +69,7 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
     for (NSInteger i = 0; i < numberOfButtons; i++) {
         NSInteger number = (i+1) % 10; // Wrap around 0 at the end
         TOPasscodeSettingsKeypadButton *button = [TOPasscodeSettingsKeypadButton button];
-        button.buttonLabel.numberString = [NSString stringWithFormat:@"%ld", number];
+        button.buttonLabel.numberString = [NSString stringWithFormat:@"%ld", (long)number];
         button.bottomInset = 2.0f;
         button.tag = number;
 
@@ -177,8 +177,8 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
         button.buttonLabel.letteringCharacterSpacing = self.keypadButtonLetteringSpacing;
         button.buttonLabel.letteringVerticalSpacing = self.keypadButtonVerticalSpacing;
         button.buttonLabel.letteringHorizontalSpacing = self.keypadButtonHorizontalSpacing;
-        button.buttonLabel.numberLabel.font = self.keypadButtonNumberFont;
-        button.buttonLabel.letteringLabel.font = self.keypadButtonLetteringFont;
+        button.buttonLabel.numberLabelFont = self.keypadButtonNumberFont;
+        button.buttonLabel.letteringLabelFont = self.keypadButtonLetteringFont;
     }
 }
 

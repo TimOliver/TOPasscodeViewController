@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOPasscodeCircleButton : UIControl
 
+// Alpha value that properly controls the necessary subviews
+@property (nonatomic, assign) CGFloat contentAlpha;
+
 // Required to be set before this view can be properly rendered
 @property (nonatomic, strong) UIImage *backgroundImage;
 @property (nonatomic, strong) UIImage *hightlightedBackgroundImage;

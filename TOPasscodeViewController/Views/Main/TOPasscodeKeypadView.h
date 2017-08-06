@@ -12,7 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class TOPasscodeCircleButton;
 
+/* The direction this keypad is laid out.
+   When horizontal, the '0' button is on the right side */
+typedef NS_ENUM(NSInteger, TOPasscodeKeypadLayout) {
+    TOPasscodeKeypadLayoutVertical,
+    TOPasscodeKeypadLayoutHorizontal
+};
+
 @interface TOPasscodeKeypadView : UIView
+
+/** The type of layout for the buttons (Default is vertical) */
+@property (nonatomic, assign) TOPasscodeKeypadLayout layout;
 
 /** The vibrancy effect to be applied to each button background */
 @property (nonatomic, strong, nullable) UIVibrancyEffect *vibrancyEffect;
@@ -61,10 +71,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIView *rightAccessoryView;
 
 /** The controls making up each of the button views */
-@property (nonatomic, readonly) NSArray<TOPasscodeCircleButton *> *pinButtons;
+@property (nonatomic, readonly) NSArray<TOPasscodeCircleButton *> *keypadButtons;
 
 /** The block that is triggered whenever a user taps one of the buttons */
 @property (nonatomic, copy) void (^buttonTappedHandler)(NSInteger buttonNumber);
+
+/* Perform an animation of a set duration to the new layout */
+- (void)setLayout:(TOPasscodeKeypadLayout)layout animated:(BOOL)animated duration:(CGFloat)duration;
 
 @end
 

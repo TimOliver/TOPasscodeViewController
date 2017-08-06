@@ -28,6 +28,7 @@
     if (self = [super init]) {
         _numberString = numberString;
         _letteringString = letteringString;
+        _contentAlpha = 1.0f;
         [self setUp];
     }
 
@@ -159,21 +160,21 @@
 
 - (void)setNumberFont:(UIFont *)numberFont
 {
-    self.buttonLabel.numberLabel.font = numberFont;
+    self.buttonLabel.numberLabelFont = numberFont;
     [self setNeedsLayout];
 }
 
-- (UIFont *)numberFont { return self.buttonLabel.numberLabel.font; }
+- (UIFont *)numberFont { return self.buttonLabel.numberLabelFont; }
 
 /***********************************************************/
 
 - (void)setLetteringFont:(UIFont *)letteringFont
 {
-    self.buttonLabel.letteringLabel.font = letteringFont;
+    self.buttonLabel.letteringLabelFont = letteringFont;
     [self setNeedsLayout];
 }
 
-- (UIFont *)letteringFont { return self.buttonLabel.letteringLabel.font; }
+- (UIFont *)letteringFont { return self.buttonLabel.letteringLabelFont; }
 
 /***********************************************************/
 
@@ -202,6 +203,20 @@
     _textColor = textColor;
 
     self.buttonLabel.textColor = _textColor;
+}
+
+/***********************************************************/
+
+- (void)setContentAlpha:(CGFloat)contentAlpha
+{
+    if (_contentAlpha == contentAlpha) {
+        return;
+    }
+
+    _contentAlpha = contentAlpha;
+
+    self.buttonLabel.alpha = contentAlpha;
+    self.circleView.alpha = contentAlpha;
 }
 
 @end

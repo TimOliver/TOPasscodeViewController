@@ -47,7 +47,7 @@
 
     /* Circle Button Label */
     contentLayout.circleButtonTitleLabelFont = [UIFont systemFontOfSize:37.5f weight:UIFontWeightThin];
-    contentLayout.circleButtonLetteringLabelFont = [UIFont monospacedDigitSystemFontOfSize:9.0f weight:UIFontWeightThin];
+    contentLayout.circleButtonLetteringLabelFont = [UIFont systemFontOfSize:9.0f weight:UIFontWeightThin];
     contentLayout.circleButtonLabelSpacing = 6.0f;
     contentLayout.circleButtonLetteringSpacing = 3.0f;
 
@@ -89,7 +89,7 @@
 
     /* Circle Button Label */
     contentLayout.circleButtonTitleLabelFont = [UIFont systemFontOfSize:36.5f weight:UIFontWeightThin];
-    contentLayout.circleButtonLetteringLabelFont = [UIFont monospacedDigitSystemFontOfSize:8.5f weight:UIFontWeightThin];
+    contentLayout.circleButtonLetteringLabelFont = [UIFont systemFontOfSize:8.5f weight:UIFontWeightThin];
     contentLayout.circleButtonLabelSpacing = 5.0f;
     contentLayout.circleButtonLetteringSpacing = 2.5f;
 
@@ -135,7 +135,7 @@
 
     /* Circle Button Label */
     contentLayout.circleButtonTitleLabelFont = [UIFont systemFontOfSize:32.0f weight:UIFontWeightThin];
-    contentLayout.circleButtonLetteringLabelFont = [UIFont monospacedDigitSystemFontOfSize:7.0f weight:UIFontWeightThin];
+    contentLayout.circleButtonLetteringLabelFont = [UIFont systemFontOfSize:7.0f weight:UIFontWeightThin];
     contentLayout.circleButtonLabelSpacing = 4.5f;
     contentLayout.circleButtonLetteringSpacing = 2.0f;
 

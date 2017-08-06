@@ -140,7 +140,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Add callbacks for the keypad view
     self.keypadView.numberButtonTappedHandler = ^(NSInteger number) {
-        NSString *numberString = [NSString stringWithFormat:@"%ld", number];
+        NSString *numberString = [NSString stringWithFormat:@"%ld", (long)number];
         [weakSelf.inputField appendPasscodeCharacters:numberString animated:NO];
     };
 

@@ -14,10 +14,16 @@
 
 @interface TOPasscodeKeypadView()
 
+/* Passcode buttons */
+@property (nonatomic, strong, readwrite) NSArray<TOPasscodeCircleButton *> *keypadButtons;
+
+/* The '0' button for the different layouts */
+@property (nonatomic, strong) TOPasscodeCircleButton *verticalZeroButton;
+@property (nonatomic, strong) TOPasscodeCircleButton *horizontalZeroButton;
+
+/* Images */
 @property (nonatomic, strong) UIImage *buttonImage;
 @property (nonatomic, strong) UIImage *tappedButtonImage;
-
-@property (nonatomic, strong, readwrite) NSArray<TOPasscodeCircleButton *> *pinButtons;
 
 @end
 
@@ -41,47 +47,74 @@
     return self;
 }
 
+- (TOPasscodeCircleButton *)makeCircleButtonWithNumber:(NSInteger)number letteringString:(NSString *)letteringString
+{
+    NSString *numberString = [NSString stringWithFormat:@"%ld", (long)number];
+
+    TOPasscodeCircleButton *circleButton = [[TOPasscodeCircleButton alloc] initWithNumberString:numberString letteringString:letteringString];
+    circleButton.backgroundImage = self.buttonImage;
+    circleButton.hightlightedBackgroundImage = self.tappedButtonImage;
+    circleButton.vibrancyEffect = self.vibrancyEffect;
+
+    // Add handler for when button is tapped
+    __weak typeof(self) weakSelf = self;
+    circleButton.buttonTappedHandler = ^{
+        if (weakSelf.buttonTappedHandler) {
+            weakSelf.buttonTappedHandler(number);
+        }
+    };
+
+    return circleButton;
+}
+
 - (void)setUpButtons
 {
     NSMutableArray *buttons = [NSMutableArray array];
 
-    NSInteger numberOfButtons = 10;
+    NSInteger numberOfButtons = 11; // 1-9 are normal, 10 is the vertical '0', 11 is the horizontal '0'
     NSArray *letteredTitles = @[@"ABC", @"DEF", @"GHI", @"JKL",
                                 @"MNO", @"PQRS", @"TUV", @"WXYZ"];
-
-    __weak typeof(self) weakSelf = self;
 
     for (NSInteger i = 0; i < numberOfButtons; i++) {
         // Work out the button number text
         NSInteger buttonNumber = i + 1;
-        if (buttonNumber == 10) { buttonNumber = 0; }
-        NSString *numberString = [NSString stringWithFormat:@"%ld", (long)buttonNumber];
+        if (buttonNumber == 10 || buttonNumber == 11) { buttonNumber = 0; }
 
         // Work out the lettering text
         NSString *letteringString = nil;
-        if (self.showLettering && i > 0 && i-1 < letteredTitles.count) {
+        if (self.showLettering && i > 0 && i-1 < letteredTitles.count) { // (Skip 1 and 0)
             letteringString = letteredTitles[i-1];
         }
 
-        // Create a new button
-        TOPasscodeCircleButton *circleButton = [[TOPasscodeCircleButton alloc] initWithNumberString:numberString letteringString:letteringString];
-        circleButton.backgroundImage = self.buttonImage;
-        circleButton.hightlightedBackgroundImage = self.tappedButtonImage;
-        circleButton.vibrancyEffect = self.vibrancyEffect;
-
-        // Add handler for when button is tapped
-        circleButton.buttonTappedHandler = ^{
-            if (weakSelf.buttonTappedHandler) {
-                weakSelf.buttonTappedHandler(buttonNumber);
-            }
-        };
-
-        // Add the button
+        // Create a new button and add it to this view
+        TOPasscodeCircleButton *circleButton = [self makeCircleButtonWithNumber:buttonNumber letteringString:letteringString];
         [self addSubview:circleButton];
         [buttons addObject:circleButton];
+
+        // Hang onto the 0 button if it's the vertical one
+        // And center the text
+        if (i == 9) {
+            circleButton.buttonLabel.verticallyCenterNumberLabel = YES; // Center the 0 in the middle
+            self.verticalZeroButton = circleButton;
+
+            // Hide the button if it's not vertically laid out
+            if (self.layout != TOPasscodeKeypadLayoutVertical) {
+                self.verticalZeroButton.contentAlpha = 0.0f;
+                self.verticalZeroButton.hidden = YES;
+            }
+        }
+        else if (i == 10) {
+            self.horizontalZeroButton = circleButton;
+
+            // Hide the button if it's not horizontally laid out
+            if (self.layout != TOPasscodeKeypadLayoutHorizontal) {
+                self.horizontalZeroButton.contentAlpha = 0.0f;
+                self.horizontalZeroButton.hidden = YES;
+            }
+        }
     }
 
-    _pinButtons = [NSArray arrayWithArray:buttons];
+    _keypadButtons = [NSArray arrayWithArray:buttons];
 }
 
 - (void)sizeToFit
@@ -89,8 +122,14 @@
     CGFloat padding = 2.0f;
 
     CGRect frame = self.frame;
-    frame.size.width  = ((self.buttonDiameter + padding) * 3) + (self.buttonSpacing.width * 2);
-    frame.size.height = ((self.buttonDiameter + padding) * 4) + (self.buttonSpacing.height * 3);
+    if (self.layout == TOPasscodeKeypadLayoutHorizontal) {
+        frame.size.width  = ((self.buttonDiameter + padding) * 4) + (self.buttonSpacing.width * 3);
+        frame.size.height = ((self.buttonDiameter + padding) * 3) + (self.buttonSpacing.height * 2);
+    }
+    else {
+        frame.size.width  = ((self.buttonDiameter + padding) * 3) + (self.buttonSpacing.width * 2);
+        frame.size.height = ((self.buttonDiameter + padding) * 4) + (self.buttonSpacing.height * 3);
+    }
     self.frame = CGRectIntegral(frame);
 }
 
@@ -100,30 +139,41 @@
 
     NSInteger i = 0;
     CGPoint origin = CGPointZero;
-    for (TOPasscodeCircleButton *button in self.pinButtons) {
+    for (TOPasscodeCircleButton *button in self.keypadButtons) {
+        // Set the button frame
         CGRect frame = button.frame;
         frame.origin = origin;
         button.frame = frame;
 
+        // Work out the next offset
         CGFloat horizontalOffset = frame.size.width + self.buttonSpacing.width;
         origin.x += horizontalOffset;
 
         i++;
+
+        // If we're at the end of the row, move to the next one
         if (i % 3 == 0) {
             origin.x = 0.0f;
             origin.y = origin.y + frame.size.height + self.buttonSpacing.height;
         }
     }
 
-    TOPasscodeCircleButton *lastButton = self.pinButtons.lastObject;
-    CGRect frame = lastButton.frame;
+    // Lay out the vertical button
+    CGRect frame = self.verticalZeroButton.frame;
     frame.origin.x += (frame.size.width + self.buttonSpacing.width);
-    lastButton.frame = frame;
+    self.verticalZeroButton.frame = frame;
 
-    CGFloat midPointY = CGRectGetMidY(frame);
+    // Lay out the horizontal button
+    frame = self.horizontalZeroButton.frame;
+    frame.origin.x = (frame.size.width + self.buttonSpacing.width) * 3.0f;
+    frame.origin.y = frame.size.height + self.buttonSpacing.height;
+    self.horizontalZeroButton.frame = frame;
+
+    // Layout the accessory buttons
+    CGFloat midPointY = CGRectGetMidY(self.verticalZeroButton.frame);
 
     if (self.leftAccessoryView) {
-        CGRect leftButtonFrame = self.pinButtons.firstObject.frame;
+        CGRect leftButtonFrame = self.keypadButtons.firstObject.frame;
         CGFloat midPointX = CGRectGetMidX(leftButtonFrame);
 
         [self.leftAccessoryView sizeToFit];
@@ -131,7 +181,7 @@
     }
 
     if (self.rightAccessoryView) {
-        CGRect rightButtonFrame = self.pinButtons[2].frame;
+        CGRect rightButtonFrame = self.keypadButtons[2].frame;
         CGFloat midPointX = CGRectGetMidX(rightButtonFrame);
 
         [self.rightAccessoryView sizeToFit];
@@ -145,7 +195,7 @@
     if (vibrancyEffect == _vibrancyEffect) { return; }
     _vibrancyEffect = vibrancyEffect;
 
-    for (TOPasscodeCircleButton *button in self.pinButtons) {
+    for (TOPasscodeCircleButton *button in self.keypadButtons) {
         button.vibrancyEffect = _vibrancyEffect;
     }
 }
@@ -169,17 +219,64 @@
     return _tappedButtonImage;
 }
 
-- (NSArray<TOPasscodeCircleButton *> *)pinButtons
+- (NSArray<TOPasscodeCircleButton *> *)keypadButtons
 {
-    if (_pinButtons) { return _pinButtons; }
+    if (_keypadButtons) { return _keypadButtons; }
     [self setUpButtons];
-    return _pinButtons;
+    return _keypadButtons;
 }
 
 #pragma mark - Public Layout Setters -
+
+- (void)setLayout:(TOPasscodeKeypadLayout)layout
+{
+    [self setLayout:layout animated:NO duration:0.0f];
+}
+
+- (void)setLayout:(TOPasscodeKeypadLayout)layout animated:(BOOL)animated duration:(CGFloat)duration
+{
+    if (layout == _layout) {
+        return;
+    }
+
+    _layout = layout;
+
+    BOOL toHorizontal = (layout == TOPasscodeKeypadLayoutHorizontal);
+
+    // Resize itself now so the frame value is up to date externally
+    [self sizeToFit];
+
+    // Set initial animation state
+    self.verticalZeroButton.hidden = NO;
+    self.horizontalZeroButton.hidden = NO;
+
+    self.verticalZeroButton.contentAlpha = toHorizontal ? 1.0f : 0.0f;
+    self.horizontalZeroButton.contentAlpha = toHorizontal ? 0.0f : 1.0f;
+
+    void (^animationBlock)() = ^{
+        self.verticalZeroButton.contentAlpha = toHorizontal ? 0.0f : 1.0f;
+        self.horizontalZeroButton.contentAlpha = toHorizontal ? 1.0f : 0.0f;
+    };
+
+    void (^completionBlock)(BOOL) = ^(BOOL complete) {
+        self.verticalZeroButton.hidden = toHorizontal;
+        self.horizontalZeroButton.hidden = !toHorizontal;
+    };
+
+    // Don't animate if not needed
+    if (!animated) {
+        animationBlock();
+        completionBlock(YES);
+        return;
+    }
+
+    // Perform animation
+    [UIView animateWithDuration:duration animations:animationBlock completion:completionBlock];
+}
+
 - (void)updateButtonsForCurrentState
 {
-    for (TOPasscodeCircleButton *circleButton in self.pinButtons) {
+    for (TOPasscodeCircleButton *circleButton in self.keypadButtons) {
         circleButton.backgroundImage = self.buttonImage;
         circleButton.hightlightedBackgroundImage = self.tappedButtonImage;
         circleButton.numberFont = self.buttonNumberFont;
@@ -295,9 +392,15 @@
 {
     _contentAlpha = contentAlpha;
 
-    for (TOPasscodeCircleButton *button in self.pinButtons) {
-        button.buttonLabel.alpha = contentAlpha;
-        button.circleView.alpha = contentAlpha;
+    for (TOPasscodeCircleButton *button in self.keypadButtons) {
+        // Skip whichever '0' button is not presently being used
+        if ((self.layout == TOPasscodeKeypadLayoutHorizontal && button == self.verticalZeroButton) ||
+            (self.layout == TOPasscodeKeypadLayoutVertical && button == self.horizontalZeroButton))
+        {
+            continue;
+        }
+
+        button.contentAlpha = contentAlpha;
     }
 }
 

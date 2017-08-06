@@ -262,7 +262,7 @@
             self.keypadView = [[TOPasscodeKeypadView alloc] init];
         }
         self.keypadView.buttonTappedHandler = ^(NSInteger button) {
-            NSString *numberString = [NSString stringWithFormat:@"%ld", button];
+            NSString *numberString = [NSString stringWithFormat:@"%ld", (long)button];
             [weakSelf.inputField appendPasscodeCharacters:numberString animated:NO];
 
             if (weakSelf.passcodeDigitEnteredHandler) {
@@ -270,6 +270,8 @@
             }
         };
         [self addSubview:self.keypadView];
+
+        self.keypadView.layout = TOPasscodeKeypadLayoutHorizontal;
     }
     else {
         [self.keypadView removeFromSuperview];
@@ -454,7 +456,7 @@
 
 - (CGFloat)keypadButtonInset
 {
-    UIView *button = self.keypadView.pinButtons.firstObject;
+    UIView *button = self.keypadView.keypadButtons.firstObject;
     return CGRectGetMidX(button.frame);
 }
 
