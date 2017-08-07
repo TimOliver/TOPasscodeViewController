@@ -451,6 +451,7 @@
         [weakSelf keypadButtonTapped];
     };
 
+    // Set initial layout to horizontal if we're rotated on an iPhone
     if (self.passcodeType != TOPasscodeTypeCustomAlphanumeric && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
         CGSize boundsSize = self.view.bounds.size;
         _passcodeView.horizontalLayout = boundsSize.width > boundsSize.height;

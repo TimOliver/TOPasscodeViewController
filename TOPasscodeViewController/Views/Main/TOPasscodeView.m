@@ -66,7 +66,7 @@
     _currentLayout = _defaultContentLayout;
     _contentLayouts = @[[TOPasscodeViewContentLayout mediumScreenContentLayout],
                         [TOPasscodeViewContentLayout smallScreenContentLayout]];
-    _titleText = @"Enter Passcode";
+    _titleText = NSLocalizedString(@"Enter Passcode", @"");
 
     // Start configuring views
     [self setUpViewForType:self.passcodeType];
@@ -144,20 +144,17 @@
     CGSize midViewSize = (CGSize){self.frame.size.width * 0.5f, self.frame.size.height * 0.5f};
     CGRect frame = CGRectZero;
 
-    // Work out total height of header content
-    CGFloat headerHeight = 0.0f;
+    // Work out the y offset, assuming the input field is in the middle
+    frame.origin.y = midViewSize.height - (self.inputField.frame.size.height * 0.5f);
+    frame.origin.y -= (self.titleLabel.frame.size.height + self.currentLayout.titleLabelHorizontalBottomSpacing);
+
+    // Include offset for title view if present
     if (self.titleView) {
-        headerHeight += self.titleView.frame.size.height;
-        headerHeight += self.currentLayout.titleViewBottomSpacing;
+        frame.origin.y -= (self.titleView.frame.size.height + self.currentLayout.titleViewHorizontalBottomSpacing);
     }
 
-    headerHeight += self.titleLabel.frame.size.height;
-    headerHeight += self.currentLayout.titleLabelBottomSpacing;
-
-    headerHeight += self.inputField.frame.size.height;
-
     // Set initial Y offset
-    frame.origin.y = midViewSize.height - (headerHeight * 0.5f);
+    frame.origin.y = MAX(frame.origin.y, 0.0f);
 
     // Set frame of title view
     if (self.titleView) {
@@ -165,7 +162,7 @@
         frame.origin.x = (self.currentLayout.titleHorizontalLayoutWidth - frame.size.width) * 0.5f;
         self.titleView.frame = CGRectIntegral(frame);
 
-        frame.origin.y += (frame.size.height + self.currentLayout.titleViewBottomSpacing);
+        frame.origin.y += (frame.size.height + self.currentLayout.titleViewHorizontalBottomSpacing);
     }
 
     // Set frame of title label
@@ -173,7 +170,7 @@
     frame.origin.x = (self.currentLayout.titleHorizontalLayoutWidth - frame.size.width) * 0.5f;
     self.titleLabel.frame = CGRectIntegral(frame);
 
-    frame.origin.y += (frame.size.height + self.currentLayout.titleLabelBottomSpacing);
+    frame.origin.y += (frame.size.height + self.currentLayout.titleLabelHorizontalBottomSpacing);
 
     // Set frame of the input field
     frame.size = self.inputField.frame.size;

@@ -25,8 +25,10 @@
     contentLayout.titleLabelFont = [UIFont systemFontOfSize: 22.0f];
 
     /* Horizontal title constraints */
-    contentLayout.titleHorizontalLayoutWidth = 185.0f;
-    contentLayout.titleHorizontalLayoutSpacing = 16.0f;
+    contentLayout.titleHorizontalLayoutWidth = 250.0f;
+    contentLayout.titleHorizontalLayoutSpacing = 35.0f;
+    contentLayout.titleViewHorizontalBottomSpacing = 20.0f;
+    contentLayout.titleLabelHorizontalBottomSpacing = 20.0f;
 
     /* Circle Row Configuration */
     contentLayout.circleRowDiameter = 15.5f;
@@ -75,6 +77,8 @@
     /* Horizontal title constraints */
     contentLayout.titleHorizontalLayoutWidth = 185.0f;
     contentLayout.titleHorizontalLayoutSpacing = 16.0f;
+    contentLayout.titleViewHorizontalBottomSpacing = 18.0f;
+    contentLayout.titleLabelHorizontalBottomSpacing = 18.0f;
 
     /* Circle Row Configuration */
     contentLayout.circleRowDiameter = 12.5f;
@@ -121,6 +125,8 @@
     /* Horizontal title constraints */
     contentLayout.titleHorizontalLayoutWidth = 185.0f;
     contentLayout.titleHorizontalLayoutSpacing = 16.0f;
+    contentLayout.titleViewHorizontalBottomSpacing = 18.0f;
+    contentLayout.titleLabelHorizontalBottomSpacing = 18.0f;
 
     /* Circle Row Configuration */
     contentLayout.circleRowDiameter = 12.5f;
