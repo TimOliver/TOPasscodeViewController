@@ -39,6 +39,9 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 /* The amount of spacing between the 'OK' button and the passcode field */
 @property (nonatomic, assign) CGFloat submitButtonSpacing;
 
+/* The amount of spacing between the 'OK' button and the passcode field */
+@property (nonatomic, assign) CGFloat submitButtonVerticalSpacing;
+
 /* The font size of the submit button */
 @property (nonatomic, assign) CGFloat submitButtonFontSize;
 
@@ -60,6 +63,9 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 /** Called when the number of digits has been entered, or the user tapped 'Done' on the keyboard */
 @property (nonatomic, copy) void (^passcodeCompletedHandler)(NSString *code);
 
+/** Horizontal layout. The 'OK' button will be placed under the text field */
+@property (nonatomic, assign) BOOL horizontalLayout;
+
 /* Init with the target length needed for this passcode */
 - (instancetype)initWithStyle:(TOPasscodeInputFieldStyle)style;
 
@@ -74,6 +80,9 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 
 /* Plays a shaking animation and resets the passcode back to empty */
 - (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact;
+
+/* Animates the OK button changing location */
+- (void)setHorizontalLayout:(BOOL)horizontalLayout animated:(BOOL)animated duration:(CGFloat)duration;
 
 @end
 

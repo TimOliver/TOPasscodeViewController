@@ -501,6 +501,7 @@
     if (horizontalLayout == _horizontalLayout) { return; }
     _horizontalLayout = horizontalLayout;
     [self.keypadView setHorizontalLayout:horizontalLayout animated:animated duration:duration];
+    [self.inputField setHorizontalLayout:horizontalLayout animated:animated duration:duration];
 }
 
 - (void)setDefaultContentLayout:(TOPasscodeViewContentLayout *)defaultContentLayout

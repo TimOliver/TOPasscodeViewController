@@ -52,7 +52,9 @@
 
 - (void)setUp
 {
+    self.backgroundColor = [UIColor clearColor];
     _submitButtonSpacing = 4.0f;
+    _submitButtonVerticalSpacing = 5.0f;
 }
 
 - (void)setUpForStyle:(TOPasscodeInputFieldStyle)style
@@ -86,6 +88,9 @@
     CGRect frame = self.frame;
     [self.inputField sizeToFit];
     frame.size = self.inputField.frame.size;
+    if (self.horizontalLayout) {
+        frame.size.height += self.submitButtonVerticalSpacing + CGRectGetHeight(self.submitButton.frame);
+    }
     self.frame = CGRectIntegral(frame);
 }
 
@@ -97,8 +102,14 @@
 
     [self.submitButton sizeToFit];
     CGRect frame = self.submitButton.frame;
-    frame.origin.x = CGRectGetMaxX(self.bounds) + self.submitButtonSpacing;
-    frame.origin.y = (CGRectGetHeight(self.bounds) - CGRectGetHeight(frame)) * 0.5f;
+    if (!self.horizontalLayout) {
+        frame.origin.x = CGRectGetMaxX(self.bounds) + self.submitButtonSpacing;
+        frame.origin.y = (CGRectGetHeight(self.bounds) - CGRectGetHeight(frame)) * 0.5f;
+    }
+    else {
+        frame.origin.x = (CGRectGetWidth(self.frame) - frame.size.width) * 0.5f;
+        frame.origin.y = CGRectGetMaxY(self.inputField.frame) + self.submitButtonVerticalSpacing;
+    }
     self.submitButton.frame = CGRectIntegral(frame);
 }
 
@@ -124,6 +135,7 @@
 {
     CGRect frame = self.bounds;
     frame.size.width += self.submitButton.frame.size.width + (self.submitButtonSpacing * 2.0f);
+    frame.size.height += self.submitButtonVerticalSpacing;
 
     if (CGRectContainsPoint(frame, point)) {
         return YES;
@@ -338,6 +350,50 @@
     _contentAlpha = contentAlpha;
     self.inputField.alpha = contentAlpha;
     self.submitButton.alpha = contentAlpha;
+}
+
+- (void)setHorizontalLayout:(BOOL)horizontalLayout
+{
+    [self setHorizontalLayout:horizontalLayout animated:NO duration:0.0f];
+}
+
+- (void)setHorizontalLayout:(BOOL)horizontalLayout animated:(BOOL)animated duration:(CGFloat)duration
+{
+    if (_horizontalLayout == horizontalLayout) {
+        return;
+    }
+
+    UIView *snapshotView = nil;
+
+    if (self.submitButton.hidden == NO && animated) {
+        snapshotView = [self.submitButton snapshotViewAfterScreenUpdates:NO];
+        snapshotView.frame = self.submitButton.frame;
+        [self addSubview:snapshotView];
+    }
+
+    _horizontalLayout = horizontalLayout;
+
+    if (!animated) {
+        [self sizeToFit];
+        [self setNeedsLayout];
+        return;
+    }
+
+    self.submitButton.alpha = 0.0f;
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+
+    id animationBlock = ^{
+        self.submitButton.alpha = 1.0f;
+        snapshotView.alpha = 0.0f;
+    };
+
+    id completionBlock = ^(BOOL complete) {
+        [snapshotView removeFromSuperview];
+        [self bringSubviewToFront:self.submitButton];
+    };
+
+    [UIView animateWithDuration:duration animations:animationBlock completion:completionBlock];
 }
 
 @end
