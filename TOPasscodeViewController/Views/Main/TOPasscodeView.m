@@ -295,7 +295,7 @@
 
 - (void)sizeToFit
 {
-    if (self.horizontalLayout) {
+    if (self.horizontalLayout && self.passcodeType != TOPasscodeTypeCustomAlphanumeric) {
         [self horizontalSizeToFit];
     }
     else {

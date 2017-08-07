@@ -260,8 +260,8 @@
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
-    // We don't need to do anything special on iPad
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) { return; }
+    // We don't need to do anything special on iPad or if we're using character input
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad || self.passcodeType == TOPasscodeTypeCustomAlphanumeric) { return; }
 
     // Work out if we need to transition to horizontal
     BOOL horizontalLayout = size.height < size.width;
@@ -378,7 +378,7 @@
     // The buttons are always embedded in the keypad view on iPad
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) { return; }
 
-    if (self.passcodeView.horizontalLayout) {
+    if (self.passcodeView.horizontalLayout && self.passcodeType != TOPasscodeTypeCustomAlphanumeric) {
         [self horizontalLayoutAccessoryButtonsForSize:size];
     }
     else {

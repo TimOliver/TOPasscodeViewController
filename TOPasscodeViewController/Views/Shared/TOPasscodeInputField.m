@@ -101,6 +101,8 @@
     if (!self.submitButton) { return; }
 
     [self.submitButton sizeToFit];
+    [self bringSubviewToFront:self.submitButton];
+
     CGRect frame = self.submitButton.frame;
     if (!self.horizontalLayout) {
         frame.origin.x = CGRectGetMaxX(self.bounds) + self.submitButtonSpacing;
@@ -200,6 +202,7 @@
 
     if (self.submitButton) {
         self.submitButton.hidden = (_passcode.length == 0);
+        [self bringSubviewToFront:self.submitButton];
     }
 
     if (passcodeIsComplete && self.passcodeCompletedHandler) {

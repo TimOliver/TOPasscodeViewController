@@ -226,6 +226,12 @@
     return _keypadButtons;
 }
 
+#pragma mark - Audio Delegate Protocol -
+- (BOOL)enableInputClicksWhenVisible
+{
+    return YES;
+}
+
 #pragma mark - Public Layout Setters -
 
 - (void)setHorizontalLayout:(BOOL)horizontalLayout

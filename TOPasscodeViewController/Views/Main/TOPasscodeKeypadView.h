@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class TOPasscodeCircleButton;
 
-@interface TOPasscodeKeypadView : UIView
+@interface TOPasscodeKeypadView : UIView <UIInputViewAudioFeedback>
 
 /** The type of layout for the buttons (Default is vertical) */
 @property (nonatomic, assign) BOOL horizontalLayout;

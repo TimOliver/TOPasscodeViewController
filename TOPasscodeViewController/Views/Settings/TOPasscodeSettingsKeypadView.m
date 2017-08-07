@@ -10,7 +10,6 @@
 #import "TOPasscodeSettingsKeypadButton.h"
 #import "TOPasscodeButtonLabel.h"
 #import "TOSettingsKeypadImage.h"
-
 const CGFloat kTOPasscodeSettingsKeypadButtonInnerSpacing = 7.0f;
 const CGFloat kTOPasscodeSettingsKeypadButtonOuterSpacing = 7.0f;
 const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
@@ -237,13 +236,14 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
         if (self.deleteButtonTappedHandler) {
             self.deleteButtonTappedHandler();
         }
-
         return;
     }
 
     // Handler for the keypad buttons
     UIButton *button = (UIButton *)sender;
     NSInteger number = button.tag;
+
+    [[UIDevice currentDevice] playInputClick];
 
     if (self.numberButtonTappedHandler) {
         self.numberButtonTappedHandler(number);
