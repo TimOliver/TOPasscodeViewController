@@ -270,6 +270,9 @@
         frame.size.height += maxHeight;
     }
 
+    // Add extra padding at the bottom
+    frame.size.height += self.currentLayout.bottomPadding;
+
     // Set the frame back
     self.frame = CGRectIntegral(frame);
 }

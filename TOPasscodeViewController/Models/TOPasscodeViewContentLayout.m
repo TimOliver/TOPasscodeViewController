@@ -17,6 +17,9 @@
     /* Width of the PIN View */
     contentLayout.viewWidth = 414.0f;
 
+    /* Bottom Padding */
+    contentLayout.bottomPadding = 25.0f;
+
     /* Title View Constraints */
     contentLayout.titleViewBottomSpacing = 34.0f;
 
@@ -67,11 +70,14 @@
     /* Width of the PIN View */
     contentLayout.viewWidth = 375.0f;
 
+    /* Bottom Padding */
+    contentLayout.bottomPadding = 17.0f;
+
     /* Title View Constraints */
     contentLayout.titleViewBottomSpacing = 27.0f;
 
     /* The Title Label Explaining the PIN View */
-    contentLayout.titleLabelBottomSpacing = 27.0f;
+    contentLayout.titleLabelBottomSpacing = 24.0f;
     contentLayout.titleLabelFont = [UIFont systemFontOfSize: 20.0f];
 
     /* Horizontal title constraints */
@@ -115,6 +121,9 @@
     /* Width of the PIN View */
     contentLayout.viewWidth = 320.0f;
 
+    /* Bottom Padding */
+    contentLayout.bottomPadding = 12.0f;
+
     /* Title View Constraints */
     contentLayout.titleViewBottomSpacing = 23.0f;
 
@@ -124,7 +133,7 @@
 
     /* Horizontal title constraints */
     contentLayout.titleHorizontalLayoutWidth = 185.0f;
-    contentLayout.titleHorizontalLayoutSpacing = 16.0f;
+    contentLayout.titleHorizontalLayoutSpacing = 5.0f;
     contentLayout.titleViewHorizontalBottomSpacing = 18.0f;
     contentLayout.titleLabelHorizontalBottomSpacing = 18.0f;
 
@@ -147,13 +156,13 @@
     contentLayout.submitButtonSpacing  = 3.0f;
 
     /* Circle Button Shape and Layout */
-    contentLayout.circleButtonDiameter = 64.0f;
-    contentLayout.circleButtonSpacing = (CGSize){22.0f, 10.5f};
+    contentLayout.circleButtonDiameter = 76.0f;
+    contentLayout.circleButtonSpacing = (CGSize){20.0f, 12.5f};
     contentLayout.circleButtonStrokeWidth = 1.5f;
 
     /* Circle Button Label */
-    contentLayout.circleButtonTitleLabelFont = [UIFont systemFontOfSize:32.0f weight:UIFontWeightThin];
-    contentLayout.circleButtonLetteringLabelFont = [UIFont systemFontOfSize:7.0f weight:UIFontWeightThin];
+    contentLayout.circleButtonTitleLabelFont = [UIFont systemFontOfSize:35.0f weight:UIFontWeightThin];
+    contentLayout.circleButtonLetteringLabelFont = [UIFont systemFontOfSize:9.0f weight:UIFontWeightThin];
     contentLayout.circleButtonLabelSpacing = 4.5f;
     contentLayout.circleButtonLetteringSpacing = 2.0f;
 

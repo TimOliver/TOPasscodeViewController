@@ -201,12 +201,6 @@
 {
     CGSize bounds = self.view.bounds.size;
 
-    // Update the accessory button sizes
-    [self updateAccessoryButtonFontsForSize:bounds];
-
-    // Re-layout the accessory buttons
-    [self layoutAccessoryButtonsForSize:bounds];
-
     // Resize the pin view to scale to the new size
     [self.passcodeView sizeToFitSize:bounds];
 
@@ -215,6 +209,14 @@
     frame.origin.x = (bounds.width - frame.size.width) * 0.5f;
     frame.origin.y = ((bounds.height - self.keyboardHeight) - frame.size.height) * 0.5f;
     self.passcodeView.frame = CGRectIntegral(frame);
+
+    // --------------------------------------------------
+
+    // Update the accessory button sizes
+    [self updateAccessoryButtonFontsForSize:bounds];
+
+    // Re-layout the accessory buttons
+    [self layoutAccessoryButtonsForSize:bounds];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -306,10 +308,8 @@
     self.rightAccessoryButton.titleLabel.font = accessoryFont;
 }
 
-- (void)layoutAccessoryButtonsForSize:(CGSize)size
+- (void)verticalLayoutAccessoryButtonsForSize:(CGSize)size
 {
-    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) { return; }
-
     CGFloat width = MIN(size.width, size.height);
 
     CGFloat verticalInset = 54.0f;
@@ -335,6 +335,55 @@
         [rightButton sizeToFit];
         point.x = CGRectGetMaxX(self.passcodeView.frame) - inset;
         rightButton.center = point;
+    }
+}
+
+- (void)horizontalLayoutAccessoryButtonsForSize:(CGSize)size
+{
+    CGRect passcodeViewFrame = self.passcodeView.frame;
+    CGFloat buttonInset = self.passcodeView.keypadButtonInset;
+    CGFloat width = MIN(size.width, size.height);
+    CGFloat verticalInset = 35.0f;
+    if (width < TOPasscodeViewContentSizeMedium) {
+        verticalInset = 30.0f;
+    }
+    else if (width < TOPasscodeViewContentSizeDefault) {
+        verticalInset = 35.0f;
+    }
+
+
+    UIButton *leftButton = self.leftAccessoryButton ? self.leftAccessoryButton : self.biometricButton;
+    if (leftButton) {
+        [leftButton sizeToFit];
+        CGRect frame = leftButton.frame;
+        frame.origin.y = (self.view.bounds.size.height - verticalInset) - (frame.size.height * 0.5f);
+        frame.origin.x = (CGRectGetMaxX(passcodeViewFrame) - buttonInset) - (frame.size.width * 0.5f);
+        leftButton.frame = CGRectIntegral(frame);
+    }
+
+    UIButton *rightButton = self.rightAccessoryButton ? self.rightAccessoryButton : self.cancelButton;
+    if (rightButton) {
+        [rightButton sizeToFit];
+        CGRect frame = rightButton.frame;
+        frame.origin.y = verticalInset - (frame.size.height * 0.5f);
+        frame.origin.x = (CGRectGetMaxX(passcodeViewFrame) - buttonInset) - (frame.size.width * 0.5f);
+        rightButton.frame = CGRectIntegral(frame);
+    }
+
+    [self.view bringSubviewToFront:rightButton];
+    [self.view bringSubviewToFront:leftButton];
+}
+
+- (void)layoutAccessoryButtonsForSize:(CGSize)size
+{
+    // The buttons are always embedded in the keypad view on iPad
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) { return; }
+
+    if (self.passcodeView.horizontalLayout) {
+        [self horizontalLayoutAccessoryButtonsForSize:size];
+    }
+    else {
+        [self verticalLayoutAccessoryButtonsForSize:size];
     }
 }
 

@@ -14,6 +14,9 @@
 /* The width of the PIN view in which this layout object is sizing the content to fit. */
 @property (nonatomic, assign) CGFloat viewWidth;
 
+/* Extra padding at the bottom in order to shift the content slightly up */
+@property (nonatomic, assign) CGFloat bottomPadding;
+
 /* The title view at the very top */
 @property (nonatomic, assign) CGFloat titleViewBottomSpacing;   // Space from the bottom of the title view to the title label
 
