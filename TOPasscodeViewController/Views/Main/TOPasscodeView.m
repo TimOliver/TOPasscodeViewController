@@ -418,11 +418,11 @@
     if (isTranslucent) {
         UIBlurEffect *blurEffect = [self blurEffectForStyle:style];
         UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:blurEffect];
-        self.inputField.effect = vibrancyEffect;
+        self.inputField.visualEffectView.effect = vibrancyEffect;
         self.keypadView.vibrancyEffect = vibrancyEffect;
     }
     else {
-        self.inputField.effect = nil;
+        self.inputField.visualEffectView.effect = nil;
         self.keypadView.vibrancyEffect = nil;
     }
 

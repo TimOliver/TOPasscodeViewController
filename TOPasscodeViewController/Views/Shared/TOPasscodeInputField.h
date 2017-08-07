@@ -19,7 +19,10 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
     TOPasscodeInputFieldStyleVariable  // The passcode can be any arbitrary number of characters (Shows an empty rectangle)
 };
 
-@interface TOPasscodeInputField : UIVisualEffectView <UIKeyInput>
+@interface TOPasscodeInputField : UIView <UIKeyInput>
+
+/* The visual effects view used to control the vibrancy of the input field */
+@property (nonatomic, strong, readonly) UIVisualEffectView *visualEffectView;
 
 /* The input style of this control */
 @property (nonatomic, assign) TOPasscodeInputFieldStyle style;

@@ -22,6 +22,7 @@
 @property (nonatomic, strong, readwrite) TOPasscodeFixedInputView *fixedInputView;
 @property (nonatomic, strong, readwrite) TOPasscodeVariableInputView *variableInputView;
 @property (nonatomic, strong, readwrite) UIButton *submitButton;
+@property (nonatomic, strong, readwrite) UIVisualEffectView *visualEffectView;
 
 @end
 
@@ -55,6 +56,9 @@
     self.backgroundColor = [UIColor clearColor];
     _submitButtonSpacing = 4.0f;
     _submitButtonVerticalSpacing = 5.0f;
+
+    _visualEffectView = [[UIVisualEffectView alloc] initWithEffect:nil];
+    [self addSubview:_visualEffectView];
 }
 
 - (void)setUpForStyle:(TOPasscodeInputFieldStyle)style
@@ -67,11 +71,11 @@
 
     if (style == TOPasscodeInputFieldStyleVariable) {
         self.variableInputView = [[TOPasscodeVariableInputView alloc] init];
-        [self.contentView addSubview:self.variableInputView];
+        [self.visualEffectView.contentView addSubview:self.variableInputView];
     }
     else {
         self.fixedInputView = [[TOPasscodeFixedInputView alloc] init];
-        [self.contentView addSubview:self.fixedInputView];
+        [self.visualEffectView.contentView addSubview:self.fixedInputView];
     }
 
     // Set the frame for the currently visible input view
@@ -97,6 +101,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+
+    self.visualEffectView.frame = self.inputField.bounds;
 
     if (!self.submitButton) { return; }
 
@@ -368,7 +374,7 @@
 
     UIView *snapshotView = nil;
 
-    if (self.submitButton.hidden == NO && animated) {
+    if (self.submitButton && self.submitButton.hidden == NO && animated) {
         snapshotView = [self.submitButton snapshotViewAfterScreenUpdates:NO];
         snapshotView.frame = self.submitButton.frame;
         [self addSubview:snapshotView];
@@ -376,7 +382,7 @@
 
     _horizontalLayout = horizontalLayout;
 
-    if (!animated) {
+    if (!animated || !self.submitButton) {
         [self sizeToFit];
         [self setNeedsLayout];
         return;
