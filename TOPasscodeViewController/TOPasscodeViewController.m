@@ -25,8 +25,6 @@
 @property (nonatomic, strong, readwrite) UIButton *biometricButton;
 @property (nonatomic, strong, readwrite) UIButton *cancelButton;
 
-
-
 @end
 
 @implementation TOPasscodeViewController
@@ -262,9 +260,8 @@
     // Work out if we need to transition to horizontal
     BOOL horizontalLayout = size.height < size.width;
 
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        [self.passcodeView setHorizontalLayout:horizontalLayout animated:YES duration:context.transitionDuration];
-    } completion:nil];
+    // Perform layout animation
+    [self.passcodeView setHorizontalLayout:horizontalLayout animated:coordinator.animated duration:coordinator.transitionDuration];
 }
 
 #pragma mark - View Styling -
@@ -415,8 +412,6 @@
     // Animate the content sliding up and down with the keyboard
     [UIView animateWithDuration:animationDuration
                           delay:0.0f
-//         usingSpringWithDamping:1.0f
-//          initialSpringVelocity:1.0f
                         options:animationCurve
                      animations:^{ [self.view layoutIfNeeded]; }
                      completion:nil];
@@ -455,6 +450,11 @@
     _passcodeView.passcodeDigitEnteredHandler = ^{
         [weakSelf keypadButtonTapped];
     };
+
+    if (self.passcodeType != TOPasscodeTypeCustomAlphanumeric && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+        CGSize boundsSize = self.view.bounds.size;
+        _passcodeView.horizontalLayout = boundsSize.width > boundsSize.height;
+    }
 
     return _passcodeView;
 }

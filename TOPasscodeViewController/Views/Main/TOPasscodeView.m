@@ -17,10 +17,12 @@
 /* The current layout object used to configure this view */
 @property (nonatomic, weak) TOPasscodeViewContentLayout *currentLayout;
 
+/* The main views */
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
-@property (nonatomic, strong, readwrite) TOPasscodeKeypadView *keypadView;
 @property (nonatomic, strong, readwrite) TOPasscodeInputField *inputField;
+@property (nonatomic, strong, readwrite) TOPasscodeKeypadView *keypadView;
 
+/* The type of passcode we're displaying */
 @property (nonatomic, assign, readwrite) TOPasscodeType passcodeType;
 
 @end
@@ -77,7 +79,7 @@
 }
 
 #pragma mark - View Layout -
-- (void)layoutSubviews
+- (void)verticallyLayoutSubviews
 {
     CGSize viewSize = self.frame.size;
     CGSize midViewSize = (CGSize){self.frame.size.width * 0.5f, self.frame.size.height * 0.5f};
@@ -137,6 +139,64 @@
     }
 }
 
+- (void)horizontallyLayoutSubviews
+{
+    CGSize midViewSize = (CGSize){self.frame.size.width * 0.5f, self.frame.size.height * 0.5f};
+    CGRect frame = CGRectZero;
+
+    // Work out total height of header content
+    CGFloat headerHeight = 0.0f;
+    if (self.titleView) {
+        headerHeight += self.titleView.frame.size.height;
+        headerHeight += self.currentLayout.titleViewBottomSpacing;
+    }
+
+    headerHeight += self.titleLabel.frame.size.height;
+    headerHeight += self.currentLayout.titleLabelBottomSpacing;
+
+    headerHeight += self.inputField.frame.size.height;
+
+    // Set initial Y offset
+    frame.origin.y = midViewSize.height - (headerHeight * 0.5f);
+
+    // Set frame of title view
+    if (self.titleView) {
+        frame.size = self.titleView.frame.size;
+        frame.origin.x = (self.currentLayout.titleHorizontalLayoutWidth - frame.size.width) * 0.5f;
+        self.titleView.frame = CGRectIntegral(frame);
+
+        frame.origin.y += (frame.size.height + self.currentLayout.titleViewBottomSpacing);
+    }
+
+    // Set frame of title label
+    frame.size = self.titleLabel.frame.size;
+    frame.origin.x = (self.currentLayout.titleHorizontalLayoutWidth - frame.size.width) * 0.5f;
+    self.titleLabel.frame = CGRectIntegral(frame);
+
+    frame.origin.y += (frame.size.height + self.currentLayout.titleLabelBottomSpacing);
+
+    // Set frame of the input field
+    frame.size = self.inputField.frame.size;
+    frame.origin.x = (self.currentLayout.titleHorizontalLayoutWidth - frame.size.width) * 0.5f;
+    self.inputField.frame = CGRectIntegral(frame);
+
+    // Set the frame of the keypad view
+    frame.size = self.keypadView.frame.size;
+    frame.origin.y = 0.0f;
+    frame.origin.x = self.currentLayout.titleHorizontalLayoutWidth + self.currentLayout.titleHorizontalLayoutSpacing;
+    self.keypadView.frame = CGRectIntegral(frame);
+}
+
+- (void)layoutSubviews
+{
+    if (self.horizontalLayout) {
+        [self horizontallyLayoutSubviews];
+    }
+    else {
+        [self verticallyLayoutSubviews];
+    }
+}
+
 - (void)sizeToFitSize:(CGSize)size
 {
     CGFloat width = size.width;
@@ -164,7 +224,7 @@
     [self sizeToFit];
 }
 
-- (void)sizeToFit
+- (void)verticalSizeToFit
 {
     CGRect frame = self.frame;
     frame.size.width = 0.0f;
@@ -215,6 +275,32 @@
 
     // Set the frame back
     self.frame = CGRectIntegral(frame);
+}
+
+- (void)horizontalSizeToFit
+{
+    CGRect frame = self.frame;
+
+    [self.keypadView sizeToFit];
+    [self.inputField sizeToFit];
+
+    frame.size.width = self.currentLayout.titleHorizontalLayoutWidth;
+    frame.size.width += self.currentLayout.titleHorizontalLayoutSpacing;
+    frame.size.width += self.keypadView.frame.size.width;
+
+    frame.size.height = self.keypadView.frame.size.height;
+
+    self.frame = CGRectIntegral(frame);
+}
+
+- (void)sizeToFit
+{
+    if (self.horizontalLayout) {
+        [self horizontalSizeToFit];
+    }
+    else {
+        [self verticalSizeToFit];
+    }
 }
 
 #pragma mark - View Setup -
