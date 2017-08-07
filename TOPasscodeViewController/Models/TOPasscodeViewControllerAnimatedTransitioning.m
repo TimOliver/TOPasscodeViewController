@@ -86,10 +86,13 @@
         [transitionContext completeTransition:completed];
     };
 
+    // If we're animating out from a successful password, play a zooming out animation
+    // to give some more context
     if (self.passcodeSuccess && self.dismissing) {
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
         animation.duration = [self transitionDuration:transitionContext];
         animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.75f, 0.75f, 1)];
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         [passcodeView.layer addAnimation:animation forKey:@"transform"];
     }
 
