@@ -94,14 +94,21 @@
         // Touch ID validation was successful
         // (Use this to dismiss the passcode controller and display the protected content)
         if (success) {
-            // Create a new Touch ID context for next time
-            [weakSelf.authContext invalidate];
-            weakSelf.authContext = [[LAContext alloc] init];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Create a new Touch ID context for next time
+                [weakSelf.authContext invalidate];
+                weakSelf.authContext = [[LAContext alloc] init];
 
-            // Dismiss the passcode controller
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                // Dismiss the passcode controller
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            });
             return;
         }
+
+        // Actual UI changes need to be made on the main queue
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [passcodeViewController setContentHidden:NO animated:YES];
+        });
 
         // The user hit 'Enter Password'. This should probably do nothing
         // but make sure the passcode controller is visible.
@@ -121,6 +128,8 @@
         // There shouldn't be any other potential errors, but just in case
         NSLog(@"%@", error.localizedDescription);
     };
+
+    [passcodeViewController setContentHidden:YES animated:YES];
 
     [self.authContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:reason reply:reply];
 }

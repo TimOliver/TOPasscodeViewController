@@ -17,8 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) TOPasscodeViewController *passcodeViewController;
 @property (nonatomic, assign) BOOL dismissing;
+@property (nonatomic, assign) BOOL passcodeSuccess; //Play a different animation if the password succeeeded
 
-- (instancetype)initWithPasscodeViewController:(TOPasscodeViewController *)passcodeViewController dismissing:(BOOL)dismissing;
+- (instancetype)initWithPasscodeViewController:(TOPasscodeViewController *)passcodeViewController dismissing:(BOOL)dismissing success:(BOOL)success;
 
 @end
 

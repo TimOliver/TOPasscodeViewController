@@ -16,11 +16,12 @@
 
 @implementation TOPasscodeViewControllerAnimatedTransitioning
 
-- (instancetype)initWithPasscodeViewController:(TOPasscodeViewController *)passcodeViewController dismissing:(BOOL)dismissing
+- (instancetype)initWithPasscodeViewController:(TOPasscodeViewController *)passcodeViewController dismissing:(BOOL)dismissing success:(BOOL)success
 {
     if (self = [super init]) {
         _passcodeViewController = passcodeViewController;
         _dismissing = dismissing;
+        _passcodeSuccess = success;
     }
 
     return self;
@@ -28,7 +29,7 @@
 
 - (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext
 {
-    return 0.5f;
+    return 0.35f;
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
@@ -84,6 +85,13 @@
         backgroundEffectView.effect = backgroundEffect;
         [transitionContext completeTransition:completed];
     };
+
+    if (self.passcodeSuccess && self.dismissing) {
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
+        animation.duration = [self transitionDuration:transitionContext];
+        animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.75f, 0.75f, 1)];
+        [passcodeView.layer addAnimation:animation forKey:@"transform"];
+    }
 
     [UIView animateWithDuration:[self transitionDuration:transitionContext]
                           delay:0.0f

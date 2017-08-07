@@ -17,6 +17,9 @@
 /* State */
 @property (nonatomic, assign, readwrite) TOPasscodeType passcodeType;
 @property (nonatomic, assign) CGFloat keyboardHeight;
+@property (nonatomic, assign) BOOL passcodeSuccess;
+@property (nonatomic, readonly) UIView *leftButton;
+@property (nonatomic, readonly) UIView *rightButton;
 
 /* Views */
 @property (nonatomic, strong, readwrite) UIVisualEffectView *backgroundEffectView;
@@ -24,6 +27,7 @@
 @property (nonatomic, strong, readwrite) TOPasscodeView *passcodeView;
 @property (nonatomic, strong, readwrite) UIButton *biometricButton;
 @property (nonatomic, strong, readwrite) UIButton *cancelButton;
+
 
 @end
 
@@ -323,18 +327,16 @@
     CGFloat inset = self.passcodeView.keypadButtonInset;
     CGPoint point = (CGPoint){0.0f, (self.view.bounds.size.height - self.keyboardHeight) - verticalInset};
 
-    UIButton *leftButton = self.leftAccessoryButton ? self.leftAccessoryButton : self.biometricButton;
-    if (leftButton) {
-        [leftButton sizeToFit];
+    if (self.leftButton) {
+        [self.leftButton sizeToFit];
         point.x = self.passcodeView.frame.origin.x + inset;
-        leftButton.center = point;
+        self.leftButton.center = point;
     }
 
-    UIButton *rightButton = self.rightAccessoryButton ? self.rightAccessoryButton : self.cancelButton;
-    if (rightButton) {
-        [rightButton sizeToFit];
+    if (self.rightButton) {
+        [self.rightButton sizeToFit];
         point.x = CGRectGetMaxX(self.passcodeView.frame) - inset;
-        rightButton.center = point;
+        self.rightButton.center = point;
     }
 }
 
@@ -351,27 +353,24 @@
         verticalInset = 35.0f;
     }
 
-
-    UIButton *leftButton = self.leftAccessoryButton ? self.leftAccessoryButton : self.biometricButton;
-    if (leftButton) {
-        [leftButton sizeToFit];
-        CGRect frame = leftButton.frame;
+    if (self.leftButton) {
+        [self.leftButton sizeToFit];
+        CGRect frame = self.leftButton.frame;
         frame.origin.y = (self.view.bounds.size.height - verticalInset) - (frame.size.height * 0.5f);
         frame.origin.x = (CGRectGetMaxX(passcodeViewFrame) - buttonInset) - (frame.size.width * 0.5f);
-        leftButton.frame = CGRectIntegral(frame);
+        self.leftButton.frame = CGRectIntegral(frame);
     }
 
-    UIButton *rightButton = self.rightAccessoryButton ? self.rightAccessoryButton : self.cancelButton;
-    if (rightButton) {
-        [rightButton sizeToFit];
-        CGRect frame = rightButton.frame;
+    if (self.rightButton) {
+        [self.rightButton sizeToFit];
+        CGRect frame = self.rightButton.frame;
         frame.origin.y = verticalInset - (frame.size.height * 0.5f);
         frame.origin.x = (CGRectGetMaxX(passcodeViewFrame) - buttonInset) - (frame.size.width * 0.5f);
-        rightButton.frame = CGRectIntegral(frame);
+        self.rightButton.frame = CGRectIntegral(frame);
     }
 
-    [self.view bringSubviewToFront:rightButton];
-    [self.view bringSubviewToFront:leftButton];
+    [self.view bringSubviewToFront:self.rightButton];
+    [self.view bringSubviewToFront:self.leftButton];
 }
 
 - (void)layoutAccessoryButtonsForSize:(CGSize)size
@@ -430,6 +429,9 @@
         return;
     }
 
+    // Hang onto the fact the passcode was successful to play a nicer dismissal animation
+    self.passcodeSuccess = YES;
+
     // Perform handler if correctly entered
     if ([self.delegate respondsToSelector:@selector(didInputCorrectPasscodeInPasscodeViewController:)]) {
         [self.delegate didInputCorrectPasscodeInPasscodeViewController:self];
@@ -471,12 +473,23 @@
                                                                             presentingController:(UIViewController *)presenting
                                                                                 sourceController:(UIViewController *)source
 {
-    return [[TOPasscodeViewControllerAnimatedTransitioning alloc] initWithPasscodeViewController:self dismissing:NO];
+    return [[TOPasscodeViewControllerAnimatedTransitioning alloc] initWithPasscodeViewController:self dismissing:NO success:NO];
 }
 
 - (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    return [[TOPasscodeViewControllerAnimatedTransitioning alloc] initWithPasscodeViewController:self dismissing:YES];
+    return [[TOPasscodeViewControllerAnimatedTransitioning alloc] initWithPasscodeViewController:self dismissing:YES success:self.passcodeSuccess];
+}
+
+#pragma mark - Convenience Accessors -
+- (UIView *)leftButton
+{
+    return self.leftAccessoryButton ? self.leftAccessoryButton : self.biometricButton;
+}
+
+- (UIView *)rightButton
+{
+    return self.rightAccessoryButton ? self.rightAccessoryButton : self.cancelButton;
 }
 
 #pragma mark - Public Accessors -
@@ -569,6 +582,45 @@
     if (accessoryButtonTintColor == _accessoryButtonTintColor) { return; }
     _accessoryButtonTintColor = accessoryButtonTintColor;
     [self applyThemeForStyle:self.style];
+}
+
+- (void)setContentHidden:(BOOL)contentHidden
+{
+    [self setContentHidden:contentHidden animated:NO];
+}
+
+- (void)setContentHidden:(BOOL)hidden animated:(BOOL)animated
+{
+    if (hidden == _contentHidden) { return; }
+    _contentHidden = hidden;
+
+    void (^setViewsHiddenBlock)(BOOL) = ^(BOOL hidden) {
+        self.passcodeView.hidden = hidden;
+        self.leftButton.hidden = hidden;
+        self.rightButton.hidden = hidden;
+    };
+
+    void (^completionBlock)(BOOL) = ^(BOOL complete) {
+        setViewsHiddenBlock(hidden);
+    };
+
+    if (!animated) {
+        completionBlock(YES);
+        return;
+    }
+
+    // Make sure the views are visible before the animation
+    setViewsHiddenBlock(NO);
+
+    void (^animationBlock)() = ^{
+        CGFloat alpha = hidden ? 0.0f : 1.0f;
+        self.passcodeView.contentAlpha = alpha;
+        self.leftButton.alpha = alpha;
+        self.rightButton.alpha = alpha;
+    };
+
+    // Animate
+    [UIView animateWithDuration:0.4f animations:animationBlock completion:completionBlock];
 }
 
 @end
