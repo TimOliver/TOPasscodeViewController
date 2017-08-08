@@ -52,7 +52,6 @@
 /* Begin PBXFileReference section */
 		2205DFB91EDF42A00071BC7F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		221D96E11EDC03FF004314BF /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
-		224E40CF1F3449E100C03A79 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevealServer.framework; sourceTree = "<group>"; };
 		226EFC011EE3FA490033B079 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		226EFC021EE3FA490033B079 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2271931B1EE3E0D4000324B7 /* TOBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOBlurView.h; sourceTree = "<group>"; };
@@ -131,7 +130,6 @@
 		221D96E01EDC03FF004314BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				224E40CF1F3449E100C03A79 /* RevealServer.framework */,
 				2205DFB91EDF42A00071BC7F /* AudioToolbox.framework */,
 				221D96E11EDC03FF004314BF /* LocalAuthentication.framework */,
 			);
@@ -569,11 +567,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/TOPasscodeViewControllerExample/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-weak_framework",
-					RevealServer,
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = co.timoliver.TOPasscodeViewControllerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -592,11 +586,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/TOPasscodeViewControllerExample/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-weak_framework",
-					RevealServer,
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = co.timoliver.TOPasscodeViewControllerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
