@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 /* A row of hollow circles at a preset length. Valid only when `style` is set to `fixed` */
 @property (nonatomic, readonly, nullable) TOPasscodeFixedInputView *fixedInputView;
 
-/* A rounded rectangle representing a password of arbitrary length. Valid only when `style` is set to `variable`. */
+/* A rounded rectangle representing a passcode of arbitrary length. Valid only when `style` is set to `variable`. */
 @property (nonatomic, readonly, nullable) TOPasscodeVariableInputView *variableInputView;
 
 /* The 'submit' button shown when `showSubmitButton` is true. */

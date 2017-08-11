@@ -26,9 +26,9 @@
 @class TOPasscodeSettingsViewController;
 
 typedef NS_ENUM(NSInteger, TOPasscodeSettingsViewState) {
-    TOPasscodeSettingsViewStateEnterCurrentPassword,
-    TOPasscodeSettingsViewStateEnterNewPassword,
-    TOPasscodeSettingsViewStateConfirmNewPassword
+    TOPasscodeSettingsViewStateEnterCurrentPasscode,
+    TOPasscodeSettingsViewStateEnterNewPasscode,
+    TOPasscodeSettingsViewStateConfirmNewPasscode
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** The number of incorrect passcode attempts the user has made. Use this property to decide when to disable input. */
 @property (nonatomic, assign) NSInteger failedPasscodeAttemptCount;
 
-/** Before setting a new passcode, show a UI to validate the existing password. (Default is NO) */
+/** Before setting a new passcode, show a UI to validate the existing passcode. (Default is NO) */
 @property (nonatomic, assign) BOOL requireCurrentPasscode;
 
 /** If set, the view controller will disable input until this date time has been reached */

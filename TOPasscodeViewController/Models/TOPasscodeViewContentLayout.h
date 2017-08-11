@@ -70,7 +70,7 @@
 /* Text Field Configuration */
 @property (nonatomic, assign) CGFloat textFieldBorderThickness; // The thickness of the border stroke
 @property (nonatomic, assign) CGFloat textFieldBorderRadius;    // The corner radius of the border
-@property (nonatomic, assign) CGFloat textFieldCircleDiameter;  // The size of the circles in the password field
+@property (nonatomic, assign) CGFloat textFieldCircleDiameter;  // The size of the circles in the passcode field
 @property (nonatomic, assign) CGFloat textFieldCircleSpacing;   // The amount of spacing between each circle
 @property (nonatomic, assign) CGSize textFieldBorderPadding;   // The amount of padding between the circles and the border
 @property (nonatomic, assign) NSInteger textFieldNumericCharacterLength; // The amount of circles to have in this field when set to numeric

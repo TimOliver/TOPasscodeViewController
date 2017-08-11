@@ -184,7 +184,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 {
     [super viewWillAppear:animated];
 
-    self.state = self.requireCurrentPasscode ? TOPasscodeSettingsViewStateEnterCurrentPassword : TOPasscodeSettingsViewStateEnterNewPassword;
+    self.state = self.requireCurrentPasscode ? TOPasscodeSettingsViewStateEnterCurrentPasscode : TOPasscodeSettingsViewStateEnterNewPasscode;
     [self updateContentForState:self.state type:self.passcodeType animated:NO];
 }
 
@@ -195,7 +195,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     BOOL variableSizePasscode = (type >= TOPasscodeTypeCustomNumeric);
 
     // Update the visibility of the options button
-    self.optionsButton.hidden = !(state == TOPasscodeSettingsViewStateEnterNewPassword);
+    self.optionsButton.hidden = !(state == TOPasscodeSettingsViewStateEnterNewPasscode);
 
     // Clear the input view
     self.inputField.passcode = nil;
@@ -217,17 +217,17 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Update text depending on state
     switch (state) {
-        case TOPasscodeSettingsViewStateEnterCurrentPassword:
+        case TOPasscodeSettingsViewStateEnterCurrentPasscode:
             self.titleLabel.text = NSLocalizedString(@"Enter your passcode", @"");
             self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.nextBarButtonItem : nil;
             self.inputField.returnKeyType = UIReturnKeyContinue;
             break;
-        case TOPasscodeSettingsViewStateEnterNewPassword:
+        case TOPasscodeSettingsViewStateEnterNewPasscode:
             self.titleLabel.text = NSLocalizedString(@"Enter a new passcode", @"");
             self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.nextBarButtonItem : nil;
             self.inputField.returnKeyType = UIReturnKeyContinue;
             break;
-        case TOPasscodeSettingsViewStateConfirmNewPassword:
+        case TOPasscodeSettingsViewStateConfirmNewPasscode:
             self.titleLabel.text = NSLocalizedString(@"Confirm new passcode", @"");
             self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.doneBarButtonItem : nil;
             self.inputField.returnKeyType = UIReturnKeyDone;
@@ -276,7 +276,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
 - (void)updateWarningLabelForState:(TOPasscodeSettingsViewState)state
 {
-    BOOL confirmingPasscode = state == TOPasscodeSettingsViewStateEnterCurrentPassword;
+    BOOL confirmingPasscode = state == TOPasscodeSettingsViewStateEnterCurrentPasscode;
 
     // Update the warning label
     self.warningLabel.hidden = !(confirmingPasscode && self.failedPasscodeAttemptCount > 0);
@@ -317,13 +317,13 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Update the options button alpha depending on transition state
     self.optionsButton.hidden = NO;
-    self.optionsButton.alpha = (state == TOPasscodeSettingsViewStateEnterNewPassword) ? 0.0f : 1.0f;
+    self.optionsButton.alpha = (state == TOPasscodeSettingsViewStateEnterNewPasscode) ? 0.0f : 1.0f;
 
     // Perform an animation where the snapshot slides off, and the new container slides in
     id animationBlock = ^{
         snapshot.frame = CGRectOffset(snapshot.frame, -self.view.frame.size.width * multiplier, 0.0f);
         self.containerView.frame = CGRectOffset(self.containerView.frame, -self.view.frame.size.width * multiplier, 0.0f);
-        self.optionsButton.alpha = (state == TOPasscodeSettingsViewStateEnterNewPassword) ? 1.0f : 0.0f;
+        self.optionsButton.alpha = (state == TOPasscodeSettingsViewStateEnterNewPasscode) ? 1.0f : 0.0f;
     };
 
     // Clean up by removing the snapshot view
@@ -443,13 +443,13 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 - (void)inputViewDidCompletePasscode:(NSString *)passcode
 {
     switch (self.state) {
-        case TOPasscodeSettingsViewStateEnterCurrentPassword:
+        case TOPasscodeSettingsViewStateEnterCurrentPasscode:
             [self validateCurrentPasscodeAttemptWithPasscode:passcode];
             break;
-        case TOPasscodeSettingsViewStateEnterNewPassword:
+        case TOPasscodeSettingsViewStateEnterNewPasscode:
             [self didReceiveNewPasscode:passcode];
             break;
-        case TOPasscodeSettingsViewStateConfirmNewPassword:
+        case TOPasscodeSettingsViewStateConfirmNewPasscode:
             [self confirmNewPasscode:passcode];
             break;
     }
@@ -467,20 +467,20 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
         self.failedPasscodeAttemptCount++;
     }
     else {
-        [self transitionToState:TOPasscodeSettingsViewStateEnterNewPassword animated:YES];
+        [self transitionToState:TOPasscodeSettingsViewStateEnterNewPasscode animated:YES];
     }
 }
 
 - (void)didReceiveNewPasscode:(NSString *)passcode
 {
     self.potentialPasscode = passcode;
-    [self transitionToState:TOPasscodeSettingsViewStateConfirmNewPassword animated:YES];
+    [self transitionToState:TOPasscodeSettingsViewStateConfirmNewPasscode animated:YES];
 }
 
 - (void)confirmNewPasscode:(NSString *)passcode
 {
     if (![passcode isEqualToString:self.potentialPasscode]) {
-        [self transitionToState:TOPasscodeSettingsViewStateEnterNewPassword animated:YES];
+        [self transitionToState:TOPasscodeSettingsViewStateEnterNewPasscode animated:YES];
         self.errorLabel.hidden = NO;
         return;
     }

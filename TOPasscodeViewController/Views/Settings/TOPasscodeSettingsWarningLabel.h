@@ -10,7 +10,7 @@
 
 @interface TOPasscodeSettingsWarningLabel : UIImageView
 
-/** The number of incorrect password attempts to display */
+/** The number of incorrect passcode attempts to display */
 @property (nonatomic, assign) NSInteger numberOfWarnings;
 
 /** The font of the text */
