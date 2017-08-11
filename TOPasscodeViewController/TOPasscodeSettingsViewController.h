@@ -1,10 +1,24 @@
 //
 //  TOPasscodeSettingsViewController.h
-//  TOPasscodeViewControllerExample
 //
-//  Created by Tim Oliver on 6/8/17.
-//  Copyright © 2017 Timothy Oliver. All rights reserved.
+//  Copyright 2017 Timothy Oliver. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to
+//  deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+//  sell copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+//  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+//  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+//  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
 #import "TOPasscodeViewControllerConstants.h"
@@ -19,6 +33,9 @@ typedef NS_ENUM(NSInteger, TOPasscodeSettingsViewState) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ A delegate object in charge of validating and recording the passcodes entered by the user.
+ */
 @protocol TOPasscodeSettingsViewControllerDelegate <NSObject>
 
 @optional
@@ -39,6 +56,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 // ----------------------------------------------------------------------
+
+/**
+ A standard system-styled view controller that users can use to change the passcode
+ that they will need to enter for the main passcode view controller.
+
+ This controller allows requiring the user to enter their previous passcode in first,
+ and has passcode validation by requiring them to enter the new passcode twice.
+ */
 
 @interface TOPasscodeSettingsViewController : UIViewController
 

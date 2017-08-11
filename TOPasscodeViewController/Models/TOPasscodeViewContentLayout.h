@@ -1,14 +1,45 @@
 //
-//  TOPasscodeViewContentConfiguration.h
-//  TOPasscodeViewControllerExample
+//  TOPasscodeViewContentLayout.h
 //
-//  Created by Tim Oliver on 5/19/17.
-//  Copyright © 2017 Timothy Oliver. All rights reserved.
+//  Copyright 2017 Timothy Oliver. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to
+//  deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+//  sell copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+//  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+//  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+//  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+/**
+ Depending on the width of the application window, all of the content views in
+ the passcode view need to be resized in order to fit in the available space.
+
+ This means that not only does the spacing and sizing of views need to be changed, but
+ image assets need to be regenerated and font sizes need to change as well.
+
+ This class assumes there will be three major screen sizes, and provides layout
+ sizes, spacing, and styles in order to resize the passcode view for each one.
+
+ The three screen styles it supports are:
+
+ * Small Screens - iPhone 5/ or iPad 9.7" in 1/4 split screen mode
+ * Medium Screens - iPhone 6/ or iPad 12.9" in 1/4 split screen mode
+ * Large Screens - iPhone 6 Plus and all iPads when not in split screen mode.
+
+ */
 @interface TOPasscodeViewContentLayout : NSObject
 
 /* The width of the PIN view in which this layout object is sizing the content to fit. */

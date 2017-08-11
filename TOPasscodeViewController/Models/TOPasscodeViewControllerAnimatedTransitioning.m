@@ -21,7 +21,7 @@
     if (self = [super init]) {
         _passcodeViewController = passcodeViewController;
         _dismissing = dismissing;
-        _passcodeSuccess = success;
+        _success = success;
     }
 
     return self;
