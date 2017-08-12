@@ -23,8 +23,8 @@
 #import <UIKit/UIKit.h>
 
 /**
- A basic content view showing a rounded rectangle containing circles that can be used to represent
- a variable size passcode.
+ A basic content view showing a rounded rectangle containing circles
+ that can be used to represent a variable size passcode.
  */
 @interface TOPasscodeVariableInputView : UIImageView
 
