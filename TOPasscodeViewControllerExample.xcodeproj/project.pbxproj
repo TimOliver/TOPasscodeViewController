@@ -34,7 +34,7 @@
 		22D3613A1EDCC1D7002E5D35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361321EDCC1D7002E5D35 /* ViewController.m */; };
 		22D3613B1EDCC1D7002E5D35 /* wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22D361331EDCC1D7002E5D35 /* wallpaper.jpg */; };
 		22D3613F1EDCC1EA002E5D35 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D3613D1EDCC1EA002E5D35 /* Info.plist */; };
-		22D361401EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3613E1EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m */; };
+		22D361401EDCC1EA002E5D35 /* TOPasscodeViewControllerExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3613E1EDCC1EA002E5D35 /* TOPasscodeViewControllerExampleTests.m */; };
 		22D5C81A1EE9F99600745F9A /* TOPasscodeSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */; };
 		22EAD9DA1EFA4CEF00D0C408 /* TOSettingsKeypadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EAD9D91EFA4CEF00D0C408 /* TOSettingsKeypadImage.m */; };
 /* End PBXBuildFile section */
@@ -98,7 +98,7 @@
 		22D361321EDCC1D7002E5D35 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		22D361331EDCC1D7002E5D35 /* wallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wallpaper.jpg; sourceTree = "<group>"; };
 		22D3613D1EDCC1EA002E5D35 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		22D3613E1EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPINViewControllerExampleTests.m; sourceTree = "<group>"; };
+		22D3613E1EDCC1EA002E5D35 /* TOPasscodeViewControllerExampleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeViewControllerExampleTests.m; sourceTree = "<group>"; };
 		22D5C8181EE9F99600745F9A /* TOPasscodeSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOPasscodeSettingsViewController.h; sourceTree = "<group>"; };
 		22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeSettingsViewController.m; sourceTree = "<group>"; };
 		22EAD9D81EFA4CEF00D0C408 /* TOSettingsKeypadImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOSettingsKeypadImage.h; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				22D3613D1EDCC1EA002E5D35 /* Info.plist */,
-				22D3613E1EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m */,
+				22D3613E1EDCC1EA002E5D35 /* TOPasscodeViewControllerExampleTests.m */,
 			);
 			path = TOPasscodeViewControllerExampleTests;
 			sourceTree = "<group>";
@@ -429,7 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22D361401EDCC1EA002E5D35 /* TOPINViewControllerExampleTests.m in Sources */,
+				22D361401EDCC1EA002E5D35 /* TOPasscodeViewControllerExampleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,9 +600,9 @@
 				DEVELOPMENT_TEAM = 6LF3GMKZAB;
 				INFOPLIST_FILE = TOPasscodeViewControllerExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.timoliver.TOPINViewControllerExampleTests;
+				PRODUCT_BUNDLE_IDENTIFIER = co.timoliver.TOPasscodeViewControllerExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TOPINViewControllerExample.app/TOPINViewControllerExample";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TOPasscodeViewControllerExample.app/TOPasscodeViewControllerExample";
 			};
 			name = Debug;
 		};
@@ -613,9 +613,9 @@
 				DEVELOPMENT_TEAM = 6LF3GMKZAB;
 				INFOPLIST_FILE = TOPasscodeViewControllerExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.timoliver.TOPINViewControllerExampleTests;
+				PRODUCT_BUNDLE_IDENTIFIER = co.timoliver.TOPasscodeViewControllerExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TOPINViewControllerExample.app/TOPINViewControllerExample";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TOPasscodeViewControllerExample.app/TOPasscodeViewControllerExample";
 			};
 			name = Release;
 		};
