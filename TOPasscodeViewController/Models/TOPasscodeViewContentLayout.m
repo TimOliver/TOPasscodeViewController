@@ -101,7 +101,7 @@
     contentLayout.titleLabelHorizontalBottomSpacing = 18.0f;
 
     /* Circle Row Configuration */
-    contentLayout.circleRowDiameter = 12.5f;
+    contentLayout.circleRowDiameter = 13.5f;
     contentLayout.circleRowSpacing = 26.0f;
     contentLayout.circleRowBottomSpacing = 53.0f;
 
