@@ -88,10 +88,19 @@ NS_ASSUME_NONNULL_BEGIN
 /** If set, the view controller will disable input until this date time has been reached */
 @property (nonatomic, strong, nullable) NSDate *disabledInputDate;
 
-/* Create a new instance with the desird light or dark style */
+/*
+ Create a new instance with the desird light or dark style
+
+ @param style The visual style of the view controller
+ */
 - (instancetype)initWithStyle:(TOPasscodeSettingsViewStyle)style;
 
-/* Changes the passcode type and animates if required */
+/*
+ Changes the passcode type and animates if required
+
+ @param passcodeType Change the type of passcode to enter.
+ @param animated Play a crossfade animation.
+ */
 - (void)setPasscodeType:(TOPasscodeType)passcodeType animated:(BOOL)animated;
 
 @end

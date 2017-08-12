@@ -30,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class TOPasscodeKeypadView;
 @class TOPasscodeViewContentLayout;
 
+/**
+ The passcode view is the primary content view for the passcode view controller.
+ On iPad, every view except the background view is a subview of this view.
+ On iPhone, the auxiliary buttons ('Touch ID', 'Cancel') are managed by the view controller.
+ */
 @interface TOPasscodeView : UIView
 
 /* The visual style of the view */
@@ -83,19 +88,43 @@ NS_ASSUME_NONNULL_BEGIN
 /* Callback triggered when the user has finished entering the passcode */
 @property (nonatomic, copy, nullable) void (^passcodeCompletedHandler)(NSString *passcode);
 
-/* Create a new instance with one of the style types */
+/*
+ Create a new instance with one of the style types
+
+ @param style The visual style of the passcode view.
+ @param type The type of passcode to accept.
+ */
 - (instancetype)initWithStyle:(TOPasscodeViewStyle)style passcodeType:(TOPasscodeType)type;
 
-/* Resize the view and all subviews for the optimum size to fit a super view of the suplied width. */
+/*
+ Resize the view and all subviews for the optimum size to fit a super view of the suplied width.
+
+ @param size The size of the view to which this view.
+ */
 - (void)sizeToFitSize:(CGSize)size;
 
-/* Reset the passcode to nil and optionally play animation / vibration to match */
+/*
+ Reset the passcode to nil and optionally play animation / vibration to match
+
+ @param animated Play a shaking animation to reset the password.
+ @param impact On supported devices, play a small reset vibration as well.
+ */
 - (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact;
 
-/* Delete the last character from the passcode */
+/*
+ Delete the last character from the passcode
+
+ @param animated Whether the delete operation is animated or not.
+ */
 - (void)deleteLastPasscodeCharacterAnimated:(BOOL)animated;
 
-/* Animate the transition between horizontal and vertical layouts */
+/*
+ Animate the transition between horizontal and vertical layouts
+
+ @param horizontalLayout Whether to lay out the content vertically or horizontally.
+ @param animated Whether the transition is animated or not.
+ @param duration The duration of the animation
+ */
 - (void)setHorizontalLayout:(BOOL)horizontalLayout animated:(BOOL)animated duration:(CGFloat)duration;
 
 @end

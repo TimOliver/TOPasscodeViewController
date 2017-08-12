@@ -128,10 +128,20 @@ NS_ASSUME_NONNULL_BEGIN
      Useful for obscuring the content while the app is suspended. */
 @property (nonatomic, assign) BOOL contentHidden;
 
-/** Create a new instance of this view controller with the preset style. */
+/**
+ Create a new instance of this view controller with the preset style and passcode type.
+
+ @param style The visual style of the view controller (light/translucent)
+ @param type The type of passcode to enter (6-digit/numeric)
+ */
 - (instancetype)initWithStyle:(TOPasscodeViewStyle)style passcodeType:(TOPasscodeType)type;
 
-/** Hide all of the content views with a crossfade animation */
+/**
+ Hide everything except the background translucency view.
+
+ @param hidden Whether the content is hidden or not.
+ @param animated The content will play a crossfade animation.
+ */
 - (void)setContentHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end

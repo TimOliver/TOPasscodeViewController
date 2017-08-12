@@ -26,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class TOPasscodeCircleButton;
 
+/**
+ A view encompassing 9 circle buttons, making up a keypad view for entering PIN numbers.
+ Can be laid out vertically or horizontally.
+ */
 @interface TOPasscodeKeypadView : UIView <UIInputViewAudioFeedback>
 
 /** The type of layout for the buttons (Default is vertical) */
@@ -83,7 +87,13 @@ NS_ASSUME_NONNULL_BEGIN
 /** The block that is triggered whenever a user taps one of the buttons */
 @property (nonatomic, copy) void (^buttonTappedHandler)(NSInteger buttonNumber);
 
-/* Perform an animation of a set duration to the new layout */
+/*
+ Perform an animation to transition to a new layout.
+
+ @param horizontalLayout The content is laid out horizontally.
+ @param animated Whether the transition is animated
+ @param duration The animation length of the transition.
+ */
 - (void)setHorizontalLayout:(BOOL)horizontalLayout animated:(BOOL)animated duration:(CGFloat)duration;
 
 @end

@@ -27,6 +27,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ A UI control representing a single PIN code button for the keypad,
+ including the number, lettering (eg 'ABC'), and circle border.
+ */
 @interface TOPasscodeCircleButton : UIControl
 
 // Alpha value that properly controls the necessary subviews
@@ -56,9 +60,20 @@ NS_ASSUME_NONNULL_BEGIN
 // Callback handler
 @property (nonatomic, copy) void (^buttonTappedHandler)();
 
+/**
+ Create a new instance of the class with the supplied number and lettering string
+
+ @param numberString The string of the number to display in this button (eg '1').
+ @param letteringString The string of the lettering to display underneath.
+ */
 - (instancetype)initWithNumberString:(NSString *)numberString letteringString:(NSString *)letteringString;
 
-// Automatically called when tapped
+/**
+ Set the background of the button to be the filled circle instead of hollow.
+
+ @param highlighted When YES, the circle is full, when NO, it is hollow.
+ @param animated When animated, the transition is a crossfade.
+ */
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
 
 @end
