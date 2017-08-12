@@ -24,6 +24,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ A view containing two circle image views that can animate
+ between filled and hollow, whilst maintaining compatibility
+ with translucency views.
+ */
 @interface TOPasscodeCircleView : UIView
 
 /* The circle patterns used for neutral and highlighted states. */

@@ -22,6 +22,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ When a user enters an incorrect passcode in the settings interface,
+ this view is displayed to show the number of failed attempts.
+ */
 @interface TOPasscodeSettingsWarningLabel : UIImageView
 
 /** The number of incorrect passcode attempts to display */

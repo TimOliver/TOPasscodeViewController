@@ -22,6 +22,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ A basic content view showing a rounded rectangle containing circles that can be used to represent
+ a variable size passcode.
+ */
 @interface TOPasscodeVariableInputView : UIImageView
 
 /* The thickness of the stroke around the view (Default is 1.5) */

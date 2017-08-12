@@ -24,6 +24,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ A view that manages two label subviews: a larger label showing a single number
+ and a smaller label showing lettering as well.
+ */
 @interface TOPasscodeButtonLabel : UIView
 
 // Draws the lettering label to the side

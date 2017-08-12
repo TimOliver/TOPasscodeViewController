@@ -33,6 +33,11 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
     TOPasscodeInputFieldStyleVariable  // The passcode can be any arbitrary number of characters (Shows an empty rectangle)
 };
 
+/**
+ An abstract input view capable of receiving different types of passcodes.
+ When a fixed character passcode is specified, the view shows a row of circles.
+ When a variable passcode is specified, a rounded rectangle is shown.
+ */
 @interface TOPasscodeInputField : UIView <UIKeyInput>
 
 /* The visual effects view used to control the vibrancy of the input field */
@@ -86,7 +91,7 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 /* Init with the target length needed for this passcode */
 - (instancetype)initWithStyle:(TOPasscodeInputFieldStyle)style;
 
-/* Replace the passcode with this one, and animate the transition */
+/* Replace the passcode with this one, and animate the transition. */
 - (void)setPasscode:(nullable NSString *)passcode animated:(BOOL)animated;
 
 /* Add additional characters to the end of the passcode, and animate if desired. */
@@ -98,7 +103,7 @@ typedef NS_ENUM(NSInteger, TOPasscodeInputFieldStyle) {
 /* Plays a shaking animation and resets the passcode back to empty */
 - (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact;
 
-/* Animates the OK button changing location */
+/* Animates the OK button changing location. */
 - (void)setHorizontalLayout:(BOOL)horizontalLayout animated:(BOOL)animated duration:(CGFloat)duration;
 
 @end

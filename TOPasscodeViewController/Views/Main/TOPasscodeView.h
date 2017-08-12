@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  Reset the passcode to nil and optionally play animation / vibration to match
 
- @param animated Play a shaking animation to reset the password.
+ @param animated Play a shaking animation to reset the passcode.
  @param impact On supported devices, play a small reset vibration as well.
  */
 - (void)resetPasscodeAnimated:(BOOL)animated playImpact:(BOOL)impact;

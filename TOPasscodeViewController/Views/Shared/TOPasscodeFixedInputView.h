@@ -24,6 +24,10 @@
 
 @class TOPasscodeCircleView;
 
+/**
+ A basic content view showing a row of circles that can be used to represent
+ a fixed size passcode.
+ */
 @interface TOPasscodeFixedInputView : UIView
 
 /* The size of each circle in this view (Default is 16) */

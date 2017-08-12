@@ -25,6 +25,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ A keypad view of 9 buttons that allow numerical input on both iPad and iPhone.
+ Designed to match the base system, with a pseudo-skeuomorphical styling.
+ */
 @interface TOPasscodeSettingsKeypadView : UIView
 
 /* Whether the control is allowing input */

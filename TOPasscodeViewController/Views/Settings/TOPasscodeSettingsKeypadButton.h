@@ -27,7 +27,6 @@
 /**
  A single button view that is used in a number keypad views styled in
  a pseudo-skeuomorphic style.
-
  */
 @interface TOPasscodeSettingsKeypadButton : UIButton
 
