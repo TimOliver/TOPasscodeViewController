@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode8.3
+xcode_project: TOPasscodeViewControllerExample.xcodeproj
+xcode_scheme: TOPasscodeViewControllerExampleTests
+script: xcodebuild -verbose -scheme TOPasscodeViewControllerExampleTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone SE,OS=latest' test
