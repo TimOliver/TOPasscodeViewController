@@ -1,5 +1,5 @@
 # TOPasscodeViewController
-> A passcode input and validation view controller, à la the iOS lock screen.
+> A modal passcode input and validation view controller for iOS.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/screenshot.jpg" width="890" style="margin:0 auto" />
