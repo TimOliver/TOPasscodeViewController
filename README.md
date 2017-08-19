@@ -68,6 +68,7 @@ Download this project from GitHub, move the subfolder named 'TOPasscodeViewContr
 ```
 
 ## Security
+
 ‘TOPasscodeViewController’ does **not** perform any password management on your behalf. Any passcodes the user enters are forwarded to your own code via its delegate, and it's up to you to perform the validation and return the result back to  ‘TOPasscodeViewController’.
 
 This was an intentional decision for security reasons. Instead of every app using ‘TOPasscodeViewController’ implementing the exact same validation and storage code path, you're free to custom tailor the way passcodes are handled in your app as you see fit.
@@ -77,6 +78,10 @@ No matter which passcode type, all passcodes in  ‘TOPasscodeViewController’ 
 Because passcodes are treated as generic strings, if the user has selected a different passcode type (like an arbitrary numerical or alphanumeric one), you should also store that setting alongside the hash as well.
 
 ## How it works
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/breakdown.jpg" width="890" style="margin:0 auto" />
+</p>
 
 There's nothing too crazy about how this view controller was created. All reusable components are broken out into separate ‘UIView’ classes, and an all-encompassing ‘TOPasscodeView’ class is used to pull as much view logic out of the view controller (one way of solving the Massive View Controller problem.)
 
@@ -88,6 +93,7 @@ The view controller heavily uses ‘UIVisualEffectView’ to produce its translu
 - Effect views with a ‘UIVibrancyEffect’ CANNOT EVER have an alpha value less than ‘1.0’. Trying to animate fading in one of these views will result in a broken effect until the animation effect is complete. To fix this, I added a ‘contentAlpha’ property to my subclasses that would animate the opacity of the content views inside the effect view, and this produces the effect I was after. :)
 
 ## Is it App Store-safe?
+
 This is a tricky question. App Review guideline 5.2.5 states that apps can't produce UIs that might be easily confused with system functionality, but this rule is incredibly subjective and will ultimately heavily depend on the app reviewer at the time.
 
 Since the default style and text for this view controller make it very easily confused with the iOS lock screen, I would strongly recommend making these changes before shipping:
