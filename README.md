@@ -11,7 +11,13 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
 
-`TOPasscodeViewController` is an open-source `UIViewController` subclass that will overlay a full-screen passcode UI in a similar style to that of the system over an app's content. The user must enter the correct password into it in order to proceed. This is useful for certain types of apps that might contain highly sensitive information where users may indeed want an extra level of security.
+<a href="https://www.youtube.com/watch?v=d5COjlwWAng" target="_blank">
+<img src="https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/video.png" align="right" height="163px" hspace="0" vspace="30px">
+</a>
+
+`TOPasscodeViewController` is an open-source `UIViewController` subclass that will overlay a full-screen passcode UI over an app's content. The user must enter the correct password into it in order to proceed, or hit 'Cancel' to exit the private part of the app.
+
+This sort of UI is useful for certain apps that contain highly sensitive information (such as banking or health) where users may indeed want an extra level of security beyond the standard iOS passcode.
 
 ## Features
 * Prompts users to enter a passcode in order to proceed.
@@ -69,11 +75,11 @@ Download this project from GitHub, move the subfolder named 'TOPasscodeViewContr
 
 ## Security
 
-‘TOPasscodeViewController’ does **not** perform any password management on your behalf. Any passcodes the user enters are forwarded to your own code via its delegate, and it's up to you to perform the validation and return the result back to  ‘TOPasscodeViewController’.
+`TOPasscodeViewController` does **not** perform any password management on your behalf. Any passcodes the user enters are forwarded to your own code via its delegate, and it's up to you to perform the validation and return the result back to  `TOPasscodeViewController`.
 
-This was an intentional decision for security reasons. Instead of every app using ‘TOPasscodeViewController’ implementing the exact same validation and storage code path, you're free to custom tailor the way passcodes are handled in your app as you see fit.
+This was an intentional decision for security reasons. Instead of every app using `TOPasscodeViewController` implementing the exact same validation and storage code path, you're free to custom tailor the way passcodes are handled in your app as you see fit.
 
-No matter which passcode type, all passcodes in  ‘TOPasscodeViewController’ are handled as strings. When storing them in your app, they should be given at least the same level of scrutiny as full passwords. As such, I would strongly recommend you generate a salted hash of any user-defined passcode, and store both the hash and the salt in a protected location, like the iOS secure keychain, or an encrypted Realm file. 
+No matter which passcode type, all passcodes in  `TOPasscodeViewController` are handled as strings. When storing them in your app, they should be given at least the same level of scrutiny as full passwords. As such, I would strongly recommend you generate a salted hash of any user-defined passcode, and store both the hash and the salt in a protected location, like the iOS secure keychain, or an encrypted Realm file. 
 
 Because passcodes are treated as generic strings, if the user has selected a different passcode type (like an arbitrary numerical or alphanumeric one), you should also store that setting alongside the hash as well.
 
@@ -83,14 +89,14 @@ Because passcodes are treated as generic strings, if the user has selected a dif
 <img src="https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/breakdown.jpg" width="890" style="margin:0 auto" />
 </p>
 
-There's nothing too crazy about how this view controller was created. All reusable components are broken out into separate ‘UIView’ classes, and an all-encompassing ‘TOPasscodeView’ class is used to pull as much view logic out of the view controller (one way of solving the Massive View Controller problem.)
+There's nothing too crazy about how this view controller was created. All reusable components are broken out into separate `UIView` classes, and an all-encompassing `TOPasscodeView` class is used to pull as much view logic out of the view controller (one way of solving the Massive View Controller problem.)
 
 Depending on the screen width of the device (or if an iPad is using split screen), a single class manages all of the values for laying out the content with the appropriate font sizes, margins and cIrcle sizes. This was done to ensure maximum granular control over the sizing of elements per device. When transitioning between two of these sizes, all image assets are regenerated to ensure proper pixel scaling.
 
-The view controller heavily uses ‘UIVisualEffectView’ to produce its translucent effect. When dealing with these, I discovered a few interesting tidbits
+The view controller heavily uses `UIVisualEffectView` to produce its translucent effect. When dealing with these, I discovered a few interesting tidbits:
 
-- For effect views that blur the content behind them, you can animate setting the ‘effect’ property from ‘nil’ to a ‘UIBlurEffect’ object to produce a very nice transition.
-- Effect views with a ‘UIVibrancyEffect’ CANNOT EVER have an alpha value less than ‘1.0’. Trying to animate fading in one of these views will result in a broken effect until the animation effect is complete. To fix this, I added a ‘contentAlpha’ property to my subclasses that would animate the opacity of the content views inside the effect view, and this produces the effect I was after. :)
+- For effect views that blur the content behind them, you can animate setting the `effect` property from `nil` to a `UIBlurEffect` object to produce a very nice gradually blurring transition effect.
+- Effect views with a `UIVibrancyEffect` CANNOT EVER have an alpha value less than `1.0`. Trying to animate fading in one of these views will result in an effect that will be broken until the animation has completed. To fix this, I added a `contentAlpha` property to my subclasses that would manually target the alpha values of all subviews, but would leave the visual effect view itself at `1.0`. This created the desired effect where the translucent content would fade in properly.
 
 ## Is it App Store-safe?
 
@@ -98,7 +104,7 @@ This is a tricky question. App Review guideline 5.2.5 states that apps can't pro
 
 Since the default style and text for this view controller make it very easily confused with the iOS lock screen, I would strongly recommend making these changes before shipping:
 
-- Set your app icon as the ‘titleView’ property of  ‘TOPasscodeViewController’ to add more specialised branding to it.
+- Set your app icon as the `titleView` property of  `TOPasscodeViewController` to add more specialised branding to it.
 - Change the default tittle text to be more specific. Instead of 'Enter Passcode', put 'Enter MyApp Passcode to continue'.
 - Consider using the light style instead of the dark style.
 
