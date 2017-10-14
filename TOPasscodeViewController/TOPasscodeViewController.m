@@ -218,10 +218,23 @@
 - (void)viewDidLayoutSubviews
 {
     CGSize bounds = self.view.bounds.size;
-
+    CGSize maxSize = bounds;
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets safeAreaInsets = self.view.safeAreaInsets;
+        if (safeAreaInsets.bottom > 0) {
+            maxSize.height -= safeAreaInsets.bottom;
+        }
+        if (safeAreaInsets.left > 0) {
+            maxSize.width -= safeAreaInsets.left;
+        }
+        if (safeAreaInsets.right > 0) {
+            maxSize.width -= safeAreaInsets.right;
+        }
+    }
+    
     // Resize the pin view to scale to the new size
-    [self.passcodeView sizeToFitSize:bounds];
-
+    [self.passcodeView sizeToFitSize:maxSize];
+    
     // Re-center the pin view
     CGRect frame = self.passcodeView.frame;
     frame.origin.x = (bounds.width - frame.size.width) * 0.5f;
@@ -231,10 +244,10 @@
     // --------------------------------------------------
 
     // Update the accessory button sizes
-    [self updateAccessoryButtonFontsForSize:bounds];
+    [self updateAccessoryButtonFontsForSize:maxSize];
 
     // Re-layout the accessory buttons
-    [self layoutAccessoryButtonsForSize:bounds];
+    [self layoutAccessoryButtonsForSize:maxSize];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -340,6 +353,12 @@
 
     CGFloat inset = self.passcodeView.keypadButtonInset;
     CGPoint point = (CGPoint){0.0f, (self.view.bounds.size.height - self.keyboardHeight) - verticalInset};
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets safeAreaInsets = self.view.safeAreaInsets;
+        if (safeAreaInsets.bottom > 0) {
+            point.y -= safeAreaInsets.bottom;
+        }
+    }
 
     if (self.leftButton) {
         [self.leftButton sizeToFit];
