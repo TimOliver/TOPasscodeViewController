@@ -506,7 +506,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     }
 
     // Work out where our view is in relation to the screen
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = self.view.window;
     CGRect viewFrame = [self.view.superview convertRect:self.view.frame toView:window];
 
     CGFloat overlap = CGRectGetMaxY(viewFrame) - CGRectGetMinY(self.keyboardFrame);
