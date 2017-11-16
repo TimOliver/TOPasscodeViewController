@@ -116,4 +116,4 @@ All in all, this might still not be enough. If you do end up getting rejected by
 iOS Device mockups used in the screenshot created by [Pixeden](http://pixeden.com).
 
 ## License
-`TOPasscodeViewController` is licensed under the MIT License, please see the [LICENSE](LICENSE) file.
+`TOPasscodeViewController` is licensed under the MIT License, please see the [LICENSE](LICENSE) file. ![analytics](https://ga-beacon.appspot.com/UA-5643664-16/TOPasscodeViewController/README.md?pixel)
