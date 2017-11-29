@@ -16,7 +16,7 @@
 @property (nonatomic, assign) TOPasscodeViewStyle style;
 @property (nonatomic, strong) UIImage *wallpaperImage;
 
-@property (nonatomic, copy) void (^doneButtonTappedHandler)();
+@property (nonatomic, copy) void (^doneButtonTappedHandler)(void);
 @property (nonatomic, copy) void (^wallpaperChangedHandler)(UIImage *wallpaper);
 
 @end

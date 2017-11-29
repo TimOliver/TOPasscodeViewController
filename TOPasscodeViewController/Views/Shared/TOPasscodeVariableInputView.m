@@ -204,7 +204,7 @@
 
     _length = length;
 
-    void (^animationBlock)() = ^{
+    void (^animationBlock)(void) = ^{
         NSInteger i = 0;
         for (UIImageView *circleView in self.circleViews) {
             circleView.alpha = i < length ? 1.0f : 0.0f;

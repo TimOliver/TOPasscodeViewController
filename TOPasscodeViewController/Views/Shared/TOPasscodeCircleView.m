@@ -62,7 +62,7 @@
 
     _isHighlighted = highlighted;
 
-    void (^animationBlock)() = ^{
+    void (^animationBlock)(void) = ^{
         self.topView.alpha = highlighted ? 1.0f : 0.0f;
     };
 
