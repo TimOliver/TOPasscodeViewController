@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) UIVisualEffectView *vibrancyView;
 
 // Callback handler
-@property (nonatomic, copy) void (^buttonTappedHandler)();
+@property (nonatomic, copy) void (^buttonTappedHandler)(void);
 
 /**
  Create a new instance of the class with the supplied number and lettering string

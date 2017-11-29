@@ -271,7 +271,7 @@
     self.verticalZeroButton.contentAlpha = _horizontalLayout ? 1.0f : 0.0f;
     self.horizontalZeroButton.contentAlpha = _horizontalLayout ? 0.0f : 1.0f;
 
-    void (^animationBlock)() = ^{
+    void (^animationBlock)(void) = ^{
         self.verticalZeroButton.contentAlpha = _horizontalLayout ? 0.0f : 1.0f;
         self.horizontalZeroButton.contentAlpha = _horizontalLayout ? 1.0f : 0.0f;
     };

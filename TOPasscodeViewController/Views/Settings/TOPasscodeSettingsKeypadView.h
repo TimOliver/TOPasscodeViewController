@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* Callback handlers */
 @property (nonatomic, copy) void (^numberButtonTappedHandler)(NSInteger number);
-@property (nonatomic, copy) void (^deleteButtonTappedHandler)();
+@property (nonatomic, copy) void (^deleteButtonTappedHandler)(void);
 
 /* In really small sizes, set the keypad labels to horizontal */
 - (void)setButtonLabelHorizontalLayout:(BOOL)horizontal animated:(BOOL)animated;

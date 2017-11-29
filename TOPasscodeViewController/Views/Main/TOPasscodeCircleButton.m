@@ -124,7 +124,7 @@
 
     if (!self.highlightedTextColor) { return; }
 
-    void (^textFadeBlock)() = ^{
+    void (^textFadeBlock)(void) = ^{
         self.buttonLabel.textColor = highlighted ? self.highlightedTextColor : self.textColor;
     };
 

@@ -645,7 +645,7 @@
     // Make sure the views are visible before the animation
     setViewsHiddenBlock(NO);
 
-    void (^animationBlock)() = ^{
+    void (^animationBlock)(void) = ^{
         CGFloat alpha = hidden ? 0.0f : 1.0f;
         self.passcodeView.contentAlpha = alpha;
         self.leftButton.alpha = alpha;

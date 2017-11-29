@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSArray<TOPasscodeViewContentLayout *> *contentLayouts;
 
 /* Callback triggered each time the user taps a key */
-@property (nonatomic, copy, nullable) void (^passcodeDigitEnteredHandler)();
+@property (nonatomic, copy, nullable) void (^passcodeDigitEnteredHandler)(void);
 
 /* Callback triggered when the user has finished entering the passcode */
 @property (nonatomic, copy, nullable) void (^passcodeCompletedHandler)(NSString *passcode);
