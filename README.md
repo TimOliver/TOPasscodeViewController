@@ -10,6 +10,8 @@
 [![Version](https://img.shields.io/cocoapods/v/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
+[![Beerpay](https://beerpay.io/TimOliver/TOPasscodeViewController/badge.svg?style=flat)](https://beerpay.io/TimOliver/TOPasscodeViewController)
+[![PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M4RKULAVKV7K8)
 
 <a href="https://www.youtube.com/watch?v=d5COjlwWAng" target="_blank">
 <img src="https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/video.png" align="right" height="163px" hspace="0" vspace="30px">
@@ -117,8 +119,3 @@ iOS Device mockups used in the screenshot created by [Pixeden](http://pixeden.co
 
 ## License
 `TOPasscodeViewController` is licensed under the MIT License, please see the [LICENSE](LICENSE) file. ![analytics](https://ga-beacon.appspot.com/UA-5643664-16/TOPasscodeViewController/README.md?pixel)
-
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/TimOliver/TOPasscodeViewController/badge.svg?style=beer-square)](https://beerpay.io/TimOliver/TOPasscodeViewController)  [![Beerpay](https://beerpay.io/TimOliver/TOPasscodeViewController/make-wish.svg?style=flat-square)](https://beerpay.io/TimOliver/TOPasscodeViewController?focus=wish)
