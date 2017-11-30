@@ -117,3 +117,8 @@ iOS Device mockups used in the screenshot created by [Pixeden](http://pixeden.co
 
 ## License
 `TOPasscodeViewController` is licensed under the MIT License, please see the [LICENSE](LICENSE) file. ![analytics](https://ga-beacon.appspot.com/UA-5643664-16/TOPasscodeViewController/README.md?pixel)
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/TimOliver/TOPasscodeViewController/badge.svg?style=beer-square)](https://beerpay.io/TimOliver/TOPasscodeViewController)  [![Beerpay](https://beerpay.io/TimOliver/TOPasscodeViewController/make-wish.svg?style=flat-square)](https://beerpay.io/TimOliver/TOPasscodeViewController?focus=wish)
