@@ -220,12 +220,22 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
         case TOPasscodeSettingsViewStateEnterCurrentPasscode:
             self.titleLabel.text = NSLocalizedString(@"Enter your passcode", @"");
             self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.nextBarButtonItem : nil;
-            self.inputField.returnKeyType = UIReturnKeyContinue;
+            if (@available(iOS 9.0, *)) {
+                self.inputField.returnKeyType = UIReturnKeyContinue;
+            }
+            else {
+                self.inputField.returnKeyType = UIReturnKeyNext;
+            }
             break;
         case TOPasscodeSettingsViewStateEnterNewPasscode:
             self.titleLabel.text = NSLocalizedString(@"Enter a new passcode", @"");
             self.navigationItem.rightBarButtonItem = variableSizePasscode ? self.nextBarButtonItem : nil;
-            self.inputField.returnKeyType = UIReturnKeyContinue;
+            if (@available(iOS 9.0, *)) {
+                self.inputField.returnKeyType = UIReturnKeyContinue;
+            }
+            else {
+                self.inputField.returnKeyType = UIReturnKeyNext;
+            }
             break;
         case TOPasscodeSettingsViewStateConfirmNewPasscode:
             self.titleLabel.text = NSLocalizedString(@"Confirm new passcode", @"");
