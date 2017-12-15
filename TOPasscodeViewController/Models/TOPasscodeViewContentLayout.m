@@ -105,6 +105,10 @@
     contentLayout.circleRowSpacing = 26.0f;
     contentLayout.circleRowBottomSpacing = 53.0f;
 
+    /* Submit Button */
+    contentLayout.submitButtonFontSize = 16.0f;
+    contentLayout.submitButtonSpacing  = 4.0f;
+    
     /* Circle Button Shape and Layout */
     contentLayout.circleButtonDiameter = 75.0f;
     contentLayout.circleButtonSpacing = (CGSize){28.0f, 15.0f};
