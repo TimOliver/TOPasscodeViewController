@@ -79,7 +79,6 @@
 - (void)setUp
 {
     self.transitioningDelegate = self;
-    self.view.backgroundColor = [UIColor clearColor];
     self.automaticallyPromptForBiometricValidation = NO;
 
     if (TOPasscodeViewStyleIsTranslucent(self.style)) {
@@ -198,6 +197,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor clearColor];
     self.view.layer.allowsGroupOpacity = NO;
     [self setUpBackgroundEffectViewForStyle:self.style];
     [self setUpBackgroundViewForStyle:self.style];
