@@ -26,7 +26,7 @@
 #import "TOSettingsKeypadImage.h"
 const CGFloat kTOPasscodeSettingsKeypadButtonInnerSpacing = 7.0f;
 const CGFloat kTOPasscodeSettingsKeypadButtonOuterSpacing = 7.0f;
-const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
+const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 12.0f;
 
 @interface TOPasscodeSettingsKeypadView ()
 
@@ -208,6 +208,11 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
 
     viewSize.width -= (outerSpacing * 2.0f);
     viewSize.height -= (outerSpacing * 2.0f);
+    
+    // Pull the buttons up to avoid overlapping the home indicator on iPhone X
+    if (@available(iOS 11.0, *)) {
+        viewSize.height -= self.safeAreaInsets.bottom;
+    }
 
     // Four rows of three buttons
     buttonSize.width = floorf((viewSize.width - (innerSpacing * 2.0f)) / 3.0f);
@@ -233,6 +238,12 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 10.0f;
 
     //Layout delete button
     CGSize boundsSize = self.bounds.size;
+    
+    // Adjust for home indicator on iPhone X
+    if (@available(iOS 11.0, *)) {
+        boundsSize.height -= self.safeAreaInsets.bottom;
+    }
+    
     CGRect frame = self.deleteButton.frame;
     frame.size = buttonSize;
     frame.origin.x = boundsSize.width - (outerSpacing + buttonSize.width * 0.5f);

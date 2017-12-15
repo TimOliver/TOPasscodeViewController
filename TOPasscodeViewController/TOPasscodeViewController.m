@@ -155,7 +155,7 @@
 
     if (!self.leftAccessoryButton && self.allowBiometricValidation && !self.biometricButton) {
         self.biometricButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [self.biometricButton setTitle:@"Touch ID" forState:UIControlStateNormal];
+        [self.biometricButton setTitle:TOPasscodeBiometryTitleForType(self.biometryType) forState:UIControlStateNormal];
         [self.biometricButton addTarget:self action:@selector(accessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
         if (isPad) {
@@ -615,6 +615,17 @@
     if (accessoryButtonTintColor == _accessoryButtonTintColor) { return; }
     _accessoryButtonTintColor = accessoryButtonTintColor;
     [self applyThemeForStyle:self.style];
+}
+
+- (void)setBiometryType:(TOPasscodeBiometryType)biometryType
+{
+    if (_biometryType == biometryType) { return; }
+    
+    _biometryType = biometryType;
+    
+    if (self.biometricButton) {
+        [self.biometricButton setTitle:TOPasscodeBiometryTitleForType(_biometryType) forState:UIControlStateNormal];
+    }
 }
 
 - (void)setContentHidden:(BOOL)contentHidden

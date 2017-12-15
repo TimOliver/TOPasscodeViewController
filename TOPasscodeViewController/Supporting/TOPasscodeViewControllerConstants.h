@@ -49,10 +49,23 @@ typedef NS_ENUM(NSInteger, TOPasscodeType) {
     TOPasscodeTypeCustomAlphanumeric    // Any length of characters
 };
 
+/* The type of biometrics this controller can handle */
+typedef NS_ENUM(NSInteger, TOPasscodeBiometryType) {
+    TOPasscodeBiometryTypeTouchID,
+    TOPasscodeBiometryTypeFaceID
+};
+
 static inline BOOL TOPasscodeViewStyleIsTranslucent(TOPasscodeViewStyle style) {
     return style <= TOPasscodeViewStyleTranslucentLight;
 }
 
 static inline BOOL TOPasscodeViewStyleIsDark(TOPasscodeViewStyle style) {
     return style < TOPasscodeViewStyleTranslucentLight || style == TOPasscodeViewStyleOpaqueDark;
+}
+
+static inline NSString *TOPasscodeBiometryTitleForType(TOPasscodeBiometryType type) {
+    switch (type) {
+        case TOPasscodeBiometryTypeFaceID: return @"Face ID";
+        default: return @"Touch ID";
+    }
 }

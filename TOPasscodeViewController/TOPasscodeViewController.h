@@ -79,10 +79,13 @@ NS_ASSUME_NONNULL_BEGIN
 /** The type of passcode that is expected to be entered. */
 @property (nonatomic, readonly) TOPasscodeType passcodeType;
 
-/** Will show a 'Touch ID' button for that the user can tap to initiate Touch ID verification. (Default is NO) */
+/** Will show a 'Touch ID' or 'Face ID' (depending on `biometricType`) button if the user is allowed to log in that way. (Default is NO) */
 @property (nonatomic, assign) BOOL allowBiometricValidation;
 
-/** If Touch ID is available, automatically ask for it upon presentation (Default is NO) */
+/** Set the type of biometrics for this device to update the title of the biometrics button properly. */
+@property (nonatomic, assign) TOPasscodeBiometryType biometryType;
+
+/** If biometrics are available, automatically ask for it upon presentation (Default is NO) */
 @property (nonatomic, assign) BOOL automaticallyPromptForBiometricValidation;
 
 /** Optionally change the color of the title text label. */

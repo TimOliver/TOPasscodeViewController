@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) LAContext *authContext;
 @property (nonatomic, assign) BOOL biometricsAvailable;
+@property (nonatomic, assign) BOOL faceIDAvailable;
 
 @end
 
@@ -38,6 +39,10 @@
     // Show 'Touch ID' button if it's available
     self.authContext = [[LAContext alloc] init];
     self.biometricsAvailable = [self.authContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
+    
+    if (@available(iOS 11.0, *)) {
+        self.faceIDAvailable = (self.authContext.biometryType == LABiometryTypeFaceID);
+    }
 }
 
 - (IBAction)showButtonTapped:(id)sender
@@ -45,6 +50,7 @@
     TOPasscodeViewController *passcodeViewController = [[TOPasscodeViewController alloc] initWithStyle:self.style passcodeType:self.type];
     passcodeViewController.delegate = self;
     passcodeViewController.allowBiometricValidation = self.biometricsAvailable;
+    passcodeViewController.biometryType = self.faceIDAvailable ? TOPasscodeBiometryTypeFaceID : TOPasscodeBiometryTypeTouchID;
     [self presentViewController:passcodeViewController animated:YES completion:nil];
 }
 
