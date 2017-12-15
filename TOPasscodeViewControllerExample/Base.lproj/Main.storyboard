@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16G16b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,19 +18,19 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallpaper.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="m0A-pQ-iFA">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fvk-89-Kmk">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dg6-sV-QmU">
-                                <rect key="frame" x="75" y="269.5" width="170" height="30"/>
+                                <rect key="frame" x="102.66666666666669" y="391" width="170" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="mIF-cO-GFp"/>
                                     <constraint firstAttribute="height" constant="30" id="ms1-3m-bLH"/>
@@ -43,9 +43,12 @@
                                     <action selector="showButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QvI-bV-cds"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p19-WO-rkA">
-                                <rect key="frame" x="287" y="535" width="23" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p19-WO-rkA">
+                                <rect key="frame" x="337" y="740" width="23" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="23" id="8AV-gL-5hu"/>
+                                    <constraint firstAttribute="height" constant="23" id="oBv-ZV-rj2"/>
+                                </constraints>
                                 <state key="normal" image="Settings"/>
                                 <connections>
                                     <action selector="settingsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yf6-eB-4zz"/>
@@ -56,7 +59,9 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dg6-sV-QmU" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1OX-UK-zd8"/>
+                            <constraint firstItem="p19-WO-rkA" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" constant="-15" id="Ban-jy-Tkm"/>
                             <constraint firstItem="m0A-pQ-iFA" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="U02-sm-oP6"/>
+                            <constraint firstAttribute="trailing" secondItem="p19-WO-rkA" secondAttribute="trailing" constant="15" id="c0j-5O-WOe"/>
                             <constraint firstItem="m0A-pQ-iFA" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="d7n-g2-iXd"/>
                             <constraint firstItem="dg6-sV-QmU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dEU-zJ-7Zm"/>
                             <constraint firstItem="m0A-pQ-iFA" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="hEW-Kw-g3r"/>
