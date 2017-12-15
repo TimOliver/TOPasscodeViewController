@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'TOPasscodeViewController'
-  s.version  = '0.0.1'
+  s.version  = '0.0.2'
   s.license  =  { :type => 'MIT', :file => 'LICENSE' }
   s.summary  = 'A view controller that prompts users to enter a passcode.'
   s.homepage = 'https://github.com/TimOliver/TOPasscodeViewController'
