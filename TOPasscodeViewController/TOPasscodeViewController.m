@@ -594,6 +594,11 @@
     self.passcodeView.keypadButtonBackgroundColor = keypadButtonBackgroundTintColor;
 }
 
+- (void)setKeypadButtonShowLettering:(BOOL)keypadButtonShowLettering
+{
+    self.passcodeView.keypadView.showLettering = keypadButtonShowLettering;
+}
+
 - (UIColor *)keypadButtonBackgroundTintColor { return self.passcodeView.keypadButtonBackgroundColor; }
 
 - (void)setKeypadButtonTextColor:(UIColor *)keypadButtonTextColor
