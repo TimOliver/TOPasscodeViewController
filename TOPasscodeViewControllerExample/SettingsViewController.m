@@ -74,6 +74,7 @@ TOPasscodeSettingsViewControllerDelegate>
         case 0: return nil;
         case 1: return @"Passcode Display Style";
         case 2: return @"Choose Wallpaper";
+        case 3: return @"Passcode Keypad Button Style";
         default: break;
     }
 
@@ -81,16 +82,22 @@ TOPasscodeSettingsViewControllerDelegate>
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 1 ? 4 : 1;
+    if (section == 1) {
+        return 4;
+    } else if (section == 3) {
+        return 2;
+    } else {
+        return 1;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section < 2) { return 44.0f; }
+    if (indexPath.section != 2) { return 44.0f; }
 
     return 280.0f;
 }
@@ -128,6 +135,25 @@ TOPasscodeSettingsViewControllerDelegate>
 
         cell.textLabel.text = cellText;
     }
+    else if (indexPath.section == 3) {
+        NSString *cellText = nil;
+        
+        switch (indexPath.row) {
+            case 0:
+                cellText = @"Show Border";
+                cell.accessoryType = self.showButtonBorder ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                break;
+            case 1:
+                cellText = @"Show Lettering";
+                cell.accessoryType = self.showButtonLettering ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                break;
+            default:
+                break;
+        }
+        
+        cell.detailTextLabel.text = nil;
+        cell.textLabel.text = cellText;
+    }
     else {
         cell.textLabel.text = nil;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -154,7 +180,7 @@ TOPasscodeSettingsViewControllerDelegate>
         settingsController.requireCurrentPasscode = YES;
         [self.navigationController pushViewController:settingsController animated:YES];
     }
-    else {
+    else if (indexPath.section == 2) {
         __weak typeof(self) weakSelf = self;
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         UIImage *pasteboardImage = pasteboard.image;
@@ -181,6 +207,25 @@ TOPasscodeSettingsViewControllerDelegate>
         [controller addAction:[UIAlertAction actionWithTitle:@"Paste Image" style:UIAlertActionStyleDefault handler:clipboardAction]];
         [controller addAction:[UIAlertAction actionWithTitle:@"Choose from Library" style:UIAlertActionStyleDefault handler:photoAction]];
         [self presentViewController:controller animated:YES completion:nil];
+    }
+    else if (indexPath.section == 3) {
+        NSIndexPath *lastIndex = [NSIndexPath indexPathForRow:self.style inSection:1];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        switch (indexPath.row) {
+            case 0:
+                self.showButtonBorder = !self.showButtonBorder;
+                cell.accessoryType = self.showButtonBorder ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                break;
+            case 1:
+                self.showButtonLettering = !self.showButtonLettering;
+                cell.accessoryType = self.showButtonLettering ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                break;
+            default:
+                break;
+        }
+        
+        [tableView reloadRowsAtIndexPaths:@[lastIndex, indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 

@@ -14,6 +14,8 @@
 @property (nonatomic, copy) NSString *passcode;
 @property (nonatomic, assign) TOPasscodeType passcodeType;
 @property (nonatomic, assign) TOPasscodeViewStyle style;
+@property (nonatomic, assign) BOOL showButtonBorder;
+@property (nonatomic, assign) BOOL showButtonLettering;
 @property (nonatomic, strong) UIImage *wallpaperImage;
 
 @property (nonatomic, copy) void (^doneButtonTappedHandler)(void);
