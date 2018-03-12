@@ -544,6 +544,20 @@
     [self applyThemeForStyle:style];
 }
 
+- (void)setKeypadButtonNumberFont:(UIFont *)keypadButtonNumberFont
+{
+    if (keypadButtonNumberFont == _keypadButtonNumberFont) { return; }
+    _keypadButtonNumberFont = keypadButtonNumberFont;
+    self.keypadView.buttonNumberFont = keypadButtonNumberFont;
+}
+
+- (void)setKeypadButtonLetteringFont:(UIFont *)keypadButtonLetteringFont
+{
+    if (keypadButtonLetteringFont == _keypadButtonLetteringFont) { return; }
+    _keypadButtonLetteringFont = keypadButtonLetteringFont;
+    self.keypadView.buttonLetteringFont = keypadButtonLetteringFont;
+}
+
 - (void)setLeftButton:(UIButton *)leftButton
 {
     if (leftButton == _leftButton) { return; }

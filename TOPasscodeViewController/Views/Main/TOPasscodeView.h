@@ -62,6 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 /* Overrides for theming the various elements. */
 @property (nonatomic, strong, nullable) UIColor *titleLabelColor;
 @property (nonatomic, strong, nullable) UIColor *inputProgressViewTintColor;
+@property (nonatomic, strong, nullable) UIFont *keypadButtonNumberFont;
+@property (nonatomic, strong, nullable) UIFont *keypadButtonLetteringFont;
 @property (nonatomic, strong, nullable) UIColor *keypadButtonBackgroundColor;
 @property (nonatomic, strong, nullable) UIColor *keypadButtonTextColor;
 @property (nonatomic, strong, nullable) UIColor *keypadButtonHighlightedTextColor;

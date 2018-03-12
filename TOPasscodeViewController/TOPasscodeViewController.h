@@ -94,6 +94,12 @@ NS_ASSUME_NONNULL_BEGIN
 /** Optionally change the tint color of the UI element that indicates input progress (eg the row of circles) */
 @property (nonatomic, strong, nullable) UIColor *inputProgressViewTintColor;
 
+/** Optionally change the number font of all keypad circle buttons. **/
+@property (nonatomic, strong, nullable) UIFont *keypadButtonNumberFont;
+
+/** Optionally change the lettering font of all keypad circle buttons. **/
+@property (nonatomic, strong, nullable) UIFont *keypadButtonLetteringFont;
+
 /** If the style isn't translucent, changes the tint color of the keypad circle button outlines. */
 @property (nonatomic, strong, nullable) UIColor *keypadButtonBackgroundTintColor;
 
