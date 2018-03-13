@@ -443,7 +443,7 @@
 
 - (void)keypadButtonTapped
 {
-    NSString *title = self.passcodeView.passcode.length > 0 ? @"Delete" : @"Cancel";
+    NSString *title = self.passcodeView.passcode.length > 0 ? NSLocalizedString(@"Delete", @"Delete") : NSLocalizedString(@"Cancel", @"Cancel");
     [UIView performWithoutAnimation:^{
         [self.cancelButton setTitle:title forState:UIControlStateNormal];
     }];
