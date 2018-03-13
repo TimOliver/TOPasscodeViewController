@@ -14,6 +14,8 @@
 @interface ViewController () <TOPasscodeViewControllerDelegate>
 
 @property (nonatomic, copy) NSString *passcode;
+@property (nonatomic, assign) BOOL showButtonBorder;
+@property (nonatomic, assign) BOOL showButtonLettering;
 @property (nonatomic, assign) TOPasscodeViewStyle style;
 @property (nonatomic, assign) TOPasscodeType type;
 
@@ -32,6 +34,8 @@
     [super viewDidLoad];
 
     self.passcode = @"1234";
+    self.showButtonBorder = YES;
+    self.showButtonLettering = YES;
 
     // Enable mipmaps so the rescaled image will look properly sampled
     self.imageView.layer.minificationFilter = kCAFilterTrilinear;
@@ -51,6 +55,8 @@
     passcodeViewController.delegate = self;
     passcodeViewController.allowBiometricValidation = self.biometricsAvailable;
     passcodeViewController.biometryType = self.faceIDAvailable ? TOPasscodeBiometryTypeFaceID : TOPasscodeBiometryTypeTouchID;
+    passcodeViewController.keypadButtonShowBorder = self.showButtonBorder;
+    passcodeViewController.keypadButtonShowLettering = self.showButtonLettering;
     [self presentViewController:passcodeViewController animated:YES completion:nil];
 }
 
@@ -61,6 +67,8 @@
     controller.passcodeType = self.type;
     controller.style = self.style;
     controller.wallpaperImage = self.imageView.image;
+    controller.showButtonBorder = self.showButtonBorder;
+    controller.showButtonLettering = self.showButtonLettering;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     navController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -72,6 +80,8 @@
         weakSelf.passcode = weakController.passcode;
         weakSelf.style = weakController.style;
         weakSelf.type = weakController.passcodeType;
+        weakSelf.showButtonBorder = weakController.showButtonBorder;
+        weakSelf.showButtonLettering = weakController.showButtonLettering;
 
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     };

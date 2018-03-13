@@ -594,6 +594,20 @@
     self.passcodeView.keypadButtonBackgroundColor = keypadButtonBackgroundTintColor;
 }
 
+- (void)setKeypadButtonShowBorder:(BOOL)keypadButtonShowBorder
+{
+    if (!keypadButtonShowBorder) {
+        self.passcodeView.keypadView.buttonStrokeWidth = 0.0f;
+    } else {
+        self.passcodeView.keypadView.buttonStrokeWidth = 1.5f;
+    }
+}
+
+- (void)setKeypadButtonShowLettering:(BOOL)keypadButtonShowLettering
+{
+    self.passcodeView.keypadView.showLettering = keypadButtonShowLettering;
+}
+
 - (UIColor *)keypadButtonBackgroundTintColor { return self.passcodeView.keypadButtonBackgroundColor; }
 
 - (void)setKeypadButtonTextColor:(UIColor *)keypadButtonTextColor

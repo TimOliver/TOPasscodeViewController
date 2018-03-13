@@ -104,11 +104,14 @@
         TOPasscodeCircleButton *circleButton = [self makeCircleButtonWithNumber:buttonNumber letteringString:letteringString];
         [self addSubview:circleButton];
         [buttons addObject:circleButton];
+        
+        if (!self.showLettering) {
+            circleButton.buttonLabel.verticallyCenterNumberLabel = YES; // Center the digit in the middle
+        }
 
         // Hang onto the 0 button if it's the vertical one
         // And center the text
         if (i == 9) {
-            circleButton.buttonLabel.verticallyCenterNumberLabel = YES; // Center the 0 in the middle
             self.verticalZeroButton = circleButton;
 
             // Hide the button if it's not vertically laid out
@@ -304,6 +307,10 @@
         circleButton.tintColor = self.buttonBackgroundColor;
         circleButton.textColor = self.buttonTextColor;
         circleButton.highlightedTextColor = self.buttonHighlightedTextColor;
+        if (!_showLettering) {
+            circleButton.buttonLabel.letteringLabel.text = nil;
+            circleButton.buttonLabel.verticallyCenterNumberLabel = YES;
+        }
     }
 
     [self setNeedsLayout];
