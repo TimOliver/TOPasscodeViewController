@@ -65,7 +65,7 @@ static inline BOOL TOPasscodeViewStyleIsDark(TOPasscodeViewStyle style) {
 
 static inline NSString *TOPasscodeBiometryTitleForType(TOPasscodeBiometryType type) {
     switch (type) {
-        case TOPasscodeBiometryTypeFaceID: return @"Face ID";
-        default: return @"Touch ID";
+        case TOPasscodeBiometryTypeFaceID: return NSLocalizedString(@"Face ID", @"");
+        default: return NSLocalizedString(@"Touch ID", @"");
     }
 }
