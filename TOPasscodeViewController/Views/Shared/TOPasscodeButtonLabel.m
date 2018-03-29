@@ -54,7 +54,7 @@
         self.numberLabel.text = self.numberString;
         self.numberLabel.textColor = self.textColor;
         self.numberLabel.font = self.numberLabelFont;
-        [self.numberLabel sizeToFit];
+        self.numberLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.numberLabel];
     }
 
@@ -63,7 +63,7 @@
         self.letteringLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.letteringLabel.textColor = self.textColor;
         self.letteringLabel.font = self.letteringLabelFont;
-        [self.letteringLabel sizeToFit];
+        self.letteringLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.letteringLabel];
         [self updateLetteringLabelText];
     }
@@ -88,16 +88,14 @@
 
     CGSize viewSize = self.bounds.size;
 
-    [self.numberLabel sizeToFit];
-    [self.letteringLabel sizeToFit];
-
     CGFloat numberVerticalHeight = self.numberLabelFont.capHeight;
     CGFloat letteringVerticalHeight = self.letteringLabelFont.capHeight;
     CGFloat textTotalHeight = (numberVerticalHeight+2.0f) + self.letteringVerticalSpacing + (letteringVerticalHeight+2.0f);
 
     CGRect frame = self.numberLabel.frame;
     frame.size.height = ceil(numberVerticalHeight) + 2.0f;
-    frame.origin.x = ceilf((viewSize.width - frame.size.width) * 0.5f);
+    frame.size.width = viewSize.width;
+    frame.origin.x = 0;
 
     if (!self.horizontalLayout && !self.verticallyCenterNumberLabel) {
         frame.origin.y = floorf((viewSize.height - textTotalHeight) * 0.5f);
@@ -113,14 +111,14 @@
 
         frame = self.letteringLabel.frame;
         frame.size.height = ceil(letteringVerticalHeight) + 2.0f;
+        frame.size.width = viewSize.width;
+        frame.origin.x = 0;
 
         if (!self.horizontalLayout) {
             frame.origin.y = floorf(y);
-            frame.origin.x = (viewSize.width - frame.size.width) * 0.5f;
         }
         else {
             frame.origin.y = floorf((viewSize.height - frame.size.height) * 0.5f);
-            frame.origin.x = CGRectGetMaxX(self.numberLabel.frame) + self.letteringHorizontalSpacing;
         }
 
         self.letteringLabel.frame = CGRectIntegral(frame);
