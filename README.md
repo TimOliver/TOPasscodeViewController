@@ -102,6 +102,8 @@ The view controller heavily uses `UIVisualEffectView` to produce its translucent
 
 ## Is it App Store-safe?
 
+**UPDATE: No. In it's current form, it's getting rejected from the App Store. [See issue #31.](https://github.com/TimOliver/TOPasscodeViewController/issues/31)**
+
 This is a tricky question. App Review guideline 5.2.5 states that apps can't produce UIs that might be easily confused with system functionality, but this rule is incredibly subjective and will ultimately heavily depend on the app reviewer at the time.
 
 Since the default style and text for this view controller make it very easily confused with the iOS lock screen, I would strongly recommend making these changes before shipping:
