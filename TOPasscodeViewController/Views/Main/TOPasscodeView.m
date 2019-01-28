@@ -544,6 +544,41 @@
     [self applyThemeForStyle:style];
 }
 
+- (void)setTitleLabelColor:(UIColor *)titleLabelColor
+{
+    if (titleLabelColor == _titleLabelColor) { return; }
+    _titleLabelColor = titleLabelColor;
+    self.titleLabel.textColor = titleLabelColor;
+}
+
+- (void)setInputProgressViewTintColor:(UIColor *)inputProgressViewTintColor
+{
+    if (inputProgressViewTintColor == _inputProgressViewTintColor) { return; }
+    _inputProgressViewTintColor = inputProgressViewTintColor;
+    self.inputField.tintColor = inputProgressViewTintColor;
+}
+
+- (void)setKeypadButtonBackgroundColor:(UIColor *)keypadButtonBackgroundColor
+{
+    if (keypadButtonBackgroundColor == _keypadButtonBackgroundColor) { return; }
+    _keypadButtonBackgroundColor = keypadButtonBackgroundColor;
+    self.keypadView.buttonBackgroundColor = keypadButtonBackgroundColor;
+}
+
+- (void)setKeypadButtonTextColor:(UIColor *)keypadButtonTextColor
+{
+    if (keypadButtonTextColor == _keypadButtonTextColor) { return; }
+    _keypadButtonTextColor = keypadButtonTextColor;
+    self.keypadView.buttonTextColor = keypadButtonTextColor;
+}
+
+- (void)setKeypadButtonHighlightedTextColor:(UIColor *)keypadButtonHighlightedTextColor
+{
+    if (keypadButtonHighlightedTextColor == _keypadButtonHighlightedTextColor) { return; }
+    _keypadButtonHighlightedTextColor = keypadButtonHighlightedTextColor;
+    self.keypadView.buttonHighlightedTextColor = keypadButtonHighlightedTextColor;
+}
+
 - (void)setLeftButton:(UIButton *)leftButton
 {
     if (leftButton == _leftButton) { return; }
