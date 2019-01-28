@@ -80,6 +80,7 @@
 {
     self.transitioningDelegate = self;
     self.automaticallyPromptForBiometricValidation = NO;
+    self.allowCancel = YES;
 
     if (TOPasscodeViewStyleIsTranslucent(self.style)) {
         self.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -176,6 +177,9 @@
         [self.cancelButton setTitle:NSLocalizedString(@"Cancel", @"Cancel") forState:UIControlStateNormal];
         self.cancelButton.titleLabel.font = buttonFont;
         [self.cancelButton addTarget:self action:@selector(accessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        // If cancelling is disabled, we hide the cancel button but we still create it, because it can
+        // transition to backspace after user input.
+        self.cancelButton.hidden = !self.allowCancel;
         if (isPad) {
             self.passcodeView.rightButton = self.cancelButton;
         }
@@ -443,9 +447,17 @@
 
 - (void)keypadButtonTapped
 {
-    NSString *title = self.passcodeView.passcode.length > 0 ? NSLocalizedString(@"Delete", @"Delete") : NSLocalizedString(@"Cancel", @"Cancel");
+    NSString *title = nil;
+    if (self.passcodeView.passcode.length > 0) {
+        title = NSLocalizedString(@"Delete", @"Delete");
+    } else if (self.allowCancel) {
+        title = NSLocalizedString(@"Cancel", @"Cancel");
+    }
     [UIView performWithoutAnimation:^{
-        [self.cancelButton setTitle:title forState:UIControlStateNormal];
+        if (title != nil) {
+            [self.cancelButton setTitle:title forState:UIControlStateNormal];
+        }
+        self.cancelButton.hidden = (title == nil);
     }];
 }
 
