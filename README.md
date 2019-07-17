@@ -6,7 +6,6 @@
 </p>
 
 [![CI Status](http://img.shields.io/travis/TimOliver/TOPasscodeViewController.svg?style=flat)](http://api.travis-ci.org/TimOliver/TOPasscodeViewController.svg)
-[![CocoaPods](https://img.shields.io/cocoapods/dt/TOPasscodeViewController.svg?maxAge=3600)](https://cocoapods.org/pods/TOPasscodeViewController)
 [![Version](https://img.shields.io/cocoapods/v/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
