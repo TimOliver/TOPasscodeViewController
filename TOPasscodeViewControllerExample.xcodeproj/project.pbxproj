@@ -54,7 +54,7 @@
 		22D601B323656CB600275AD9 /* TOPasscodeVariableInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2292C9AC1F2491E500E3C2C8 /* TOPasscodeVariableInputView.m */; };
 		22D601B423656CBF00275AD9 /* TOPasscodeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D3610F1EDCC1CC002E5D35 /* TOPasscodeViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D601B523656CC100275AD9 /* TOPasscodeSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D5C8181EE9F99600745F9A /* TOPasscodeSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22D601B623656CC800275AD9 /* TOPasscodeViewControllerConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D3610E1EDCC1CC002E5D35 /* TOPasscodeViewControllerConstants.h */; };
+		22D601B623656CC800275AD9 /* TOPasscodeViewControllerConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D3610E1EDCC1CC002E5D35 /* TOPasscodeViewControllerConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D601B723656CE900275AD9 /* TOPasscodeCircleImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D361091EDCC1CC002E5D35 /* TOPasscodeCircleImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22D601B823656CEA00275AD9 /* TOSettingsKeypadImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22EAD9D81EFA4CEF00D0C408 /* TOSettingsKeypadImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22D601B923656CEC00275AD9 /* TOPasscodeViewContentLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9B51F2491F000E3C2C8 /* TOPasscodeViewContentLayout.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -70,19 +70,10 @@
 		22D601C323656D0100275AD9 /* TOPasscodeInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9A91F2491E500E3C2C8 /* TOPasscodeInputField.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22D601C423656D0200275AD9 /* TOPasscodeFixedInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9A71F2491E500E3C2C8 /* TOPasscodeFixedInputView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22D601C523656D0400275AD9 /* TOPasscodeVariableInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9AB1F2491E500E3C2C8 /* TOPasscodeVariableInputView.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		22E2034D23656ADB00B2FBB4 /* TOPasscodeViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E2034623656ADB00B2FBB4 /* TOPasscodeViewController.framework */; };
-		22E2034E23656ADB00B2FBB4 /* TOPasscodeViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22E2034623656ADB00B2FBB4 /* TOPasscodeViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		22EAD9DA1EFA4CEF00D0C408 /* TOSettingsKeypadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EAD9D91EFA4CEF00D0C408 /* TOSettingsKeypadImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		22E2034B23656ADB00B2FBB4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22F8069B1ECABB3D0053C94E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 22E2034523656ADB00B2FBB4;
-			remoteInfo = TOPasscodeViewController;
-		};
 		22F806BD1ECABB3D0053C94E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22F8069B1ECABB3D0053C94E /* Project object */;
@@ -91,20 +82,6 @@
 			remoteInfo = TOPINViewControllerExample;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		22E2034F23656ADB00B2FBB4 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				22E2034E23656ADB00B2FBB4 /* TOPasscodeViewController.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2205DFB91EDF42A00071BC7F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -178,7 +155,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22E2034D23656ADB00B2FBB4 /* TOPasscodeViewController.framework in Frameworks */,
 				2205DFBA1EDF42A00071BC7F /* AudioToolbox.framework in Frameworks */,
 				221D96E21EDC03FF004314BF /* LocalAuthentication.framework in Frameworks */,
 			);
@@ -410,12 +386,10 @@
 				22F806A01ECABB3D0053C94E /* Frameworks */,
 				22F806A11ECABB3D0053C94E /* Resources */,
 				224E40D01F344A3B00C03A79 /* Integrate Reveal Server */,
-				22E2034F23656ADB00B2FBB4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				22E2034C23656ADB00B2FBB4 /* PBXTargetDependency */,
 			);
 			name = TOPasscodeViewControllerExample;
 			productName = TOPINViewControllerExample;
@@ -597,11 +571,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		22E2034C23656ADB00B2FBB4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 22E2034523656ADB00B2FBB4 /* TOPasscodeViewController */;
-			targetProxy = 22E2034B23656ADB00B2FBB4 /* PBXContainerItemProxy */;
-		};
 		22F806BE1ECABB3D0053C94E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 22F806A21ECABB3D0053C94E /* TOPasscodeViewControllerExample */;

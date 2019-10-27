@@ -1,5 +1,5 @@
 env:
-  TEST_SCHEME: "TOPasscodeViewControllerExampleTests"
+  TEST_SCHEME: "TOPasscodeViewControllerTests"
 
 steps:  
   - label: ':fastlane: Run Tests'
