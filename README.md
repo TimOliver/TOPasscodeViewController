@@ -5,12 +5,13 @@
 <img src="https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/screenshot.jpg" width="890" style="margin:0 auto" />
 </p>
 
-[![CI Status](http://img.shields.io/travis/TimOliver/TOPasscodeViewController.svg?style=flat)](http://api.travis-ci.org/TimOliver/TOPasscodeViewController.svg)
+[![Build status](https://badge.buildkite.com/07a3d56a4dceb941062d034b5d920ada4a722794bd37bf0b2c.svg)](https://buildkite.com/xd-ci/topasscodeviewcontroller-run-ci)
 [![Version](https://img.shields.io/cocoapods/v/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
 [![Beerpay](https://beerpay.io/TimOliver/TOPasscodeViewController/badge.svg?style=flat)](https://beerpay.io/TimOliver/TOPasscodeViewController)
 [![PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M4RKULAVKV7K8)
+[![Twitch](https://img.shields.io/badge/twitch-timXD-6441a5.svg)](http://twitch.tv/timXD)
 
 <a href="https://www.youtube.com/watch?v=d5COjlwWAng" target="_blank">
 <img src="https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/video.png" align="right" height="163px" hspace="0" vspace="30px">
