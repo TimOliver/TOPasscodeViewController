@@ -156,3 +156,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+//! Project version number for TOPasscodeViewController.
+FOUNDATION_EXPORT double TOPasscodeViewControllerVersionNumber;
+
+//! Project version string for TOPasscodeViewController.
+FOUNDATION_EXPORT const unsigned char TOPasscodeViewControllerVersionString[];

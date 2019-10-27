@@ -251,9 +251,10 @@
 {
     [self setPasscode:nil animated:animated];
 
-    if (impact) {
+    // Play a negative impact effect
+    if (@available(iOS 9.0, *)) {
         // https://stackoverflow.com/questions/41444274/how-to-check-if-haptic-engine-uifeedbackgenerator-is-supported
-        AudioServicesPlaySystemSoundWithCompletion(1521, nil);
+        if (impact) { AudioServicesPlaySystemSoundWithCompletion(1521, nil); }
     }
 
     if (!animated) { return; }
