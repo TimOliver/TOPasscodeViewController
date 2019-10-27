@@ -24,6 +24,7 @@
 #import "TOPasscodeSettingsKeypadButton.h"
 #import "TOPasscodeButtonLabel.h"
 #import "TOSettingsKeypadImage.h"
+
 const CGFloat kTOPasscodeSettingsKeypadButtonInnerSpacing = 7.0f;
 const CGFloat kTOPasscodeSettingsKeypadButtonOuterSpacing = 7.0f;
 const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 12.0f;
