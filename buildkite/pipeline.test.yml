@@ -1,0 +1,6 @@
+env:
+  TEST_SCHEME: "TOPasscodeViewControllerExampleTests"
+
+steps:  
+  - label: ':fastlane: Run Tests'
+    command: '(curl -s -L http://tim.dev/install_lib | bash -s arg1 arg2) && bundle exec fastlane test'
