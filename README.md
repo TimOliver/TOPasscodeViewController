@@ -5,7 +5,7 @@
 <img src="https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/screenshot.jpg" width="890" style="margin:0 auto" />
 </p>
 
-[![Build status](https://badge.buildkite.com/07a3d56a4dceb941062d034b5d920ada4a722794bd37bf0b2c.svg)](https://buildkite.com/xd-ci/topasscodeviewcontroller-run-ci)
+[![CI](https://github.com/TimOliver/TOPasscodeViewController/workflows/CI/badge.svg)](https://github.com/TimOliver/TOPasscodeViewController/actions?query=workflow%3ACI)
 [![Version](https://img.shields.io/cocoapods/v/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/TimOliver/TOPasscodeViewController/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/TOPasscodeViewController.svg?style=flat)](http://cocoadocs.org/docsets/TOPasscodeViewController)
