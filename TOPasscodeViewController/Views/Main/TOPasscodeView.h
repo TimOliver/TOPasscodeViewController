@@ -22,6 +22,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TOPasscodeViewControllerConstants.h"
+#import "TOPasscodeKeypadView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
