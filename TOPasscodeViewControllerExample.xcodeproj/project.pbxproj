@@ -61,7 +61,7 @@
 		22D601BA23656CED00275AD9 /* TOPasscodeViewControllerAnimatedTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D3610B1EDCC1CC002E5D35 /* TOPasscodeViewControllerAnimatedTransitioning.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22D601BB23656CF100275AD9 /* TOPasscodeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9B31F2491E500E3C2C8 /* TOPasscodeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D601BC23656CF300275AD9 /* TOPasscodeCircleButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9AF1F2491E500E3C2C8 /* TOPasscodeCircleButton.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		22D601BD23656CF500275AD9 /* TOPasscodeKeypadView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9B11F2491E500E3C2C8 /* TOPasscodeKeypadView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		22D601BD23656CF500275AD9 /* TOPasscodeKeypadView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9B11F2491E500E3C2C8 /* TOPasscodeKeypadView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D601BE23656CF800275AD9 /* TOPasscodeSettingsKeypadButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C99C1F2491E500E3C2C8 /* TOPasscodeSettingsKeypadButton.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22D601BF23656CF900275AD9 /* TOPasscodeSettingsKeypadView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C99E1F2491E500E3C2C8 /* TOPasscodeSettingsKeypadView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22D601C023656CFD00275AD9 /* TOPasscodeSettingsWarningLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2292C9A01F2491E500E3C2C8 /* TOPasscodeSettingsWarningLabel.h */; settings = {ATTRIBUTES = (Private, ); }; };
