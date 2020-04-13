@@ -53,14 +53,17 @@
 
 /* The Title Label Explaining the Passcode View */
 @property (nonatomic, assign) CGFloat titleLabelBottomSpacing;    // Space from the title label to the input view
+@property (nonatomic, assign) CGFloat subtitleLabelBottomSpacing;    // Space from the subtitle label to the input view
 
 @property (nonatomic, strong) UIFont *titleLabelFont;             // The font of the title label
+@property (nonatomic, strong) UIFont *subtitleLabelFont;             // The font of the subtitle label
 
 /* Title Label properties when the view is laid out horizontally */
 @property (nonatomic, assign) CGFloat titleHorizontalLayoutWidth;   // When laid out horizontally, the width of the title view
 @property (nonatomic, assign) CGFloat titleHorizontalLayoutSpacing; // The amount of spacing between the title label and the passcode keypad
 @property (nonatomic, assign) CGFloat titleViewHorizontalBottomSpacing; // Space from the bottom of the title view when iPhone is horizontal
 @property (nonatomic, assign) CGFloat titleLabelHorizontalBottomSpacing; // Spacing from the title label to input view in horizontal mode
+@property (nonatomic, assign) CGFloat subtitleLabelHorizontalBottomSpacing; // Spacing from the subtitle label to input view in horizontal mode
 
 /* Circle Row Configuration */
 @property (nonatomic, assign) CGFloat circleRowDiameter; // The diameter of each circle representing a PIN number

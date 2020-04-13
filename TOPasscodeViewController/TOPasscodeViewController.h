@@ -85,6 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** Will show a default 'Cancel' button if rightAccessoryButton is not set. (Default is YES) */
 @property (nonatomic, assign) BOOL allowCancel;
 
+/** Will handle delete button press as delete last symbol (Default is YES) */
+@property (nonatomic, assign) BOOL handleDeletePress;
+
 /** Set the type of biometrics for this device to update the title of the biometrics button properly. */
 @property (nonatomic, assign) TOPasscodeBiometryType biometryType;
 
@@ -132,6 +135,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** The right accessory button. Setting this will override the 'Cancel' button. */
 @property (nonatomic, strong, nullable) UIButton *rightAccessoryButton;
+
+@property (nonatomic, assign) CGFloat accessoryButtonsVerticalInset;
 
 /** Whether all of the content views are hidden or not, but the background translucent view remains.
      Useful for obscuring the content while the app is suspended. */

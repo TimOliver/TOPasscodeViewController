@@ -33,6 +33,7 @@
 
 /* The main views */
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
+@property (nonatomic, strong, readwrite) UILabel *subtitleLabel;
 @property (nonatomic, strong, readwrite) TOPasscodeInputField *inputField;
 @property (nonatomic, strong, readwrite) TOPasscodeKeypadView *keypadView;
 
@@ -128,6 +129,14 @@
 
     y = CGRectGetMaxY(frame) + self.currentLayout.circleRowBottomSpacing;
 
+    // Subtitle Label
+    frame = self.subtitleLabel.frame;
+    frame.origin.y = y;
+    frame.origin.x = midViewSize.width - (CGRectGetWidth(frame) * 0.5f);
+    self.subtitleLabel.frame = CGRectIntegral(frame);
+
+    y = CGRectGetMaxY(frame) + self.currentLayout.subtitleLabelBottomSpacing;
+    
     // PIN Pad View
     if (self.keypadView) {
         frame = self.keypadView.frame;
@@ -183,6 +192,13 @@
     frame.size = self.titleLabel.frame.size;
     frame.origin.x = (self.currentLayout.titleHorizontalLayoutWidth - frame.size.width) * 0.5f;
     self.titleLabel.frame = CGRectIntegral(frame);
+
+    frame.origin.y += (frame.size.height + self.currentLayout.subtitleLabelHorizontalBottomSpacing);
+    
+    // Set frame of subtitle label
+    frame.size = self.subtitleLabel.frame.size;
+    frame.origin.x = (self.currentLayout.titleHorizontalLayoutWidth - frame.size.width) * 0.5f;
+    self.subtitleLabel.frame = CGRectIntegral(frame);
 
     frame.origin.y += (frame.size.height + self.currentLayout.titleLabelHorizontalBottomSpacing);
 
@@ -264,6 +280,14 @@
 
     frame.size.height += titleFrame.size.height;
     frame.size.height += self.currentLayout.titleLabelBottomSpacing;
+    
+    // Add height for the subtitle label
+    CGRect subtitleFrame = self.subtitleLabel.frame;
+    subtitleFrame.size = [self.subtitleLabel sizeThatFits:(CGSize){frame.size.width, CGFLOAT_MAX}];
+    self.subtitleLabel.frame = subtitleFrame;
+
+    frame.size.height += subtitleFrame.size.height;
+    frame.size.height += self.currentLayout.subtitleLabelBottomSpacing;
 
     // Add height for the circle rows
     frame.size.height += self.inputField.frame.size.height;
@@ -360,6 +384,16 @@
     }
 
     [self addSubview:self.inputField];
+    
+    // Set up subtitle label
+    if (self.subtitleLabel == nil) {
+        self.subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    }
+    self.subtitleLabel.text = self.subtitleText;
+    self.subtitleLabel.textAlignment = NSTextAlignmentCenter;
+    self.subtitleLabel.numberOfLines = 0;
+    [self.subtitleLabel sizeToFit];
+    [self addSubview:self.subtitleLabel];
 
     // Set up pad row
     if (type != TOPasscodeTypeCustomAlphanumeric) {
@@ -386,6 +420,9 @@
 {
     // Title View
     self.titleLabel.font = contentLayout.titleLabelFont;
+
+    // Subtitle View
+    self.subtitleLabel.font = contentLayout.subtitleLabelFont;
 
     // Circle Row View
     self.inputField.fixedInputView.circleDiameter = contentLayout.circleRowDiameter;
@@ -427,6 +464,13 @@
         titleLabelColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
     }
     self.titleLabel.textColor = titleLabelColor;
+    
+    // Set subtitle label color
+    UIColor *subtitleLabelColor = self.subtitleLabelColor;
+    if (subtitleLabelColor == nil) {
+        subtitleLabelColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+    }
+    self.subtitleLabel.textColor = subtitleLabelColor;
 
     // Add/remove the translucency effect to the buttons
     if (isTranslucent) {
@@ -551,6 +595,13 @@
     self.titleLabel.textColor = titleLabelColor;
 }
 
+- (void)setSubtitleLabelColor:(UIColor *)subtitleLabelColor
+{
+    if (subtitleLabelColor == _subtitleLabelColor) { return; }
+    _subtitleLabelColor = subtitleLabelColor;
+    self.subtitleLabel.textColor = subtitleLabelColor;
+}
+
 - (void)setInputProgressViewTintColor:(UIColor *)inputProgressViewTintColor
 {
     if (inputProgressViewTintColor == _inputProgressViewTintColor) { return; }
@@ -617,8 +668,11 @@
 
     self.titleView.alpha = contentAlpha;
     self.titleLabel.alpha = contentAlpha;
+    self.subtitleLabel.alpha = contentAlpha;
     self.inputField.contentAlpha = contentAlpha;
     self.keypadView.contentAlpha = contentAlpha;
+    self.keypadView.leftAccessoryView.alpha = contentAlpha;
+    self.keypadView.rightAccessoryView.alpha = contentAlpha;
     self.leftButton.alpha = contentAlpha;
     self.rightButton.alpha = contentAlpha;
 }
