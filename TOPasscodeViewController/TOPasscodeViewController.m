@@ -81,6 +81,7 @@
     self.transitioningDelegate = self;
     self.automaticallyPromptForBiometricValidation = NO;
     self.allowCancel = YES;
+    self.handleDeletePress = YES;
 
     if (TOPasscodeViewStyleIsTranslucent(self.style)) {
         self.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -347,12 +348,16 @@
 {
     CGFloat width = MIN(size.width, size.height);
 
-    CGFloat verticalInset = 54.0f;
+    CGFloat verticalInset = 44.0f;
     if (width < TOPasscodeViewContentSizeMedium) {
-        verticalInset = 37.0f;
+        verticalInset = 20.0f;
     }
     else if (width < TOPasscodeViewContentSizeDefault) {
-        verticalInset = 43.0f;
+        verticalInset = 30.0f;
+    }
+    
+    if (self.accessoryButtonsVerticalInset > 0) {
+        verticalInset = self.accessoryButtonsVerticalInset;
     }
 
     CGFloat inset = self.passcodeView.keypadButtonInset;
@@ -428,7 +433,7 @@
 {
     if (sender == self.cancelButton) {
         // When entering keyboard input, just leave the button as 'cancel'
-        if (self.passcodeType != TOPasscodeTypeCustomAlphanumeric && self.passcodeView.passcode.length > 0) {
+        if (self.handleDeletePress && self.passcodeType != TOPasscodeTypeCustomAlphanumeric && self.passcodeView.passcode.length > 0) {
             [self.passcodeView deleteLastPasscodeCharacterAnimated:YES];
             [self keypadButtonTapped];
             return;
@@ -591,6 +596,11 @@
 - (void)setTitleLabelColor:(UIColor *)titleLabelColor
 {
     self.passcodeView.titleLabelColor = titleLabelColor;
+}
+
+- (void)setSubtitleLabelColor:(UIColor *)subtitleLabelColor
+{
+    self.passcodeView.subtitleLabelColor = subtitleLabelColor;
 }
 
 - (UIColor *)titleLabelColor { return self.passcodeView.titleLabelColor; }

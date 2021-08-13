@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* The text in the title view (Default is 'Enter Passcode') */
 @property (nonatomic, copy) NSString *titleText;
+@property (nonatomic, copy) NSString *subtitleText;
 
 /* Customizable Accessory Views */
 @property (nonatomic, strong, nullable) UIView   *titleView;
@@ -57,11 +58,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* The default views always shown in this view */
 @property (nonatomic, readonly) UILabel *titleLabel;
+@property (nonatomic, readonly) UILabel *subtitleLabel;
 @property (nonatomic, readonly) TOPasscodeInputField *inputField;
 @property (nonatomic, readonly) TOPasscodeKeypadView *keypadView;
 
 /* Overrides for theming the various elements. */
 @property (nonatomic, strong, nullable) UIColor *titleLabelColor;
+@property (nonatomic, strong, nullable) UIColor *subtitleLabelColor;
 @property (nonatomic, strong, nullable) UIColor *inputProgressViewTintColor;
 @property (nonatomic, strong, nullable) UIColor *keypadButtonBackgroundColor;
 @property (nonatomic, strong, nullable) UIColor *keypadButtonTextColor;
