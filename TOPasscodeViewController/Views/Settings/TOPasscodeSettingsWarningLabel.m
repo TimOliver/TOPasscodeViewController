@@ -23,7 +23,13 @@
 #import "TOPasscodeSettingsWarningLabel.h"
 
 @interface TOPasscodeSettingsWarningLabel ()
+
+/* Text label displaying passcode count */
 @property (nonatomic, strong) UILabel *label;
+
+/* Background view that provides rounded corners */
+@property (nonatomic, strong) UIView *backgroundView;
+
 @end
 
 @implementation TOPasscodeSettingsWarningLabel
@@ -48,6 +54,12 @@
 
     self.tintColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
 
+    // Create and configure the background view
+    self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backgroundView.backgroundColor = [UIColor redColor];
+    [self addSubview:self.backgroundView];
+
+    // Create and configure the text label
     self.label = [[UILabel alloc] initWithFrame:CGRectZero];
     self.label.backgroundColor = [UIColor clearColor];
     self.label.textAlignment = NSTextAlignmentCenter;
@@ -56,12 +68,6 @@
     [self setTextForCount:0];
     [self.label sizeToFit];
     [self addSubview:self.label];
-}
-
-- (void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-    [self setBackgroundImageIfNeeded];
 }
 
 #pragma mark - View Layout -
@@ -82,8 +88,13 @@
 - (void)layoutSubviews
 {
     CGRect frame = self.frame;
-    CGRect labelFrame = self.label.frame;
 
+    // Layout the background
+    self.backgroundView.frame = self.bounds;
+    self.backgroundView.layer.cornerRadius = CGRectGetHeight(frame) * 0.5f;
+
+    // Layout the text
+    CGRect labelFrame = self.label.frame;
     labelFrame.origin.x = (CGRectGetWidth(frame) - CGRectGetWidth(labelFrame)) * 0.5f;
     labelFrame.origin.y = (CGRectGetHeight(frame) - CGRectGetHeight(labelFrame)) * 0.5f;
     self.label.frame = labelFrame;
@@ -98,49 +109,11 @@
         text = NSLocalizedString(@"1 Failed Passcode Attempt", @"");
     }
     else {
-        text = [NSString stringWithFormat:NSLocalizedString(@"%d Failed Passcode Attempts", @""), count];
+        text = [NSString stringWithFormat:NSLocalizedString(@"%ld Failed Passcode Attempts", @""), (long)count];
     }
     self.label.text = text;
 
     [self sizeToFit];
-}
-
-#pragma mark - Background Image Managements -
-
-- (void)setBackgroundImageIfNeeded
-{
-    // Don't bother if we're not in a view
-    if (self.superview == nil) { return; }
-
-    // Compare the view height and don't proceed if
-    if (lround(self.image.size.height) == lround(self.frame.size.height)) { return; }
-
-    // Create the image
-    self.image = [[self class] roundedBackgroundImageWithHeight:self.frame.size.height];
-}
-
-+ (UIImage *)roundedBackgroundImageWithHeight:(CGFloat)height
-{
-    UIImage *image = nil;
-    CGRect frame = CGRectZero;
-    frame.size.width = height + 1.0;
-    frame.size.height = height;
-
-    UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0.0f);
-    {
-        UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:frame cornerRadius:height * 0.5f];
-        [[UIColor blackColor] setFill];
-        [path fill];
-
-        image = UIGraphicsGetImageFromCurrentImageContext();
-    }
-    UIGraphicsEndImageContext();
-
-    CGFloat halfHeight = height * 0.5f;
-    UIEdgeInsets insets = UIEdgeInsetsMake(halfHeight, halfHeight, halfHeight, halfHeight);
-    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    image = [image resizableImageWithCapInsets:insets];
-    return image;
 }
 
 #pragma mark - Accessors -
