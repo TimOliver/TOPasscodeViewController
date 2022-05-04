@@ -34,8 +34,6 @@
 
 @implementation TOPasscodeSettingsWarningLabel
 
-@synthesize backgroundColor = __backgroundColor;
-
 #pragma mark - View Setup -
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -52,7 +50,7 @@
     _numberOfWarnings = 0;
     _textPadding = CGSizeMake(14.0f, 6.0f);
 
-    self.tintColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+    [super setBackgroundColor:[UIColor clearColor]];
 
     // Create and configure the background view
     self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -122,6 +120,12 @@
 {
     _numberOfWarnings = numberOfWarnings;
     [self setTextForCount:_numberOfWarnings];
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    [super setBackgroundColor:[UIColor clearColor]];
+    self.backgroundView.backgroundColor = backgroundColor;
 }
 
 @end
