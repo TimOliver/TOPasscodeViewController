@@ -60,10 +60,7 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 12.0f;
     _keypadButtonHorizontalSpacing = 3.0f;
     _keypadButtonLetteringSpacing = 2.0f;
 
-    CGSize viewSize = self.frame.size;
-    CGFloat height = 1.0f / [[UIScreen mainScreen] scale];
-    self.separatorView = [[UIView alloc] initWithFrame:(CGRect){CGPointZero,{viewSize.width, height}}];
-    self.separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
     [self addSubview:self.separatorView];
 
     [self setUpKeypadButtons];
@@ -120,42 +117,84 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 12.0f;
     BOOL isDark = style == TOPasscodeSettingsViewStyleDark;
 
     // Keypad label
-    self.keypadButtonLabelTextColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+    UIColor *(^getButtonForegroundColor)(BOOL) = ^UIColor *(BOOL isDark) {
+        if (isDark) {
+            return [UIColor colorWithWhite:0.35f alpha:1.0f];
+        }
+        return [UIColor whiteColor];
+    };
 
-    self.keypadButtonForegroundColor = isDark ? [UIColor colorWithWhite:0.35f alpha:1.0f] : [UIColor whiteColor];
-    self.keypadButtonTappedForegroundColor = isDark ? [UIColor colorWithWhite:0.45f alpha:1.0f] : [UIColor colorWithWhite:0.85f alpha:1.0f];
+    UIColor *(^getButtonTappedForegroundColor)(BOOL) = ^UIColor *(BOOL isDark) {
+        if (isDark) {
+            return [UIColor colorWithWhite:0.45f alpha:1.0f];
+        }
+        return [UIColor colorWithWhite:0.85f alpha:1.0f];
+    };
+
+    if (@available(iOS 13.0, *)) {
+        self.keypadButtonLabelTextColor = [UIColor labelColor];
+        self.keypadButtonForegroundColor = [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *traitCollection) {
+            return getButtonForegroundColor(traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark);
+        }];
+        self.keypadButtonTappedForegroundColor = [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *traitCollection) {
+            return getButtonTappedForegroundColor(traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark);
+        }];
+    } else {
+        self.keypadButtonLabelTextColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+        self.keypadButtonForegroundColor = getButtonForegroundColor(isDark);
+        self.keypadButtonTappedForegroundColor = getButtonTappedForegroundColor(isDark);
+    }
 
     // Button border color
-    UIColor *borderColor = nil;
-    if (isDark) {
-        borderColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
+    UIColor *(^getBorderColor)(BOOL) = ^UIColor *(BOOL isDark) {
+        if (isDark) {
+            return [UIColor colorWithWhite:0.15f alpha:1.0f];
+        }
+        return [UIColor colorWithRed:166.0f/255.0f green:174.0f/255.0f blue:186.0f/255.0f alpha:1.0f];
+    };
+
+    if (@available(iOS 13.0, *)) {
+        self.keypadButtonBorderColor = [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *traitCollection) {
+            return getBorderColor(traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark);
+        }];
+    } else {
+        self.keypadButtonBorderColor = getBorderColor(isDark);
     }
-    else {
-        borderColor = [UIColor colorWithRed:166.0f/255.0f green:174.0f/255.0f blue:186.0f/255.0f alpha:1.0f];
-    }
-    self.keypadButtonBorderColor = borderColor;
 
     // Background Color
     UIColor *backgroundColor = nil;
-    if (isDark) {
-        backgroundColor = [UIColor colorWithWhite:0.18f alpha:1.0f];
-    }
-    else {
-        backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:225.0f/255.0f blue:232.0f/255.0f alpha:1.0f];
+    if (@available(iOS 13.0, *)) {
+        backgroundColor = [UIColor secondarySystemBackgroundColor];
+    } else {
+        if (isDark) {
+            backgroundColor = [UIColor colorWithWhite:0.18f alpha:1.0f];
+        }
+        else {
+            backgroundColor = [UIColor colorWithRed:220.0f/255.0f green:225.0f/255.0f blue:232.0f/255.0f alpha:1.0f];
+        }
     }
     self.backgroundColor = backgroundColor;
 
     // Separator lines
     UIColor *separatorColor = nil;
-    if (isDark) {
-        separatorColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
-    }
-    else {
-        separatorColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
+    if (@available(iOS 13.0, *)) {
+        separatorColor = [UIColor separatorColor];
+    } else {
+        if (isDark) {
+            separatorColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
+        }
+        else {
+            separatorColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
+        }
     }
     self.separatorView.backgroundColor = separatorColor;
 
-    self.deleteButton.tintColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+    // Delete button
+    if (@available(iOS 13.0, *)) {
+        self.deleteButton.tintColor = [UIColor labelColor];
+    } else {
+        self.deleteButton.tintColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+    }
 }
 
 - (void)setUpImagesIfNeeded
@@ -244,7 +283,6 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 12.0f;
     if (@available(iOS 11.0, *)) {
         boundsSize.height -= self.safeAreaInsets.bottom;
     }
-    
     CGRect frame = self.deleteButton.frame;
     frame.size = buttonSize;
     frame.origin.x = boundsSize.width - (outerSpacing + buttonSize.width * 0.5f);
@@ -252,6 +290,15 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 12.0f;
     frame.origin.y = boundsSize.height - (outerSpacing + buttonSize.height * 0.5f);
     frame.origin.y -= (CGRectGetHeight(frame) * 0.5f);
     self.deleteButton.frame = frame;
+
+    // Layout the separator
+    frame = self.separatorView.frame;
+    UIScreen *screen = self.window.screen;
+    if (screen == nil) { screen = [UIScreen mainScreen]; }
+    CGFloat height = 1.0f / screen.nativeScale;
+    frame.size = (CGSize){self.bounds.size.width, height};
+    frame.origin = (CGPoint){0.0f, -height};
+    self.separatorView.frame = frame;
 }
 
 #pragma mark - Interaction -
