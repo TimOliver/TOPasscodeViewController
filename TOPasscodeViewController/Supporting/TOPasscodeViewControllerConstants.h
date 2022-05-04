@@ -30,8 +30,9 @@ typedef NS_ENUM(NSInteger, TOPasscodeViewStyle) {
 
 /* The visual style of the passcode settings view controller. */
 typedef NS_ENUM(NSInteger, TOPasscodeSettingsViewStyle) {
-    TOPasscodeSettingsViewStyleLight,
-    TOPasscodeSettingsViewStyleDark
+    TOPasscodeSettingsViewStyleDefault, /* Light or dark depending on the system */
+    TOPasscodeSettingsViewStyleLight,   /* Always light mode */
+    TOPasscodeSettingsViewStyleDark     /* Always dark mode */
 };
 
 /* Depending on the amount of horizontal space, the sizing of the elements */

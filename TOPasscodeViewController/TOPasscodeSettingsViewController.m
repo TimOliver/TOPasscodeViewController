@@ -81,12 +81,17 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 - (void)setUp
 {
     _failedPasscodeAttemptCount = 0;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillChangeFrame:)
+                                                 name:UIKeyboardWillChangeFrameNotification
+                                               object:nil];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillChangeFrameNotification
+                                                  object:nil];
 }
 
 #pragma mark - View Set-up -
@@ -186,6 +191,22 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     self.state = self.requireCurrentPasscode ? TOPasscodeSettingsViewStateEnterCurrentPasscode : TOPasscodeSettingsViewStateEnterNewPasscode;
     [self updateContentForState:self.state type:self.passcodeType animated:NO];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    // Re-apply the color theme to the view controller if the system appearence changes
+    if (@available(iOS 13.0, *)) {
+        if (self.style == TOPasscodeSettingsViewStyleDefault &&
+            [self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            UIUserInterfaceStyle systemStyle = self.traitCollection.userInterfaceStyle;
+            TOPasscodeSettingsViewStyle targetStyle = TOPasscodeSettingsViewStyleLight;
+            if (systemStyle == UIUserInterfaceStyleDark) { targetStyle = TOPasscodeSettingsViewStyleDark; }
+            [self applyThemeForStyle:targetStyle];
+        }
+    }
 }
 
 #pragma mark - View Update -
@@ -419,11 +440,15 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Set background color
     UIColor *backgroundColor;
-    if (isDark) {
-        backgroundColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
-    }
-    else {
-        backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:241.0f/255.0f alpha:1.0f];
+    if (@available(iOS 13.0, *)) {
+        backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        if (isDark) {
+            backgroundColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
+        }
+        else {
+            backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:241.0f/255.0f alpha:1.0f];
+        }
     }
     self.view.backgroundColor = backgroundColor;
 
@@ -432,6 +457,9 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Set the color for the input content
     UIColor *inputColor = isDark ? [UIColor whiteColor] : [UIColor blackColor];
+    if (@available(iOS 13.0, *)) {
+        inputColor = [UIColor labelColor];
+    }
 
     // Set the label style
     self.titleLabel.textColor = inputColor;
@@ -441,12 +469,17 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     // Set the tint color of the incorrect warning label
     UIColor *warningColor = nil;
-    if (isDark) {
-        warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+    if (@available(iOS 13.0, *)) {
+        warningColor = [UIColor systemRedColor];
+    } else {
+        if (isDark) {
+            warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+        }
+        else {
+            warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+        }
     }
-    else {
-        warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
-    }
+    self.warningLabel.backgroundColor = warningColor;
 }
 
 #pragma mark - Data Management -
