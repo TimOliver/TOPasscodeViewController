@@ -270,6 +270,20 @@ const CGFloat kTOPasscodeSettingsKeypadCornderRadius = 12.0f;
     self.separatorView.frame = frame;
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    // If the color theme changed, regenerate the images of the buttons
+    if (@available(iOS 13.0, *)) {
+        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            self.buttonBackgroundImage = nil;
+            self.buttonTappedBackgroundImage = nil;
+            [self setNeedsLayout];
+        }
+    }
+}
+
 #pragma mark - Interaction -
 
 - (void)buttonTapped:(id)sender
