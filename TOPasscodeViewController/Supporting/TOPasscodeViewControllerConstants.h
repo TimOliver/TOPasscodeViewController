@@ -70,3 +70,9 @@ static inline NSString *TOPasscodeBiometryTitleForType(TOPasscodeBiometryType ty
         default: return NSLocalizedString(@"Touch ID", @"");
     }
 }
+
+static inline CGFloat TOPasscodeViewScreenScale(UIView *view) {
+    UIScreen *screen = view.window.screen;
+    if (screen == nil) { screen = [UIScreen mainScreen]; }
+    return screen.nativeScale;
+}

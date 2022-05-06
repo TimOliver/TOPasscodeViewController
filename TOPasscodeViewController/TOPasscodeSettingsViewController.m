@@ -59,6 +59,12 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
 #pragma mark - Object Creation -
 
+- (instancetype)init
+{
+    if (self = [self initWithStyle:TOPasscodeSettingsViewStyleDefault]) { }
+    return self;
+}
+
 - (instancetype)initWithStyle:(TOPasscodeSettingsViewStyle)style
 {
     if (self = [self initWithNibName:nil bundle:nil]) {
@@ -182,7 +188,7 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.doneBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped:)];
 
     // Apply light/dark mode
-    [self applyThemeForStyle:self.style];
+    [self applyThemeForStyle:self.style force:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -191,22 +197,6 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
 
     self.state = self.requireCurrentPasscode ? TOPasscodeSettingsViewStateEnterCurrentPasscode : TOPasscodeSettingsViewStateEnterNewPasscode;
     [self updateContentForState:self.state type:self.passcodeType animated:NO];
-}
-
-- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
-{
-    [super traitCollectionDidChange:previousTraitCollection];
-
-    // Re-apply the color theme to the view controller if the system appearence changes
-    if (@available(iOS 13.0, *)) {
-        if (self.style == TOPasscodeSettingsViewStyleDefault &&
-            [self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
-            UIUserInterfaceStyle systemStyle = self.traitCollection.userInterfaceStyle;
-            TOPasscodeSettingsViewStyle targetStyle = TOPasscodeSettingsViewStyleLight;
-            if (systemStyle == UIUserInterfaceStyleDark) { targetStyle = TOPasscodeSettingsViewStyleDark; }
-            [self applyThemeForStyle:targetStyle];
-        }
-    }
 }
 
 #pragma mark - View Update -
@@ -395,7 +385,15 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     BOOL animated = ([self.view.layer animationForKey:@"bounds.size"] != nil);
     [self.keypadView setButtonLabelHorizontalLayout:horizontalLayout animated:animated];
 
-    CGFloat topContentHeight = self.topLayoutGuide.length;
+    CGFloat topContentHeight = 0.0f;
+    if (@available(iOS 11.0, *)) {
+        topContentHeight = self.view.safeAreaInsets.top;
+    } else {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+        topContentHeight = self.topLayoutGuide.length;
+#pragma GCC diagnostic pop
+    }
 
     // Layout the container view
     frame = self.containerView.frame;
@@ -434,8 +432,21 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     self.errorLabel.frame = CGRectIntegral(frame);
 }
 
-- (void)applyThemeForStyle:(TOPasscodeSettingsViewStyle)style
+- (void)applyThemeForStyle:(TOPasscodeSettingsViewStyle)style force:(BOOL)force
 {
+    // On iOS 13, we only need to configure the colors once.
+    // So if we change the style after the fact, we can simply force an override,
+    // and then exit out.
+    if (@available(iOS 13.0, *)) {
+        if (self.style != TOPasscodeSettingsViewStyleDefault) {
+            UIUserInterfaceStyle systemStyle = UIUserInterfaceStyleLight;
+            if (style == TOPasscodeSettingsViewStyleDark) { systemStyle = UIUserInterfaceStyleDark; }
+            self.overrideUserInterfaceStyle = systemStyle;
+        }
+
+        if (force == NO) { return;}
+    }
+
     BOOL isDark = (style == TOPasscodeSettingsViewStyleDark);
 
     // Set background color
@@ -447,7 +458,10 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
             backgroundColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
         }
         else {
-            backgroundColor = [UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:241.0f/255.0f alpha:1.0f];
+            backgroundColor = [UIColor colorWithRed:235.0f/255.0f
+                                              green:235.0f/255.0f
+                                               blue:241.0f/255.0f
+                                              alpha:1.0f];
         }
     }
     self.view.backgroundColor = backgroundColor;
@@ -473,10 +487,16 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
         warningColor = [UIColor systemRedColor];
     } else {
         if (isDark) {
-            warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+            warningColor = [UIColor colorWithRed:214.0f/255.0f
+                                           green:63.0f/255.0f
+                                            blue:63.0f/255.0f
+                                           alpha:1.0f];
         }
         else {
-            warningColor = [UIColor colorWithRed:214.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+            warningColor = [UIColor colorWithRed:214.0f/255.0f
+                                           green:63.0f/255.0f
+                                            blue:63.0f/255.0f
+                                           alpha:1.0f];
         }
     }
     self.warningLabel.backgroundColor = warningColor;
@@ -639,6 +659,13 @@ const CGFloat kTOPasscodeKeypadMaxHeight = 330.0f;
     if (_failedPasscodeAttemptCount == failedPasscodeAttemptCount) { return; }
     _failedPasscodeAttemptCount = failedPasscodeAttemptCount;
     [self updateWarningLabelForState:self.state];
+}
+
+- (void)setStyle:(TOPasscodeSettingsViewStyle)style
+{
+    if (style == _style) { return; }
+    _style = style;
+    [self applyThemeForStyle:_style force:NO];
 }
 
 @end
