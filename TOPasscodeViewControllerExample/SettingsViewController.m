@@ -21,9 +21,12 @@ TOPasscodeSettingsViewControllerDelegate>
 
 - (instancetype)init
 {
-    if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-
+    UITableViewStyle style = UITableViewStyleGrouped;
+    if (@available(iOS 13.0, *)) {
+        style = UITableViewStyleInsetGrouped;
     }
+
+    if (self = [super initWithStyle:style]) { }
 
     return self;
 }
