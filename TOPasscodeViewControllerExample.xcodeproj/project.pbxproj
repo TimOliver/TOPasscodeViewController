@@ -32,9 +32,10 @@
 		22D361371EDCC1D7002E5D35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22D3612D1EDCC1D7002E5D35 /* Main.storyboard */; };
 		22D361391EDCC1D7002E5D35 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361301EDCC1D7002E5D35 /* main.m */; };
 		22D3613A1EDCC1D7002E5D35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361321EDCC1D7002E5D35 /* ViewController.m */; };
-		22D3613B1EDCC1D7002E5D35 /* wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22D361331EDCC1D7002E5D35 /* wallpaper.jpg */; };
 		22D361401EDCC1EA002E5D35 /* TOPasscodeViewControllerExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3613E1EDCC1EA002E5D35 /* TOPasscodeViewControllerExampleTests.m */; };
 		22D5C81A1EE9F99600745F9A /* TOPasscodeSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */; };
+		22D5F6F52825709C005EBEBF /* wallpaper-light.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22D5F6F32825709C005EBEBF /* wallpaper-light.jpg */; };
+		22D5F6F62825709C005EBEBF /* wallpaper-dark.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22D5F6F42825709C005EBEBF /* wallpaper-dark.jpg */; };
 		22D601A323656CB600275AD9 /* TOPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D361101EDCC1CC002E5D35 /* TOPasscodeViewController.m */; };
 		22D601A423656CB600275AD9 /* TOPasscodeSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */; };
 		22D601A523656CB600275AD9 /* TOPasscodeCircleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3610A1EDCC1CC002E5D35 /* TOPasscodeCircleImage.m */; };
@@ -130,11 +131,12 @@
 		22D361301EDCC1D7002E5D35 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22D361311EDCC1D7002E5D35 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		22D361321EDCC1D7002E5D35 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		22D361331EDCC1D7002E5D35 /* wallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wallpaper.jpg; sourceTree = "<group>"; };
 		22D3613D1EDCC1EA002E5D35 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22D3613E1EDCC1EA002E5D35 /* TOPasscodeViewControllerExampleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeViewControllerExampleTests.m; sourceTree = "<group>"; };
 		22D5C8181EE9F99600745F9A /* TOPasscodeSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOPasscodeSettingsViewController.h; sourceTree = "<group>"; };
 		22D5C8191EE9F99600745F9A /* TOPasscodeSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOPasscodeSettingsViewController.m; sourceTree = "<group>"; };
+		22D5F6F32825709C005EBEBF /* wallpaper-light.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wallpaper-light.jpg"; sourceTree = "<group>"; };
+		22D5F6F42825709C005EBEBF /* wallpaper-dark.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wallpaper-dark.jpg"; sourceTree = "<group>"; };
 		22E2034623656ADB00B2FBB4 /* TOPasscodeViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TOPasscodeViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22E2035423656B2600B2FBB4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22EAD9D81EFA4CEF00D0C408 /* TOSettingsKeypadImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOSettingsKeypadImage.h; sourceTree = "<group>"; };
@@ -285,7 +287,8 @@
 				22D361321EDCC1D7002E5D35 /* ViewController.m */,
 				226EFC011EE3FA490033B079 /* SettingsViewController.h */,
 				226EFC021EE3FA490033B079 /* SettingsViewController.m */,
-				22D361331EDCC1D7002E5D35 /* wallpaper.jpg */,
+				22D5F6F42825709C005EBEBF /* wallpaper-dark.jpg */,
+				22D5F6F32825709C005EBEBF /* wallpaper-light.jpg */,
 			);
 			path = TOPasscodeViewControllerExample;
 			sourceTree = "<group>";
@@ -473,10 +476,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22D5F6F62825709C005EBEBF /* wallpaper-dark.jpg in Resources */,
 				22D361371EDCC1D7002E5D35 /* Main.storyboard in Resources */,
 				22D361351EDCC1D7002E5D35 /* Assets.xcassets in Resources */,
 				22D361361EDCC1D7002E5D35 /* LaunchScreen.storyboard in Resources */,
-				22D3613B1EDCC1D7002E5D35 /* wallpaper.jpg in Resources */,
+				22D5F6F52825709C005EBEBF /* wallpaper-light.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
