@@ -40,6 +40,7 @@
 /* The button label containing the number and lettering */
 @property (nonatomic, readonly) TOPasscodeButtonLabel *buttonLabel;
 
+/* Create a new instance of this button */
 + (TOPasscodeSettingsKeypadButton *)button;
 
 @end
