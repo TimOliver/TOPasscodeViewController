@@ -38,8 +38,13 @@ TOPasscodeSettingsViewControllerDelegate>
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped)];
 
     self.imageView = [[UIImageView alloc] initWithImage:self.wallpaperImage];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.imageView.layer.cornerRadius = 5.0f;
+    self.imageView.layer.masksToBounds = YES;
+    if (@available(iOS 13.0, *)) {
+        self.imageView.layer.cornerCurve = kCACornerCurveContinuous;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -156,8 +161,8 @@ TOPasscodeSettingsViewControllerDelegate>
     else {
         cell.textLabel.text = nil;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        self.imageView.frame = CGRectInset(cell.bounds, 20, 20);
-        [cell addSubview:self.imageView];
+        self.imageView.frame = CGRectInset(cell.contentView.bounds, 20.0f, 20.0f);
+        [cell.contentView addSubview:self.imageView];
     }
     
     return cell;
