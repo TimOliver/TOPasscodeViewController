@@ -52,7 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* Tapped background images */
 @property (nonatomic, strong, null_resettable) UIColor *keypadButtonTappedForegroundColor;
-@property (nonatomic, strong, nullable) UIColor *keypadButtonTappedBorderColor;
 
 /* Button label styling */
 @property (nonatomic, strong) UIFont *keypadButtonNumberFont;
