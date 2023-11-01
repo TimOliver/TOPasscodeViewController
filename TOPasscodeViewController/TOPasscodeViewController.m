@@ -456,6 +456,7 @@
     [UIView performWithoutAnimation:^{
         if (title != nil) {
             [self.cancelButton setTitle:title forState:UIControlStateNormal];
+            [self.cancelButton sizeToFit];
             [self.cancelButton layoutIfNeeded];
         }
         self.cancelButton.hidden = (title == nil);
