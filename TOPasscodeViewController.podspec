@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'TOPasscodeViewController'
-  s.version  = '0.0.2'
+  s.version  = '0.0.3'
   s.license  =  { :type => 'MIT', :file => 'LICENSE' }
   s.summary  = 'A view controller that prompts users to enter a passcode.'
   s.homepage = 'https://github.com/TimOliver/TOPasscodeViewController'
@@ -9,5 +9,6 @@ Pod::Spec.new do |s|
   s.platform = :ios, '8.3'
 
   s.source_files = 'TOPasscodeViewController/**/*.{h,m}'
+  s.exclude_files = 'TOPasscodeViewController/include/**'
   s.requires_arc = true
 end
